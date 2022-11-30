@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "slack-clone-470d5": {
+      "hosting": {
+        "slack-clone": [
+          "slack-clone-470d5"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "slack-clone-470d5"
+  }
+}
