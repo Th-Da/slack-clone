@@ -28,7 +28,7 @@ export class AuthService {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.firstoreService.userData = result.user;
-        console.log(result.user);
+        console.log('User logged in: ', result.user);
         // console.log(result.user.uid);
         console.log('Auth Service: loginUser: success');
         this.router.navigate(['/chat']);
