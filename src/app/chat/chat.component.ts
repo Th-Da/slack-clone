@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-chat',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  constructor(public firestoreService: FirestoreService, public afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
   }

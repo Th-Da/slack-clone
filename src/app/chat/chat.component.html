@@ -1,1 +1,3 @@
-<p>chat works!</p>
+<h1>Welcome <strong>{{ this.firestoreService.userData.displayName }}</strong></h1>
+
+<button mat-raised-button color="primary" (click)="this.afAuth.signOut();">Log out</button>

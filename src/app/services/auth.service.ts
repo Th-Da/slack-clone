@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { User } from '../models/user.class';
 import { FirestoreService } from './firestore.service';
-// import { user } from 'firebase-functions/v1/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +26,10 @@ export class AuthService {
 
   loginUser(email: string, password: string): Promise<any> {
     return this.afAuth.signInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((result) => {
+        this.firstoreService.userData = result.user;
+        console.log(result.user);
+        // console.log(result.user.uid);
         console.log('Auth Service: loginUser: success');
         this.router.navigate(['/chat']);
       })
@@ -49,8 +50,8 @@ export class AuthService {
         if (result.user) {
           result.user.sendEmailVerification();                    // immediately send the user a verification email
         }
-        this.userData = user;
-        console.log(this.userData);
+        this.firstoreService.userData = user;
+        console.log('User signed up: ', this.firstoreService.userData);
       })
       .catch(error => {
         console.log('Auth Service: signup error', error);
