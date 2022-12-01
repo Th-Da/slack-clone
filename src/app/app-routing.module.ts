@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
-import { AuthGuard } from './services/auth.guard';
+import { AuthGuard } from './_services/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'get-started', pathMatch: 'full' },
