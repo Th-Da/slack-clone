@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { User } from '../models/user.class';
+import { FirestoreService } from './firestore.service';
 // import { user } from 'firebase-functions/v1/auth';
 
 @Injectable({
@@ -9,8 +11,9 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   userLoggedIn: boolean;
+  userData: any;
 
-  constructor(private router: Router, public afAuth: AngularFireAuth) {
+  constructor(private router: Router, public afAuth: AngularFireAuth, private firstoreService: FirestoreService) {
     this.userLoggedIn = false;
 
     this.afAuth.onAuthStateChanged((user) => {
@@ -46,6 +49,8 @@ export class AuthService {
         if (result.user) {
           result.user.sendEmailVerification();                    // immediately send the user a verification email
         }
+        this.userData = user;
+        console.log(this.userData);
       })
       .catch(error => {
         console.log('Auth Service: signup error', error);

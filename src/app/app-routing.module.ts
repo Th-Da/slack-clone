@@ -7,12 +7,11 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'get-started', pathMatch: 'full'},
-  { path: 'get-started', component: GetStartedComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'sign-up', component: SignUpComponent},
-  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
-  
+  { path: '', redirectTo: 'get-started', pathMatch: 'full' },
+  { path: 'get-started', component: GetStartedComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'sign-up', component: SignUpComponent },
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
 ];
 
 
