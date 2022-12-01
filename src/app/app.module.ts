@@ -30,6 +30,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     GetStartedComponent,
     SignUpComponent,
     LoginComponent,
-    ChatComponent
+    ChatComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,

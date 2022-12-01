@@ -5,12 +5,14 @@ import { GetStartedComponent } from './get-started/get-started.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthGuard } from './services/auth.guard';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'get-started', pathMatch: 'full'},
   { path: 'get-started', component: GetStartedComponent},
   { path: 'login', component: LoginComponent},
   { path: 'sign-up', component: SignUpComponent},
+  { path: 'welcome', component: WelcomeComponent},
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
   
 ];
