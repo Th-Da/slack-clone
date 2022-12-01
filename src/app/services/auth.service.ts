@@ -25,33 +25,35 @@ export class AuthService {
 
   loginUser(email: string, password: string): Promise<any> {
     return this.afAuth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-            console.log('Auth Service: loginUser: success');
-            // this.router.navigate(['/dashboard']);
-        })
-        // .catch(error => {
-        //     console.log('Auth Service: login error...');
-        //     console.log('error code', error.code);
-        //     console.log('error', error);
-        //     if (error.code)
-        //         return { isValid: false, message: error.message };
-        // });
+      .then(() => {
+        console.log('Auth Service: loginUser: success');
+        this.router.navigate(['/chat']);
+      })
+      .catch(error => {
+        console.log('Auth Service: login error...');
+        console.log('error code', error.code);
+        console.log('error', error);
+        // if (error.code)
+        //   return { isValid: false, message: error.message };
+      });
   }
 
 
   signupUser(user: any): Promise<any> {
-      return this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
-          .then((result) => {
-              let emailLower = user.email.toLowerCase();
-              if (result.user) {
-                result.user.sendEmailVerification();                    // immediately send the user a verification email
-              }              
-          })
-          // .catch(error => {
-          //     console.log('Auth Service: signup error', error);
-          //     if (error.code)
-          //         return { isValid: false, message: error.message };
-          // });
+    return this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
+      .then((result) => {
+        let emailLower = user.email.toLowerCase();
+        if (result.user) {
+          result.user.sendEmailVerification();                    // immediately send the user a verification email
+        }
+      })
+      .catch(error => {
+        console.log('Auth Service: signup error', error);
+        console.log('error code', error.code);
+        console.log('error', error);
+        // if (error.code)
+        //   return { isValid: false, message: error.message };
+      });
   }
 
 }
