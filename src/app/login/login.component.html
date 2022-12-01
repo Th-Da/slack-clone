@@ -1,4 +1,4 @@
-<form action="" onsubmit="return false;">
+<form>
     <h2>Log in</h2>
     <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
@@ -10,8 +10,8 @@
         <input type="password" matInput #userPassword required>
     </mat-form-field>
     <br>
-    <button mat-raised-button color="primary" (click)="authService.SignIn(userName.value, userPassword.value)">Log in</button>
-    <button mat-raised-button color="secondary" (click)="authService.GoogleAuth()">Log in with Google Account</button><br>
+    <button mat-raised-button color="primary" (click)="authService.signIn(userName.value, userPassword.value)">Log in</button>
+    <button mat-raised-button color="secondary" (click)="authService.googleAuth()">Log in with Google Account</button><br>
     <a routerLink="/forgot-password">Forgot Password?</a><br>
     <a routerLink="/sign-up">Don't have an account?</a>
 </form>
