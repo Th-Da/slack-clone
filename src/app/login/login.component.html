@@ -1,25 +1,33 @@
-<button mat-raised-button color="primary" routerLink="/get-started">
-    Get Started
-</button>
-
-<mat-card>
-    <form [formGroup]="loginForm" (ngSubmit)="loginUser()" type="">
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input autocomplete="off" formControlName="email" type="email" matInput placeholder="Email">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Password</mat-label>
-                <input autocomplete="off" formControlName="password" type="password" matInput placeholder="Password">
-            </mat-form-field>
-        </p>
-        <div *ngIf="firebaseErrorMessage != ''" class="error-style">
-            <span>{{ firebaseErrorMessage }}</span>
+<div class="displayTable">
+    <div class="displayTableCell">
+        <div class="authBlock">
+            <h3>Sign In</h3>
+            <div class="formGroup">
+                <input type="text" class="formControl" placeholder="Username" #userName required>
+            </div>
+            <div class="formGroup">
+                <input type="password" class="formControl" placeholder="Password" #userPassword required>
+            </div>
+            <!-- Calling SignIn Api from AuthService -->
+            <div class="formGroup">
+                <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
+            </div>
+            <div class="formGroup">
+                <span class="or"><span class="orInner">Or</span></span>
+            </div>
+            <!-- Calling GoogleAuth Api from AuthService -->
+            <div class="formGroup">
+                <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+            <i class="fab fa-google-plus-g"></i>
+            Log in with Google
+                </button>
+            </div>
+            <div class="forgotPassword">
+                <span routerLink="/forgot-password">Forgot Password?</span>
+            </div>
         </div>
-
-        <button mat-raised-button color="primary">Login</button>
-    </form>
-</mat-card>
+        <div class="redirectToLogin">
+            <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
+        </div>
+    </div>
+</div>
