@@ -88,7 +88,7 @@ export class AuthService {
   // Sign in with Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['chat']);
     });
   }
   // Auth logic to run auth providers
@@ -96,7 +96,7 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['chat']);
         this.SetUserData(result.user);
       })
       .catch((error) => {
