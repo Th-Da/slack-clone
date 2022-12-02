@@ -1,25 +1,54 @@
-<button mat-raised-button color="primary" routerLink="/get-started">
-    Get Started
-</button>
+<div class="component-wrapper">
+  <div class="to-sign-up">
+    <p>Neu bei Slack-Clone?</p>
+    <a href="">Account erstellen</a>
+  </div>
 
-<mat-card>
+  <div class="sign-in-container">
+    <h1>First of all, enter your email address</h1>
+    <span> We suggest using the email address that you use at work. </span>
+    <button class="width-25vw google-login" mat-stroked-button id="googleLogin">
+      <img
+        class="google-icon"
+        src="assets/images/googleicon.png"
+        alt=""
+      />Anmelden mit Google
+    </button>
+    <p>or</p>
+
     <form [formGroup]="loginForm" (ngSubmit)="loginUser()" type="">
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input autocomplete="off" formControlName="email" type="email" matInput placeholder="Email">
-            </mat-form-field>
-        </p>
-        <p>
-            <mat-form-field appearance="outline">
-                <mat-label>Password</mat-label>
-                <input autocomplete="off" formControlName="password" type="password" matInput placeholder="Password">
-            </mat-form-field>
-        </p>
-        <div *ngIf="firebaseErrorMessage != ''" class="error-style">
-            <span>{{ firebaseErrorMessage }}</span>
-        </div>
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            class="width-25vw"
+            autocomplete="off"
+            formControlName="email"
+            type="email"
+            matInput
+            placeholder="Email"
+          />
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline" class="width-25vw">
+          <mat-label>Password</mat-label>
+          <input
+            autocomplete="off"
+            formControlName="password"
+            type="password"
+            matInput
+            placeholder="Password"
+          />
+        </mat-form-field>
+      </p>
+      <div *ngIf="firebaseErrorMessage != ''" class="error-style">
+        <span>{{ firebaseErrorMessage }}</span>
+      </div>
 
-        <button mat-raised-button color="primary">Login</button>
+      <button class="width-25vw" mat-raised-button color="loginbutton">
+        Login
+      </button>
     </form>
-</mat-card>
+  </div>
+</div>
