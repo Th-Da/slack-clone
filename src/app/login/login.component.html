@@ -7,7 +7,12 @@
   <div class="sign-in-container">
     <h1>First of all, enter your email address</h1>
     <span> We suggest using the email address that you use at work. </span>
-    <button class="width-25vw google-login" mat-stroked-button id="googleLogin">
+    <button
+      (click)="this.authService.googleAuth()"
+      class="width-25vw google-login"
+      mat-stroked-button
+      id="googleLogin"
+    >
       <img
         class="google-icon"
         src="assets/images/googleicon.png"
@@ -16,14 +21,13 @@
     </button>
     <p>or</p>
 
-    <form (click)="this.authService.googleAuth()" type="">
+    <form type="">
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input
             class="width-25vw"
             autocomplete="off"
-            formControlName="email"
             type="email"
             matInput
             #userName
@@ -36,7 +40,6 @@
           <mat-label>Password</mat-label>
           <input
             autocomplete="off"
-            formControlName="password"
             type="password"
             matInput
             #userPassword
