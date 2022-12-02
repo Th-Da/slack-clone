@@ -16,7 +16,7 @@
     </button>
     <p>or</p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="loginUser()" type="">
+    <form (click)="this.authService.googleAuth()" type="">
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
@@ -26,6 +26,7 @@
             formControlName="email"
             type="email"
             matInput
+            #userName
             placeholder="Email"
           />
         </mat-form-field>
@@ -38,15 +39,18 @@
             formControlName="password"
             type="password"
             matInput
+            #userPassword
             placeholder="Password"
           />
         </mat-form-field>
       </p>
-      <div *ngIf="firebaseErrorMessage != ''" class="error-style">
-        <span>{{ firebaseErrorMessage }}</span>
-      </div>
 
-      <button class="width-25vw" mat-raised-button color="loginbutton">
+      <button
+        class="width-25vw"
+        mat-raised-button
+        color="loginbutton"
+        (click)="this.authService.signIn(userName.value, userPassword.value)"
+      >
         Login
       </button>
     </form>
