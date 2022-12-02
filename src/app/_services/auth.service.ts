@@ -2,11 +2,9 @@ import { Injectable, NgZone } from '@angular/core';
 import { User } from '../_interfaces/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { FirestoreService } from './firestore.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +15,8 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private firestoreService: FirestoreService
   ) {
 
     // Saving user data in localStorage when logged in and setting up null when logged out
@@ -31,6 +30,8 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
+
+    this.firestoreService.getAllUsers();
   }
 
   /**
@@ -43,7 +44,7 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
+        this.setUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['chat']);
@@ -66,7 +67,7 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.sendVerificationMail(); // Call the SendVerificationMail() function when new user sign up and returns promise
-        this.SetUserData(result.user);
+        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error.message);
@@ -129,7 +130,7 @@ export class AuthService {
       .signInWithPopup(provider)
       .then((result) => {
         this.router.navigate(['chat']);
-        this.SetUserData(result.user);
+        this.setUserData(result.user);
       })
       .catch((error) => {
         window.alert(error);
@@ -143,7 +144,7 @@ export class AuthService {
    * @param user 
    * @returns 
    */
-  SetUserData(user: any) {
+  setUserData(user: any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
