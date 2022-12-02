@@ -12,8 +12,13 @@ const routes: Routes = [
   { path: 'get-started', component: GetStartedComponent},
   { path: 'login', component: LoginComponent},
   { path: 'sign-up', component: SignUpComponent},
-  { path: 'welcome', component: WelcomeComponent},
-  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
+  { path: 'chat', 
+      children: [
+        { path: 'welcome', 
+        component: WelcomeComponent 
+      }
+      ],
+      component: ChatComponent, canActivate: [AuthGuard]},
   
 ];
 
