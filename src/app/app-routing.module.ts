@@ -8,22 +8,24 @@ import { AuthGuard } from './_services/auth.guard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'get-started', pathMatch: 'full'},
-  { path: 'get-started', component: GetStartedComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'sign-up', component: SignUpComponent},
+  { path: '', redirectTo: 'get-started', pathMatch: 'full' },
+  { path: 'get-started', component: GetStartedComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
-  { path: 'chat', 
-  children: [
-    { path: 'welcome', 
-    component: WelcomeComponent 
-  }
-  ],
-  component: ChatComponent, canActivate: [AuthGuard]},
-  
+  {
+    path: 'chat',
+    children: [
+      { path: 'welcome', component: WelcomeComponent },
+      { path: 'account', component: AccountComponent }
+    ],
+    component: ChatComponent, canActivate: [AuthGuard]
+  },
+
 ];
 
 
