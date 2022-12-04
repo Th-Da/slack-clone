@@ -4,8 +4,6 @@
             LOGO
         </div>
 
-        <!-- *ngIf="(afAuth.user | async)"  -->
-
         <ul class="menu-items">
             <li [routerLink]="['/chat/welcome']" routerLinkActive="router-link-active">
                 # welcome</li>
@@ -13,7 +11,7 @@
                 # news-chat</li>
             <li [routerLink]="['/welcome']" routerLinkActive="router-link-active">
                 <mat-icon>add</mat-icon>Create New-Chat</li>
-            <li *ngIf="(afAuth.user | async)" (click)="logout(); drawer.toggle()">
+            <li>
                 <mat-icon>logout</mat-icon>Logout</li>
         </ul>
 
