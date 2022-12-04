@@ -25,7 +25,13 @@
                     <span class="headline">Slack Clone</span>
                     <input class="search_field hide_mobile" type="text" placeholder="search">
                 </div>
-                <img [routerLink]="['/chat/account']" routerLinkActive="router-link-active" src="assets/img/male.png" class="profile">
+                <div *ngIf="authService.userData as user" class="user-container">
+                    <span>{{ user.displayName }}</span>
+                    <a [routerLink]="['/chat/account']" routerLinkActive="router-link-active">
+                        <img class="profile-picture" src="{{(user.photoURL) ? user.photoURL : './../../../assets/img/blank_user.svg'}}" alt="{{user.displayName}}">
+                    </a>
+
+                </div>
             </mat-toolbar-row>
         </mat-toolbar>
 
