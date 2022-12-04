@@ -5,4 +5,4 @@
 </div>
 <button mat-raised-button color="primary" (click)="authService.sendVerificationMail()">Resend Verification Email</button><br>
 <br>
-<a routerLink="/login">Go back to Sign In</a>
+<a (click)="this.utils.redirectToLogin()">Go back to Login</a>

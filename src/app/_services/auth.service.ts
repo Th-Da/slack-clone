@@ -46,9 +46,20 @@ export class AuthService {
       .then((result) => {
         this.setUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
-          if (user) {
-            this.router.navigate(['chat/welcome']);
+
+          // If user has verified his email, but the page is not reloaded, the login does not work
+          if (user && user.emailVerified && this.router.url == '/login') {
+            this.router.navigate(['chat/welcome']).then(() => {
+              window.location.reload();
+            });
           }
+
+          if (user && user.emailVerified) {
+            this.router.navigate(['chat/welcome']);
+          } else {
+            window.alert('Please verify your email!')
+          }
+
         });
       })
       .catch((error) => {
