@@ -5,18 +5,26 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAuthErrorsComponent } from '../dialog-auth-errors/dialog-auth-errors.component';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  authErrorIcon: string = 'info';
+  authErrorHeadline: string = '';
+  authErrorUserMessage: string = '';
+  authErrorMessage: string = '';
+  authErrorCode: any = '';
 
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    private dialog: MatDialog
   ) {
 
     // Saving user data in localStorage when logged in and setting up null when logged out
@@ -57,13 +65,13 @@ export class AuthService {
           if (user && user.emailVerified) {
             this.router.navigate(['chat/welcome']);
           } else {
-            window.alert('Please verify your email!')
+            this.displayAuthErrorDialog('warning', 'Attention', 'Please verify your email!', '', '');
           }
 
         });
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -81,7 +89,7 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -106,10 +114,10 @@ export class AuthService {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        this.displayAuthErrorDialog('info', 'Info', 'Password reset email sent, check your inbox.', '', '');
       })
       .catch((error) => {
-        window.alert(error);
+        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -148,7 +156,7 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error);
+        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -186,5 +194,30 @@ export class AuthService {
       localStorage.removeItem('user');
       this.router.navigate(['login']);
     });
+  }
+
+  /**
+   * Opens the authentication error dialog and shows the user the corresponding errors
+   */
+  openAuthErrorDialog() {
+    this.dialog.open(DialogAuthErrorsComponent);
+  }
+
+  /**
+   * Opens the error dialog with passed icon and messages
+   * @param errorIcon info || warning
+   * @param authErrorHeadline Info || Attention
+   * @param errorUserMessage A message readable by the user
+   * @param errorMessage The message from the error
+   * @param errorCode The error code
+   */
+  displayAuthErrorDialog(errorIcon: string, authErrorHeadline: string, errorUserMessage: string, errorMessage: string, errorCode: string) {
+    this.authErrorIcon = errorIcon;
+    this.authErrorHeadline = authErrorHeadline;
+    this.authErrorUserMessage = errorUserMessage;
+    this.authErrorMessage = errorMessage;
+    this.authErrorCode = errorCode;
+
+    this.openAuthErrorDialog();
   }
 }
