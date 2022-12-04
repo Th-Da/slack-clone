@@ -47,7 +47,7 @@ export class AuthService {
         this.setUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
-            this.router.navigate(['chat']);
+            this.router.navigate(['chat/welcome']);
           }
         });
       })
