@@ -41,7 +41,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     LoginComponent,
     ChatComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
