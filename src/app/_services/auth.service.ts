@@ -116,7 +116,11 @@ export class AuthService {
    */
   googleAuth() {
     return this.authLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['chat']);
+
+      // Cannot be forwarded immediately after authentication
+      setTimeout(() => {
+        this.router.navigate(['chat']);
+      }, 1000);
     });
   }
 
