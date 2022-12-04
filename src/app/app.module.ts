@@ -32,6 +32,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AuthService } from './_services/auth.service';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ChatroomComponent } from './chatroom/chatroom.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     ChatComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    ChatroomComponent
   ],
   imports: [
     BrowserModule,

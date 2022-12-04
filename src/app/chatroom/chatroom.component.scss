@@ -1,0 +1,33 @@
+.chatroom {
+    position: relative;
+    min-height: 90vh;
+}
+
+.post-headline {
+    display: flex;
+    margin-bottom: 10px;
+    .profile {
+        width: 24px;
+        height: 24px;
+        border-radius: 100%;
+        margin-right: 15px;
+        &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    }
+}
+
+.message-container {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    mat-form-field {
+        width: 100%;
+    }
+    button {
+        background-color: rgb(64, 18, 64);
+        color: white;
+    }
+}
