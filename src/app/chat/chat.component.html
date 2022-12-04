@@ -11,7 +11,7 @@
                 # news-chat</li>
             <li [routerLink]="['/welcome']" routerLinkActive="router-link-active">
                 <mat-icon>add</mat-icon>Create New-Chat</li>
-            <li>
+            <li (click)="this.authService.logOut()">
                 <mat-icon>logout</mat-icon>Logout</li>
         </ul>
 
