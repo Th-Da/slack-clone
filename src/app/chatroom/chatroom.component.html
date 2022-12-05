@@ -14,9 +14,9 @@
     <div class="message-container">
         <mat-form-field appearance="fill">
             <mat-label>Your Message</mat-label>
-            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
+            <textarea [(ngModel)]="input" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
         </mat-form-field>
-        <button mat-raised-button>Post</button>
+        <button mat-raised-button (click)="postMessage()">Post</button>
     </div>
 
 </div>

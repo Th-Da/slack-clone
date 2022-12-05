@@ -23,11 +23,11 @@ const routes: Routes = [
     { path: 'welcome', 
     component: WelcomeComponent 
     },
-      { path: ':id', 
-      component: ChatroomComponent 
-    },
     { path: 'account',
     component: AccountComponent 
+    },
+    { path: ':id', 
+    component: ChatroomComponent 
     }
     ],
     component: ChatComponent, canActivate: [AuthGuard]},
