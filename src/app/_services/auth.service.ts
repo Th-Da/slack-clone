@@ -199,6 +199,7 @@ export class AuthService {
    */
   deleteUser() {
     this.afAuth.currentUser.then((user) => {
+      this.firestoreService.deleteUser(user.uid); // Delete the user from firestore
       user.delete().then(() => {
         this.router.navigate(['']);
       });

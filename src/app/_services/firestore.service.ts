@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { deleteUser } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
@@ -8,7 +9,7 @@ export class FirestoreService {
   allUsers: any;
   allChannels: any;
 
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) { }
 
   /**
    * CRUD => READ
@@ -22,6 +23,18 @@ export class FirestoreService {
       .subscribe((changes: any) => {
         this.allUsers = changes;
       });
+  }
+
+  /**
+   * Deletes the user from the firestore based on the passed user id
+   * @param uid The document id from the 'users' collection
+   */
+  deleteUser(uid: string) {
+    this.firestore.collection('users')
+      .doc(uid)
+      .delete().then(() => {
+        console.warn('user deleted');
+      })
   }
 
   getAllChannels() {
