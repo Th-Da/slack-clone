@@ -4,9 +4,11 @@ import { ChatComponent } from './chat/chat.component';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { AuthGuard } from './_services/auth.guard';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
-import { AuthGuard } from './_services/auth.guard';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'get-started', pathMatch: 'full' },
@@ -15,7 +17,15 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
-  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
+  {
+    path: 'chat',
+    children: [
+      { path: 'welcome', component: WelcomeComponent },
+      { path: 'account', component: AccountComponent }
+    ],
+    component: ChatComponent, canActivate: [AuthGuard]
+  },
+
 ];
 
 

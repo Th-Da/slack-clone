@@ -31,6 +31,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AuthService } from './_services/auth.service';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { AccountComponent } from './account/account.component';
+import { DialogAuthErrorsComponent } from './dialog-auth-errors/dialog-auth-errors.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { AuthService } from './_services/auth.service';
     LoginComponent,
     ChatComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    WelcomeComponent,
+    AccountComponent,
+    DialogAuthErrorsComponent
   ],
   imports: [
     BrowserModule,
