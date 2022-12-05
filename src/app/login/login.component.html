@@ -1,61 +1,38 @@
 <div class="component-wrapper">
-  <div class="to-sign-up">
-    <p>Neu bei Slack-Clone?</p>
-    <a href="">Account erstellen</a>
-  </div>
+    <div class="to-sign-up">
+        <p>Neu bei Slack-Clone?</p>
+        <a href="">Account erstellen</a>
+    </div>
 
-  <div class="sign-in-container">
-    <h1>First of all, enter your email address</h1>
-    <span> We suggest using the email address that you use at work. </span>
-    <button
-      (click)="this.authService.googleAuth()"
-      class="width-25vw google-login"
-      mat-stroked-button
-      id="googleLogin"
-    >
+    <div class="sign-in-container">
+        <h1>First of all, enter your email address</h1>
+        <span> We suggest using the email address that you use at work. </span>
+        <button (click)="this.authService.googleAuth()" class="width-25vw google-login" mat-stroked-button id="googleLogin">
       <img
         class="google-icon"
         src="assets/images/googleicon.png"
         alt=""
       />Anmelden mit Google
     </button>
-    <p>or</p>
+        <p>or</p>
 
-    <form type="">
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input
-            class="width-25vw"
-            autocomplete="off"
-            type="email"
-            matInput
-            #userName
-            placeholder="Email"
-          />
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline" class="width-25vw">
-          <mat-label>Password</mat-label>
-          <input
-            autocomplete="off"
-            type="password"
-            matInput
-            #userPassword
-            placeholder="Password"
-          />
-        </mat-form-field>
-      </p>
+        <form type="">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input class="width-25vw" autocomplete="off" type="email" matInput #userName placeholder="Email" />
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline" class="width-25vw">
+                    <mat-label>Password</mat-label>
+                    <input autocomplete="off" type="password" matInput #userPassword placeholder="Password" />
+                </mat-form-field>
+            </p>
 
-      <button
-        class="width-25vw"
-        mat-raised-button
-        color="loginbutton"
-        (click)="this.authService.signIn(userName.value, userPassword.value)"
-      >
+            <button class="width-25vw" mat-raised-button color="loginbutton" (click)="this.authService.signIn(userName.value, userPassword.value)">
         Login
       </button>
-    </form>
-  </div>
+        </form>
+    </div>
 </div>
