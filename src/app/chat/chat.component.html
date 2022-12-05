@@ -12,7 +12,9 @@
       <li [routerLink]="['/welcome']" routerLinkActive="router-link-active">
         # news-chat
       </li>
-      <li *ngFor="let channel of allChannels">#{{ channel.channelName }}</li>
+      <li *ngFor="let channel of this.firestoreService.allChannels">
+        #{{ channel.channelName }}
+      </li>
       <li (click)="openDialog()"><mat-icon>add</mat-icon>Create New-Chat</li>
       <li (click)="this.authService.logOut()">
         <mat-icon>logout</mat-icon>Logout
