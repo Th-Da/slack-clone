@@ -23,7 +23,7 @@ const routes: Routes = [
     { path: 'welcome', 
     component: WelcomeComponent 
     },
-      { path: 'chatroom', 
+      { path: ':id', 
       component: ChatroomComponent 
     },
     { path: 'account',

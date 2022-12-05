@@ -9,9 +9,11 @@
             <li [routerLink]="['/chat/chatroom']" routerLinkActive="router-link-active">
                 # news-chat
             </li>
-            <li *ngFor="let channel of this.firestoreService.allChannels">
+
+            <li *ngFor="let channel of this.firestoreService.allChannels" [routerLink]="['/chat/' + channel.customIdName]">
                 #{{ channel.channelName }}
             </li>
+
             <li (click)="openDialog()">
                 <mat-icon>add</mat-icon>Create New-Chat</li>
             <li (click)="this.authService.logOut()">

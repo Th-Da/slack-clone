@@ -27,7 +27,7 @@ export class FirestoreService {
   getAllChannels() {
     this.firestore
       .collection('channels')
-      .valueChanges()
+      .valueChanges({idField: 'customIdName'})
       .subscribe((changes: any) => {
         this.allChannels = changes;
       });
