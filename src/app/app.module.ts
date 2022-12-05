@@ -34,6 +34,7 @@ import { AuthService } from './_services/auth.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountComponent } from './account/account.component';
 import { DialogAuthErrorsComponent } from './dialog-auth-errors/dialog-auth-errors.component';
+import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DialogAuthErrorsComponent } from './dialog-auth-errors/dialog-auth-erro
     VerifyEmailComponent,
     WelcomeComponent,
     AccountComponent,
-    DialogAuthErrorsComponent
+    DialogAuthErrorsComponent,
+    DialogAddChannelComponent
   ],
   imports: [
     BrowserModule,
