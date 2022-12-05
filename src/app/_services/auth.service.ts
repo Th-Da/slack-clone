@@ -65,12 +65,12 @@ export class AuthService {
           if (user && user.emailVerified) {
             this.router.navigate(['chat/welcome']);
           } else {
-            this.displayAuthErrorDialog('warning', 'Attention', 'Please verify your email!', 'null', 'null');
+            this.displayAuthErrorDialog('report', 'Attention', 'Please verify your email!', 'null', 'null');
           }
         });
       })
       .catch((error) => {
-        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -88,7 +88,7 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -116,7 +116,7 @@ export class AuthService {
         this.displayAuthErrorDialog('info', 'Info', 'Password reset email sent, check your inbox.', 'null', 'null');
       })
       .catch((error) => {
-        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -154,7 +154,7 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -191,6 +191,17 @@ export class AuthService {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['login']);
+    });
+  }
+
+  /**
+   * Deletes the currently logged in user
+   */
+  deleteUser() {
+    this.afAuth.currentUser.then((user) => {
+      user.delete().then(() => {
+        this.router.navigate(['']);
+      });
     });
   }
 

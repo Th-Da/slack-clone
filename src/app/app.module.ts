@@ -35,6 +35,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountComponent } from './account/account.component';
 import { DialogAuthErrorsComponent } from './dialog-auth-errors/dialog-auth-errors.component';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
+import { DialogDeleteUserComponent } from './dialog-delete-user/dialog-delete-user.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
     WelcomeComponent,
     AccountComponent,
     DialogAuthErrorsComponent,
-    DialogAddChannelComponent
+    DialogAddChannelComponent,
+    DialogDeleteUserComponent
   ],
   imports: [
     BrowserModule,
