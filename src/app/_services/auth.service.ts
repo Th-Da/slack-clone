@@ -2,10 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { User } from '../_interfaces/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreDocument,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,6 +26,7 @@ export class AuthService {
     private firestoreService: FirestoreService,
     private dialog: MatDialog
   ) {
+
     // Saving user data in localStorage when logged in and setting up null when logged out
     this.afAuth.authState.subscribe((user) => {
       if (user) {
@@ -56,6 +54,7 @@ export class AuthService {
       .then((result) => {
         this.setUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
+
           // If user has verified his email, but the page is not reloaded, the login does not work
           if (user && user.emailVerified && this.router.url == '/login') {
             this.router.navigate(['chat/welcome']).then(() => {
@@ -66,24 +65,12 @@ export class AuthService {
           if (user && user.emailVerified) {
             this.router.navigate(['chat/welcome']);
           } else {
-            this.displayAuthErrorDialog(
-              'warning',
-              'Attention',
-              'Please verify your email!',
-              '',
-              ''
-            );
+            this.displayAuthErrorDialog('warning', 'Attention', 'Please verify your email!', 'null', 'null');
           }
         });
       })
       .catch((error) => {
-        this.displayAuthErrorDialog(
-          'warning',
-          'Attention',
-          'An error has occurred.',
-          error.message,
-          error.code
-        );
+        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -101,13 +88,7 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        this.displayAuthErrorDialog(
-          'warning',
-          'Attention',
-          'An error has occurred.',
-          error.message,
-          error.code
-        );
+        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -132,22 +113,10 @@ export class AuthService {
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        this.displayAuthErrorDialog(
-          'info',
-          'Info',
-          'Password reset email sent, check your inbox.',
-          '',
-          ''
-        );
+        this.displayAuthErrorDialog('info', 'Info', 'Password reset email sent, check your inbox.', 'null', 'null');
       })
       .catch((error) => {
-        this.displayAuthErrorDialog(
-          'warning',
-          'Attention',
-          'An error has occurred.',
-          error.message,
-          error.code
-        );
+        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -185,13 +154,7 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        this.displayAuthErrorDialog(
-          'warning',
-          'Attention',
-          'An error has occurred.',
-          error.message,
-          error.code
-        );
+        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -246,13 +209,7 @@ export class AuthService {
    * @param errorMessage The message from the error
    * @param errorCode The error code
    */
-  displayAuthErrorDialog(
-    errorIcon: string,
-    authErrorHeadline: string,
-    errorUserMessage: string,
-    errorMessage: string,
-    errorCode: string
-  ) {
+  displayAuthErrorDialog(errorIcon: string, authErrorHeadline: string, errorUserMessage: string, errorMessage: string, errorCode: string) {
     this.authErrorIcon = errorIcon;
     this.authErrorHeadline = authErrorHeadline;
     this.authErrorUserMessage = errorUserMessage;
