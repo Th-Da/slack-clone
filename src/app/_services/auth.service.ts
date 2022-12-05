@@ -195,6 +195,20 @@ export class AuthService {
   }
 
   /**
+   * Changes the displayName of the currently logged in user
+   * @param newName String with the new name
+   */
+  changeDisplayName(newName: string) {
+    this.afAuth.currentUser.then((user) => {
+      user.updateProfile({
+        displayName: newName
+      }).then(() => {
+        console.log('displayName changed to: ', user.displayName);
+      })
+    })
+  }
+
+  /**
    * Deletes the currently logged in user
    */
   deleteUser() {
