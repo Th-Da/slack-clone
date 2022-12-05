@@ -1,13 +1,14 @@
 <div class="component-wrapper">
-    <div class="to-sign-up">
-        <p>New to Slack-Clone?</p>
-        <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign up</a
+  <div class="to-sign-up">
+    <p>New to Slack-Clone?</p>
+    <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active"
+      >Sign up</a
     >
   </div>
 
   <div class="sign-in-container">
     <h1>Sign in to Slack</h1>
-    <span> We suggest using the email address that you use at work. </span>
+    <span> We suggest using the email address that you use at work.</span>
     <button
       (click)="this.authService.googleAuth()"
       class="width-25vw google-login"
@@ -17,9 +18,9 @@
       <img class="google-icon" src="assets/images/googleicon.png" alt="" />Login
       with google account
     </button>
-    <p>or</p>
+    <p>OR</p>
 
-    <form type="">
+    <form type="" [formGroup]="contactForm">
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
@@ -30,6 +31,7 @@
             matInput
             #userName
             placeholder="Email"
+            formControlName="email"
           />
         </mat-form-field>
       </p>
@@ -42,6 +44,7 @@
             matInput
             #userPassword
             placeholder="Password"
+            formControlName="password"
           />
         </mat-form-field>
       </p>
@@ -55,11 +58,7 @@
         Login
       </button>
       <p>
-        <a
-          [routerLink]="['/forgot-password']"
-          routerLinkActive="router-link-active"
-          >Forgot Password?</a
-        >
+        <a (click)="openDialog()">Forgot Password?</a>
       </p>
     </form>
   </div>

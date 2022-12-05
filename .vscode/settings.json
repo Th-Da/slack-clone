@@ -1,5 +1,9 @@
 {
-    "cSpell.words": [
-        "Firestore"
-    ]
+  "cSpell.words": ["Firestore"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "html.format.wrapAttributes": "force-aligned",
+  "[scss]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  }
 }
