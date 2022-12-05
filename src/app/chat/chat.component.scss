@@ -91,7 +91,20 @@ mat-toolbar-row {
     }
 }
 
-.profile {
+.user-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    span {
+        font-size: 16px;
+    }
+    a {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.profile-picture {
     width: 24px;
     height: 24px;
     border-radius: 100%;
@@ -116,9 +129,9 @@ mat-toolbar-row {
     .menu-icon {
         margin-right: 0;
     }
-    .profile {
-        margin-left: -120px;
-    }
+    // .profile {
+    //     margin-left: -120px;
+    // }
     .mat-drawer-container {
         overflow-x: hidden;
     }

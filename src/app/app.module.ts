@@ -32,7 +32,11 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AuthService } from './_services/auth.service';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AccountComponent } from './account/account.component';
+import { DialogAuthErrorsComponent } from './dialog-auth-errors/dialog-auth-errors.component';
+import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +48,9 @@ import { ChatroomComponent } from './chatroom/chatroom.component';
     ForgotPasswordComponent,
     VerifyEmailComponent,
     WelcomeComponent,
+    AccountComponent,
+    DialogAuthErrorsComponent,
+    DialogAddChannelComponent,
     ChatroomComponent
   ],
   imports: [

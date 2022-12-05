@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirestoreService {
   allUsers: any;
+  allChannels: any;
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore) {}
 
   /**
    * CRUD => READ
@@ -23,4 +24,12 @@ export class FirestoreService {
       });
   }
 
+  getAllChannels() {
+    this.firestore
+      .collection('channels')
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.allChannels = changes;
+      });
+  }
 }
