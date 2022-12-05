@@ -14,21 +14,14 @@ import { FirestoreService } from '../_services/firestore.service';
 export class ChatComponent implements OnInit {
   constructor(
     public authService: AuthService,
-    private firestoreService: FirestoreService,
-    public dialog: MatDialog,
-    public afs: AngularFirestore
+    public firestoreService: FirestoreService,
+    public dialog: MatDialog
   ) {}
 
   channel = new Channel();
-  allChannels = [];
 
   ngOnInit(): void {
-    this.afs
-      .collection('channels')
-      .valueChanges()
-      .subscribe((changes: any) => {
-        this.allChannels = changes;
-      });
+    this.firestoreService.getAllChannels();
   }
 
   openDialog() {
