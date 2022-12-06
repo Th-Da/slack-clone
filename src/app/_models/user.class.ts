@@ -18,7 +18,6 @@ export class User {
      * @returns JSON
      */
     public userToJSON() {
-        debugger;
         return {
             uid: this.uid,
             email: this.email,
