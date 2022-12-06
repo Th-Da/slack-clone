@@ -28,17 +28,17 @@ export class FirestoreService {
   }
 
   /**
-    * Updates the current user in the firestore
-    * Possible changes: displayName || photoURL
-    * @param uid The document id from the 'users' collection
-    */
+   * Updates the current user in the firestore
+   * Possible changes: displayName || photoURL
+   * @param uid The document id from the 'users' collection
+   */
   updateUser(uid: string) {
     console.log(this.userData);
     this.userDataObject = new User(this.userData); // Convert observable into object
     this.firestore
       .collection('users')
       .doc(uid)
-      .update(this.userDataObject.userToJSON())
+      .update(this.userDataObject.userToJSON());
   }
 
   /**
