@@ -202,7 +202,10 @@ export class AuthService {
   changeDisplayName(newName: string) {
     this.afAuth.currentUser.then((user) => {
       user.updateProfile({
-        displayName: newName // TODO change displayName in firestore too
+        displayName: newName
+      }).then(() => {
+        this.firestoreService.userData = this.userData;
+        this.firestoreService.updateUser(user.uid);
       })
     })
   }
@@ -214,7 +217,10 @@ export class AuthService {
   changeProfilePicture(photoURL: string) {
     this.afAuth.currentUser.then((user) => {
       user.updateProfile({
-        photoURL: photoURL // TODO change photoURL in firestore too
+        photoURL: photoURL
+      }).then(() => {
+        this.firestoreService.userData = this.userData;
+        this.firestoreService.updateUser(user.uid);
       })
     })
   }

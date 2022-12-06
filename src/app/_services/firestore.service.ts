@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { User } from '../_models/user.class';
 
 @Injectable({
   providedIn: 'root',
@@ -7,6 +8,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class FirestoreService {
   allUsers: any;
   allChannels: any;
+  userData: any; // Gets the data from auth service as observable
+  userDataObject: User;
 
   constructor(private firestore: AngularFirestore) { }
 
@@ -22,6 +25,20 @@ export class FirestoreService {
       .subscribe((changes: any) => {
         this.allUsers = changes;
       });
+  }
+
+  /**
+    * Updates the current user in the firestore
+    * Possible changes: displayName || photoURL
+    * @param uid The document id from the 'users' collection
+    */
+  updateUser(uid: string) {
+    console.log(this.userData);
+    this.userDataObject = new User(this.userData); // Convert observable into object
+    this.firestore
+      .collection('users')
+      .doc(uid)
+      .update(this.userDataObject.userToJSON())
   }
 
   /**
