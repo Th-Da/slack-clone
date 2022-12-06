@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { deleteUser } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({

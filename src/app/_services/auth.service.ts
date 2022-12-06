@@ -202,7 +202,7 @@ export class AuthService {
   changeDisplayName(newName: string) {
     this.afAuth.currentUser.then((user) => {
       user.updateProfile({
-        displayName: newName
+        displayName: newName // TODO change displayName in firestore too
       })
     })
   }

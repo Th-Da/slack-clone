@@ -25,7 +25,10 @@ export class FirestorageService {
 
     // get notified when the download URL is available
     task.snapshotChanges().pipe(
-      finalize(() => this.downloadURL = fileRef.getDownloadURL())
+      finalize(() => {
+        this.downloadURL = fileRef.getDownloadURL();
+        debugger;
+      })
     ).subscribe()
   }
 }
