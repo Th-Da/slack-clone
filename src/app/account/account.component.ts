@@ -25,11 +25,4 @@ export class AccountComponent implements OnInit {
     this.dialog.open(DialogEditUserComponent);
   }
 
-  /**
-   * Opens a dialog to confirm the deletion of the user
-   */
-  openDeleteUserDialog() {
-    this.dialog.open(DialogDeleteUserComponent);
-  }
-
 }
