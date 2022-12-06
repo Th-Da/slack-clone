@@ -12,6 +12,6 @@
 </div>
 <div mat-dialog-actions>
     <button (click)="this.dialogRef.close()" mat-button>Cancel</button>
-    <button (click)="this.openDeleteUserDialog()" mat-button color="warn">Delete User</button>
+    <button (click)="this.openDeleteUserDialog(); this.dialogRef.close()" mat-button color="warn">Delete User</button>
     <button (click)="this.authService.changeDisplayName(this.authService.newDisplayName);this.dialogRef.close()" color="primary" mat-button cdkFocusInitial>Ok</button>
 </div>
