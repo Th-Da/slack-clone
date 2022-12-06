@@ -208,6 +208,18 @@ export class AuthService {
   }
 
   /**
+   * Update the profile picture of the current user attached to the upload
+   * @param photoURL The URL of the new img
+   */
+  changeProfilePicture(photoURL: string) {
+    this.afAuth.currentUser.then((user) => {
+      user.updateProfile({
+        photoURL: photoURL
+      })
+    })
+  }
+
+  /**
    * Deletes the currently logged in user
    */
   deleteUser() {

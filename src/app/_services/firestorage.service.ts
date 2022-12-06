@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class FirestorageService {
-  downloadURL: Observable<string>;
+  downloadURL: string;
 
   constructor(
     private storage: AngularFireStorage,
@@ -15,18 +15,19 @@ export class FirestorageService {
 
   /**
    * Loads the new profile picture into the storage
-   * @param event 
+   * Updates the profile picture in auth service
+   * @param event The img file
    */
   uploadImage(event: any) {
     const file = event.target.files[0];
-    const filePath = this.authService.userData.uid + '_' + 'profile-picture';
+    const filePath = this.authService.userData.uid + '_' + 'profile-picture'; // = uid_profile-picture
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
 
     task.then(() => {
       fileRef.getDownloadURL().subscribe((url) => {
         this.downloadURL = url;
-        console.log(this.downloadURL);
+        this.authService.changeProfilePicture(this.downloadURL); // Update photoURL
       })
     })
 
