@@ -12,6 +12,7 @@ import { DialogAuthErrorsComponent } from '../dialog-auth-errors/dialog-auth-err
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  newDisplayName: string = '';
   authErrorIcon: string = 'info';
   authErrorHeadline: string = '';
   authErrorUserMessage: string = '';

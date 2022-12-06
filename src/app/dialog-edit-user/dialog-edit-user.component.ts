@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogDeleteUserComponent } from '../dialog-delete-user/dialog-delete-user.component';
 import { AuthService } from '../_services/auth.service';
 
@@ -10,7 +10,9 @@ import { AuthService } from '../_services/auth.service';
 })
 export class DialogEditUserComponent implements OnInit {
 
-  constructor(public authService: AuthService, public dialog: MatDialog) { }
+  constructor(public authService: AuthService, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogEditUserComponent>) {
+    this.authService.newDisplayName = this.authService.userData.displayName;
+  }
 
   ngOnInit(): void {
   }

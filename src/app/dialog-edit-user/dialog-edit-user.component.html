@@ -6,11 +6,11 @@
     </div>
     <mat-form-field appearance="outline">
         <mat-label>New Display Name</mat-label>
-        <input matInput>
+        <input [(ngModel)]="this.authService.newDisplayName" matInput>
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
-    <button mat-button>Cancel</button>
+    <button (click)="this.dialogRef.close()" mat-button>Cancel</button>
     <button (click)="this.openDeleteUserDialog()" mat-button color="warn">Delete User</button>
-    <button color="primary" mat-button cdkFocusInitial>Save Changes</button>
+    <button (click)="this.authService.changeDisplayName(this.authService.newDisplayName);this.dialogRef.close()" color="primary" mat-button cdkFocusInitial>Save Changes</button>
 </div>
