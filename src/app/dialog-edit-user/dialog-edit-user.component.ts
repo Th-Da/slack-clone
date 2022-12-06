@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogDeleteUserComponent } from '../dialog-delete-user/dialog-delete-user.component';
 import { AuthService } from '../_services/auth.service';
+import { FirestorageService } from '../_services/firestorage.service';
 
 @Component({
   selector: 'app-dialog-edit-user',
@@ -10,7 +11,11 @@ import { AuthService } from '../_services/auth.service';
 })
 export class DialogEditUserComponent implements OnInit {
 
-  constructor(public authService: AuthService, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogEditUserComponent>) {
+  constructor(
+    public authService: AuthService,
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<DialogEditUserComponent>,
+    public firestorage: FirestorageService) {
     this.authService.newDisplayName = this.authService.userData.displayName;
   }
 

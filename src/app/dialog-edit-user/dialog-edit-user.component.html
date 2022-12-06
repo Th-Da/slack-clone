@@ -8,7 +8,7 @@
         <mat-label>New Display Name</mat-label>
         <input [(ngModel)]="this.authService.newDisplayName" matInput>
     </mat-form-field>
-    <input #fileUpload type="file" hidden>
+    <input (change)="this.firestorage.uploadImage($event)" #fileUpload type="file" accept=".jpg,.png" hidden>
 </div>
 <div mat-dialog-actions>
     <button (click)="this.dialogRef.close()" mat-button>Cancel</button>
