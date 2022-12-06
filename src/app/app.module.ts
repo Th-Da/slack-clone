@@ -37,6 +37,7 @@ import { DialogAuthErrorsComponent } from './dialog-auth-errors/dialog-auth-erro
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { DialogDeleteUserComponent } from './dialog-delete-user/dialog-delete-user.component';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
     AngularFirestoreModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage())
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

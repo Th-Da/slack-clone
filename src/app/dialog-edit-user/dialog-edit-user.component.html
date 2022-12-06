@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Account Settings</h1>
 <div mat-dialog-content *ngIf="authService.userData as user">
-    <div class="profile-picture-wrapper">
+    <div (click)="fileUpload.click()" class="profile-picture-wrapper">
         <img class="profile-picture" src="{{ user.photoURL? user.photoURL : './../../../assets/img/blank_user.svg' }}" alt="{{ user.displayName }}" />
         <i class="material-icons">edit</i>
     </div>
@@ -8,6 +8,7 @@
         <mat-label>New Display Name</mat-label>
         <input [(ngModel)]="this.authService.newDisplayName" matInput>
     </mat-form-field>
+    <input #fileUpload type="file" hidden>
 </div>
 <div mat-dialog-actions>
     <button (click)="this.dialogRef.close()" mat-button>Cancel</button>
