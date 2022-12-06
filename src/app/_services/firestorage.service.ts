@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { finalize, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -23,12 +23,12 @@ export class FirestorageService {
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
 
-    // get notified when the download URL is available
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        this.downloadURL = fileRef.getDownloadURL();
-        debugger;
+    task.then(() => {
+      fileRef.getDownloadURL().subscribe((url) => {
+        this.downloadURL = url;
+        console.log(this.downloadURL);
       })
-    ).subscribe()
+    })
+
   }
 }
