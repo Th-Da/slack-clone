@@ -214,7 +214,7 @@ export class AuthService {
   changeProfilePicture(photoURL: string) {
     this.afAuth.currentUser.then((user) => {
       user.updateProfile({
-        photoURL: photoURL
+        photoURL: photoURL // TODO change photoURL in firestore too
       })
     })
   }
