@@ -203,8 +203,6 @@ export class AuthService {
     this.afAuth.currentUser.then((user) => {
       user.updateProfile({
         displayName: newName
-      }).then(() => {
-        console.log('displayName changed to: ', user.displayName);
       })
     })
   }
