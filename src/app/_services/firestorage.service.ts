@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -31,5 +30,13 @@ export class FirestorageService {
       })
     })
 
+  }
+
+  /**
+   * Deletes an image from the fire storage when the user changes it or deletes the profile
+   * @param downloadURL The URL of the img
+   */
+  deleteImage(downloadURL: string) {
+    this.storage.refFromURL(downloadURL).delete();
   }
 }

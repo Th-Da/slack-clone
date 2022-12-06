@@ -33,7 +33,6 @@ export class FirestoreService {
    * @param uid The document id from the 'users' collection
    */
   updateUser(uid: string) {
-    console.log(this.userData);
     this.userDataObject = new User(this.userData); // Convert observable into object
     this.firestore
       .collection('users')
@@ -48,9 +47,7 @@ export class FirestoreService {
   deleteUser(uid: string) {
     this.firestore.collection('users')
       .doc(uid)
-      .delete().then(() => {
-        console.warn('user deleted');
-      })
+      .delete()
   }
 
   getAllChannels() {
