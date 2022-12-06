@@ -3,8 +3,13 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Channel } from '../_models/channel.class';
+import { Message } from '../_models/message.class';
+import { User } from '../_interfaces/user';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
+import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import * as firebase from 'firebase/compat';
+import { firestore } from 'firebase/app';
 
 @Component({
   selector: 'app-chatroom',
@@ -15,14 +20,19 @@ export class ChatroomComponent implements OnInit {
 
   channelId: any = '';
   input: any;
-  currentUser: any; 
+  currentUserName: any;
+  currentUserId: any;
+  currentUserPhotoUrl: any;
   currentUserJSON: any;
   channel: Channel = new Channel();
+  user: User;
   newMessage: any;
+  message: Message = new Message();
+  
 
   constructor(
     public authService: AuthService,
-    private firestore: AngularFirestore, 
+    private fs: AngularFirestore, 
     private route: ActivatedRoute, 
     public dialogRef: MatDialog,
     public firestoreService: FirestoreService) { }
@@ -33,12 +43,12 @@ export class ChatroomComponent implements OnInit {
         console.log('GOT ID:', this.channelId);
         this.getChannel();
     });
-    this.getUserName();
+    this.getUserData();
   }
 
   getChannel() {
     if (this.channelId) {
-      this.firestore
+      this.fs
         .collection('channels')
         .doc(this.channelId)
         .valueChanges()
@@ -50,46 +60,32 @@ export class ChatroomComponent implements OnInit {
   }
 
 
-  getUserName() {
+  getUserData() {
     let currentUserAsText = localStorage.getItem('user');
     if (currentUserAsText) {
       this.currentUserJSON = JSON.parse(currentUserAsText);
-      this.currentUser = this.currentUserJSON.providerData[0].email;
+      this.currentUserName = this.currentUserJSON.displayName;
+      this.currentUserId = this.currentUserJSON.uid;
+      this.currentUserPhotoUrl = this.currentUserJSON.photoURL;
     }
-    console.log(this.currentUser)
+    console.log(this.currentUserName)
   }
 
 
   postMessage() {
-    this.newMessage = {
-      userName: this.currentUser,
-      massage: this.input
-    };
-    console.log('Name :' + this.currentUser);
-    console.log('massage :' + this.input);
-    console.log('massage :' + this.newMessage);
+    this.message = new Message ({
+      uid: this.currentUserId,
+      displayName: this.currentUserName,
+      photoURL: this.currentUserPhotoUrl,
+      message: this.input
+    });
+    this.fs
+    .collection('channels')
+    .doc(this.channelId)
+    .update({
+      messages: firestore.FieldValue.arrayUnion(this.message.toJSON()) 
+    });
+    console.log('Adding message', this.message);
   }
 
 }
-[{
-	"resource": "/c:/Users/danie/Desktop/Developer Academy/slack-clone/src/app/chatroom/chatroom.component.html",
-	"owner": "_generated_diagnostic_collection_name_#0",
-	"code": "-998002",
-	"severity": 8,
-	"message": "Can't bind to '[(ngModel' since it isn't a known property of 'textarea'.",
-	"source": "ngtsc",
-	"startLineNumber": 17,
-	"startColumn": 23,
-	"endLineNumber": 17,
-	"endColumn": 44,
-	"relatedInformation": [
-		{
-			"startLineNumber": 17,
-			"startColumn": 28,
-			"endLineNumber": 17,
-			"endColumn": 55,
-			"message": "Error occurs in the template of component ChatroomComponent.",
-			"resource": "/c:/Users/danie/Desktop/Developer Academy/slack-clone/src/app/chatroom/chatroom.component.ts"
-		}
-	]
-}]
