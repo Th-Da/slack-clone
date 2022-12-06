@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Channel } from '../models/channel.class';
+import { Channel } from '../_models/channel.class';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
 

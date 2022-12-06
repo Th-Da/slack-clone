@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, Injector, NgZone } from '@angular/core';
 import { User } from '../_interfaces/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -7,11 +7,13 @@ import { Router } from '@angular/router';
 import { FirestoreService } from './firestore.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAuthErrorsComponent } from '../dialog-auth-errors/dialog-auth-errors.component';
+import { FirestorageService } from './firestorage.service';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  newDisplayName: string = '';
   authErrorIcon: string = 'info';
   authErrorHeadline: string = '';
   authErrorUserMessage: string = '';
@@ -24,7 +26,8 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     private firestoreService: FirestoreService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private injector: Injector
   ) {
 
     // Saving user data in localStorage when logged in and setting up null when logged out
@@ -65,12 +68,12 @@ export class AuthService {
           if (user && user.emailVerified) {
             this.router.navigate(['chat/welcome']);
           } else {
-            this.displayAuthErrorDialog('warning', 'Attention', 'Please verify your email!', 'null', 'null');
+            this.displayAuthErrorDialog('report', 'Attention', 'Please verify your email!', 'null', 'null');
           }
         });
       })
       .catch((error) => {
-        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -88,7 +91,7 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -116,7 +119,7 @@ export class AuthService {
         this.displayAuthErrorDialog('info', 'Info', 'Password reset email sent, check your inbox.', 'null', 'null');
       })
       .catch((error) => {
-        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -154,7 +157,7 @@ export class AuthService {
         this.setUserData(result.user);
       })
       .catch((error) => {
-        this.displayAuthErrorDialog('warning', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
       });
   }
 
@@ -192,6 +195,73 @@ export class AuthService {
       localStorage.removeItem('user');
       this.router.navigate(['login']);
     });
+  }
+
+  /**
+   * Changes the displayName of the currently logged in user
+   * @param newName String with the new name
+   */
+  changeDisplayName(newName: string) {
+    this.afAuth.currentUser.then((user) => {
+      user.updateProfile({
+        displayName: newName
+      }).then(() => {
+        this.firestoreService.userData = this.userData;
+        this.firestoreService.updateUser(user.uid);
+      })
+    })
+  }
+
+  /**
+   * Update the profile picture of the current user attached to the upload
+   * @param photoURL The URL of the new img
+   */
+  changeProfilePicture(photoURL: string) {
+    this.afAuth.currentUser.then((user) => {
+      user.updateProfile({
+        photoURL: photoURL
+      }).then(() => {
+        this.firestoreService.userData = this.userData;
+        this.firestoreService.updateUser(user.uid);
+      })
+    })
+  }
+
+  /**
+   * Deletes the currently logged in user
+   */
+  deleteUser() {
+    this.deleteProfilePicture();
+
+    this.afAuth.currentUser.then((user) => {
+      this.firestoreService.deleteUser(user.uid); // Delete the user from firestore
+      user.delete().then(() => {
+        this.router.navigate(['']);
+      });
+    });
+  }
+
+  /**
+   * Checks if the user contains the profile picture from the Google account
+   * @returns true/false
+   */
+  checkGoogleAccountPhotoURL() {
+    if (this.userData.photoURL != null) {
+      return this.userData.photoURL.includes('https://lh3.googleusercontent.com');
+    }
+  }
+
+  /**
+   * Deletes the user's image from the storage when the profile is deleted
+   * Only delete the photo vom firestorage if it exists
+   * It can only exist if the user is NOT using the Google account and the URL is NOT null
+   */
+  deleteProfilePicture() {
+    const firestorageService = this.injector.get(FirestorageService); // Inject storage like this to avoid circular dependency
+
+    if (!this.checkGoogleAccountPhotoURL() && this.userData.photoURL != null) {
+      firestorageService.deleteImage(this.userData.photoURL);
+    }
   }
 
   /**

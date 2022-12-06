@@ -7,7 +7,7 @@
     <br>
     <p>User is logged in</p>
     <button mat-raised-button color="primary" routerLink="/chat">Go to Chat</button>
-    <button mat-raised-button color="accent" (click)="logout()">Log out</button>
+    <button mat-raised-button color="accent" (click)="logout()">Log Out</button>
 </div>
 <div *ngIf="!(afAuth.user | async)">
     <p>User is not logged in</p>
