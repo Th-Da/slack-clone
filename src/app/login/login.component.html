@@ -51,15 +51,15 @@
       <button
         class="width-25vw"
         mat-raised-button
-        color="loginbutton"
+        color="login-button"
         (click)="this.authService.signIn(userName.value, userPassword.value)"
       >
         Login
       </button>
       <p>
-        <a (click)="openDialog()">Forgot Password?</a>
+        <a (click)="this.openForgotPasswordDialog()">Forgot Password?</a>
         </p>
         </form>
-        <button mat-raised-button (click)="this.authService.guestLogin()">Login as guest</button>
+        <button mat-raised-button (click)="this.openGuestUserDialog()">Login as guest</button>
     </div>
 </div>

@@ -46,16 +46,14 @@ a {
     background-color: #fff;
     border: 2px solid #4285f4;
     color: #4285f4;
-
     &:active {
         color: #4285f4;
     }
 }
 
-.mat-loginbutton {
+.mat-login-button {
     background-color: #4a154b;
     color: white;
-
     &:hover {
         background-color: #611f69e6;
     }

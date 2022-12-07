@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { DialogGuestUserComponent } from '../dialog-guest-user/dialog-guest-user.component';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ import { ForgotPasswordComponent } from '../forgot-password/forgot-password.comp
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(public authService: AuthService, public dialog: MatDialog) {}
+  constructor(public authService: AuthService, public dialog: MatDialog) { }
 
   contactForm = new FormGroup({
     password: new FormControl('', Validators.required),
@@ -30,7 +31,17 @@ export class LoginComponent implements OnInit {
     this.contactForm;
   }
 
-  openDialog() {
+  /**
+   * Opens the forgot password dialog
+   */
+  openForgotPasswordDialog() {
     this.dialog.open(ForgotPasswordComponent);
+  }
+
+  /**
+   * Opens the guest login dialog
+   */
+  openGuestUserDialog() {
+    this.dialog.open(DialogGuestUserComponent);
   }
 }
