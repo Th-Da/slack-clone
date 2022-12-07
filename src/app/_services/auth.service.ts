@@ -139,7 +139,7 @@ export class AuthService {
     return this.authLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       // Cannot be forwarded immediately after authentication
       setTimeout(() => {
-        this.router.navigate(['chat']);
+        this.router.navigate(['chat/welcome']);
       }, 1000);
     });
   }
@@ -153,7 +153,7 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['chat']);
+        this.router.navigate(['chat/welcome']);
         this.setUserData(result.user);
       })
       .catch((error) => {
