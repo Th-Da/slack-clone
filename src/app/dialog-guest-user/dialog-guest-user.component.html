@@ -4,6 +4,6 @@
 <form action="" onsubmit="return false;">
     <mat-form-field appearance="outline">
         <mat-label>Display Name</mat-label>
-        <input type="text" matInput required /> </mat-form-field><br />
-    <button (click)="this.authService.guestLogin(); this.dialogRef.close()" color="login-button" type="submit" mat-raised-button>Login</button>
+        <input [(ngModel)]="this.authService.guestDisplayName" [ngModelOptions]="{standalone: true}" type="text" matInput required /> </mat-form-field><br />
+    <button (click)="this.authService.guestLogin(this.authService.guestDisplayName); this.dialogRef.close()" color="login-button" type="submit" mat-raised-button>Login</button>
 </form>

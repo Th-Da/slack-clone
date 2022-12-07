@@ -13,6 +13,7 @@ import { FirestorageService } from './firestorage.service';
 })
 export class AuthService {
   loginAsGuest: boolean = false;
+  guestDisplayName: string = '';
   userData: any; // Save logged in user data
   newDisplayName: string = '';
   authErrorIcon: string = 'info';
@@ -216,9 +217,12 @@ export class AuthService {
 
   /**
    * Creates an anonymous user account in Firebase Authentication and logs in the user
+   * @param guestDisplayName The name of the guest user
    */
-  guestLogin() {
+  guestLogin(guestDisplayName: string) {
     this.loginAsGuest = true;
+    this.changeDisplayName(guestDisplayName);
+
     this.afAuth.signInAnonymously().then((result) => {
       this.setUserData(result.user);
 
