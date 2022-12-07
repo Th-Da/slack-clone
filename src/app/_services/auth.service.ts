@@ -12,6 +12,7 @@ import { FirestorageService } from './firestorage.service';
   providedIn: 'root',
 })
 export class AuthService {
+  loginAsGuest: boolean = false;
   userData: any; // Save logged in user data
   newDisplayName: string = '';
   authErrorIcon: string = 'info';
@@ -124,11 +125,27 @@ export class AuthService {
   }
 
   /**
-   * Returns true when user is logged in and email is verified
+   * Returns true when user is logged in and email is verified, or if user is a guest
    */
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return (user !== null) && (this.checkEmailVerification() !== false) ? true : false;
+  }
+
+  /**
+   * Checks if the user is a guest, if yes no email verification is needed
+   * @returns true || false
+   */
+  checkEmailVerification() {
+    const user = JSON.parse(localStorage.getItem('user')!);
+
+    if (this.loginAsGuest) {
+      return true;
+    } else if (user.emailVerified) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -196,6 +213,24 @@ export class AuthService {
       this.router.navigate(['login']);
     });
   }
+
+  /**
+   * Creates an anonymous user account in Firebase Authentication and logs in the user
+   */
+  guestLogin() {
+    this.loginAsGuest = true;
+    this.afAuth.signInAnonymously().then((result) => {
+      this.setUserData(result.user);
+
+      this.afAuth.onAuthStateChanged(() => {
+        this.router.navigate(['chat/welcome']);
+      });
+
+    }).catch((error) => {
+      this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+    })
+  }
+
 
   /**
    * Changes the displayName of the currently logged in user
