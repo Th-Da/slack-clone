@@ -1,46 +1,36 @@
 <div class="component-wrapper">
-  <div class="sign-up-container">
-    <h1>First enter your email</h1>
-    <span> We suggest using the email address that you use at work.</span>
-    <form class="form">
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input type="email" matInput #userEmail required />
-      </mat-form-field>
+    <div class="sign-up-container">
+        <h1>First enter your email</h1>
+        <span> We suggest using the email address that you use at work.</span>
+        <form class="form">
+            <mat-form-field appearance="outline">
+                <mat-label>Display Name</mat-label>
+                <input type="text" matInput #userDisplayName required />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput #userEmail required />
+            </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input type="password" matInput #userPwd required />
-      </mat-form-field>
-    </form>
-    <button
-      class="width-25vw"
-      mat-raised-button
-      color="loginbutton"
-      (click)="authService.signUp(userEmail.value, userPwd.value)"
-    >
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput #userPwd required />
+            </mat-form-field>
+        </form>
+        <button class="width-25vw" mat-raised-button color="login-button" (click)="authService.signUp(userDisplayName.value, userEmail.value, userPwd.value)">
       Sign Up
     </button>
 
-    <p>OR</p>
-    <div>
-      <button
-        class="width-25vw google-login"
-        mat-stroked-button
-        id="googleLogin"
-        (click)="authService.googleAuth()"
-      >
+        <p>OR</p>
+        <div>
+            <button class="width-25vw google-login" mat-stroked-button id="googleLogin" (click)="authService.googleAuth()">
         <img class="google-icon" src="assets/images/googleicon.png" alt="" />
         Continue with Google
       </button>
-    </div>
-    <div class="to-sign-in">
-      <p>Already using Slack-Clone?</p>
-      <a
-        (click)="this.utils.redirectToLogin()"
-        [routerLink]="['/sign-up']"
-        routerLinkActive="router-link-active"
-        >Sign in to an existing worksapce</a
+        </div>
+        <div class="to-sign-in">
+            <p>Already using Slack-Clone?</p>
+            <a (click)="this.utils.redirectToLogin()" [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign in to an existing worksapce</a
       >
     </div>
   </div>
