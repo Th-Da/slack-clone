@@ -15,7 +15,6 @@
         Sign Up
       </button>
 
-<<<<<<< HEAD
       <!-- Kann meiner Meinung nach raus -->
 
       <!--       <button mat-raised-button color="primary" routerLink="/login">
@@ -39,11 +38,13 @@
     </div>
   </div>
   <img class="bg-img" src="assets/images/start-bg.png" alt="" />
-=======
-<div *ngIf="(afAuth.user | async)">
-    <br>
+  =======
+  <div *ngIf="afAuth.user | async">
+    <br />
     <p>User is logged in</p>
-    <button mat-raised-button color="primary" routerLink="/chat">Go to Chat</button>
+    <button mat-raised-button color="primary" routerLink="/chat">
+      Go to Chat
+    </button>
     <button mat-raised-button color="accent" (click)="logout()">Log Out</button>
->>>>>>> 52cfc0d3b4b4746fcb3394feadb1b2f1a650004f
+  </div>
 </div>
