@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Channel } from '../models/channel.class';
+import { Channel } from '../_models/channel.class';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef } from '@angular/material/dialog';
 
@@ -12,10 +12,10 @@ export class DialogAddChannelComponent implements OnInit {
   constructor(
     public afs: AngularFirestore,
     public ref: MatDialogRef<DialogAddChannelComponent>
-  ) {}
+  ) { }
   channel = new Channel();
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   /* (click)="createChannel($event) */
 
   createChannel() {

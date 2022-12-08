@@ -1,8 +1,7 @@
 <div class="component-wrapper">
-  <div class="to-sign-up">
-    <p>New to Slack-Clone?</p>
-    <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active"
-      >Sign up</a
+    <div class="to-sign-up">
+        <p>New to Slack-Clone?</p>
+        <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign up</a
     >
   </div>
 
@@ -52,14 +51,15 @@
       <button
         class="width-25vw"
         mat-raised-button
-        color="loginbutton"
+        color="login-button"
         (click)="this.authService.signIn(userName.value, userPassword.value)"
       >
         Login
       </button>
       <p>
-        <a (click)="openDialog()">Forgot Password?</a>
-      </p>
-    </form>
-  </div>
+        <a (click)="this.openForgotPasswordDialog()">Forgot Password?</a>
+        </p>
+        </form>
+        <button mat-raised-button (click)="this.openGuestUserDialog()">Login as guest</button>
+    </div>
 </div>

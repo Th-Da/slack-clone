@@ -1,0 +1,74 @@
+h1 {
+  font-size: calc(16px + 6 * (100vw - 320px) / 240);
+  font-weight: 700;
+  letter-spacing: 2.25px;
+  line-height: 120%;
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.component-wrapper {
+  width: 100vw;
+  display: flex;
+  height: 100vh;
+  background-color: #541554;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+.comp-left {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: 13% 0 13% 13%;
+}
+
+.bg-img {
+  width: 40vw;
+  margin: 13% 3% 13% 0;
+}
+
+.mat-signup-button {
+  width: 25vw;
+  background-color: #007a5a;
+  color: white;
+  &:hover {
+    background-color: #009b71;
+  }
+}
+
+@media (min-width: 1440px) {
+  a,
+  p,
+  button {
+    font-size: 16px;
+  }
+
+  .mat-signup-button {
+    height: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .component-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .comp-left {
+    margin: 0 0 20% 0;
+    height: initial;
+  }
+
+  .bg-img {
+    width: 55vw;
+    margin: 0;
+  }
+}
