@@ -48,6 +48,7 @@ a {
   color: #4285f4;
   &:active {
     color: #4285f4;
+<<<<<<< HEAD
   }
 }
 
@@ -57,6 +58,19 @@ a {
   &:hover {
     background-color: #611f69e6;
   }
+=======
+    &:active {
+        color: #4285f4;
+    }
+}
+
+.mat-login-button {
+    background-color: #4a154b;
+    color: white;
+    &:hover {
+        background-color: #611f69e6;
+    }
+>>>>>>> 52cfc0d3b4b4746fcb3394feadb1b2f1a650004f
 }
 
 mat-form-field {
