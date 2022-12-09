@@ -1,7 +1,8 @@
 <div class="component-wrapper">
-    <div class="to-sign-up">
-        <p>New to Slack-Clone?</p>
-        <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign up</a
+  <div class="to-sign-up">
+    <p>New to Slack-Clone?</p>
+    <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active"
+      >Sign up</a
     >
   </div>
 
@@ -58,8 +59,10 @@
       </button>
       <p>
         <a (click)="this.openForgotPasswordDialog()">Forgot Password?</a>
-        </p>
-        </form>
-        <button mat-raised-button (click)="this.openGuestUserDialog()">Login as guest</button>
-    </div>
+      </p>
+    </form>
+    <button mat-raised-button (click)="this.openGuestUserDialog()">
+      Login as guest
+    </button>
+  </div>
 </div>

@@ -17,7 +17,7 @@ import { DialogGuestUserComponent } from '../dialog-guest-user/dialog-guest-user
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(public authService: AuthService, public dialog: MatDialog) { }
+  constructor(public authService: AuthService, public dialog: MatDialog) {}
 
   contactForm = new FormGroup({
     password: new FormControl('', Validators.required),
