@@ -223,10 +223,10 @@ export class AuthService {
    */
   guestLogin(guestDisplayName: string) {
     this.loginAsGuest = true;
-    this.changeDisplayName(guestDisplayName);
 
     this.afAuth.signInAnonymously().then((result) => {
       this.setUserData(result.user);
+      this.changeDisplayName(guestDisplayName);
 
       this.afAuth.onAuthStateChanged(() => {
         this.router.navigate(['chat/welcome']);
