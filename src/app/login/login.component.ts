@@ -32,6 +32,17 @@ export class LoginComponent implements OnInit {
   }
 
   /**
+   * checks if the form is valid befor signing in
+   *  @param userEmail value from intputfield email
+   * @param userPassword value from intputfield password
+   */
+  onSubmit(userEmail, userPassword) {
+    if (this.contactForm.valid) {
+      this.authService.signIn(userEmail, userPassword);
+    }
+  }
+
+  /**
    * Opens the forgot password dialog
    */
   openForgotPasswordDialog() {

@@ -20,7 +20,12 @@
     </button>
     <p>OR</p>
 
-    <form type="" [formGroup]="contactForm">
+    <form
+      type=""
+      [formGroup]="contactForm"
+      (submit)="onSubmit(this.userEmail.value, this.userPassword.value)"
+      ngNativeValidate
+    >
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
@@ -29,7 +34,7 @@
             autocomplete="off"
             type="email"
             matInput
-            #userName
+            #userEmail
             placeholder="Email"
             formControlName="email"
           />
@@ -49,12 +54,7 @@
         </mat-form-field>
       </p>
 
-      <button
-        class="width-25vw"
-        mat-raised-button
-        color="login-button"
-        (click)="this.authService.signIn(userName.value, userPassword.value)"
-      >
+      <button class="width-25vw" mat-raised-button color="login-button">
         Login
       </button>
       <p>

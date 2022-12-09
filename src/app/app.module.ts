@@ -54,7 +54,7 @@ import { DialogGuestUserComponent } from './dialog-guest-user/dialog-guest-user.
     DialogAddChannelComponent,
     DialogDeleteUserComponent,
     DialogEditUserComponent,
-    DialogGuestUserComponent
+    DialogGuestUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -83,6 +83,6 @@ import { DialogGuestUserComponent } from './dialog-guest-user/dialog-guest-user.
     provideAuth(() => getAuth()),
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
