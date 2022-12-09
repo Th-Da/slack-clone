@@ -1,7 +1,7 @@
 <div class="component-wrapper">
   <div class="comp-left">
     <div class="left-up">
-      <h1>Slack</h1>
+      <h1>Slack-Clone</h1>
 
       <h1>Bring's your the team together. <br />Wherever you are.</h1>
     </div>
@@ -14,36 +14,10 @@
       >
         Sign Up
       </button>
-
-      <!-- Kann meiner Meinung nach raus -->
-
-      <!--       <button mat-raised-button color="primary" routerLink="/login">
-        Login
-      </button> -->
-
       <div *ngIf="afAuth.user | async">
-        <br />
         <p>You are already loged in <a routerLink="/chat"> Go to Chat </a></p>
-
-        <!--         <button mat-raised-button color="accent" (click)="logout()">
-          Log Out
-        </button> -->
       </div>
-
-      <!-- Kann meiner Meinung nach raus -->
-
-      <!--       <div *ngIf="!(afAuth.user | async)">
-        <p>User is not logged in</p>
-      </div> -->
     </div>
   </div>
   <img class="bg-img" src="assets/images/start-bg.png" alt="" />
-  <div *ngIf="afAuth.user | async">
-    <br />
-    <p>User is logged in</p>
-    <button mat-raised-button color="primary" routerLink="/chat">
-      Go to Chat
-    </button>
-    <button mat-raised-button color="accent" (click)="logout()">Log Out</button>
-  </div>
 </div>
