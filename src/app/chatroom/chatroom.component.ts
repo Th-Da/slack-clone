@@ -7,7 +7,9 @@ import { Message } from '../_models/message.class';
 import { User } from '../_interfaces/user';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
-import { firestore } from 'firebase/app';
+// import { firestore } from 'firebase/app';
+import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+
 
 @Component({
   selector: 'app-chatroom',
@@ -26,6 +28,7 @@ export class ChatroomComponent implements OnInit {
   user: User;
   newMessage: any;
   message: Message = new Message();
+  allMessages = [];
   
 
   constructor(
@@ -42,6 +45,7 @@ export class ChatroomComponent implements OnInit {
         this.getChannel();
     });
     this.getUserData();
+    this.updateChat();
   }
 
   getChannel() {
@@ -77,13 +81,26 @@ export class ChatroomComponent implements OnInit {
       photoURL: this.currentUserPhotoUrl,
       message: this.input
     });
+    console.log('Adding message', this.message);
     this.fs
     .collection('channels')
     .doc(this.channelId)
     .update({
-      messages: firestore.FieldValue.arrayUnion(this.message.toJSON()) 
+      messages: arrayUnion(this.message.toJSON()) 
     });
-    console.log('Adding message', this.message);
+    this.updateChat();
+  }
+
+
+  updateChat() {
+    this.fs
+    .collection('channels')
+    .doc(this.channelId)
+    .valueChanges()
+    .subscribe((changes: any) => {
+      console.log('Recived changes from DB', changes);
+      this.allMessages = changes;
+    });
   }
 
 }
