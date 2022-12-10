@@ -7,8 +7,6 @@ import { Message } from '../_models/message.class';
 import { User } from '../_interfaces/user';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
-import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
-import * as firebase from 'firebase/compat';
 import { firestore } from 'firebase/app';
 
 @Component({
