@@ -6,9 +6,9 @@
         <h3>Inhaltsübersicht</h3>
         <nav>
             <ol>
-                <li><a href="#m14">Impressum</a></li>
+                <li><a routerLink="/legal-notice" fragment="imprint">Impressum</a></li>
                 <li>
-                    <a href="#m14">Datenschutzerklärung</a>
+                    <a routerLink="/legal-notice" fragment="privacy-policy">Datenschutzerklärung</a>
                     <ul>
                         <li><a routerLink="/legal-notice" fragment="responsible">Verantwortliche</a></li>
                         <li><a routerLink="/legal-notice" fragment="processing-overview">Übersicht der Verarbeitungen</a></li>
@@ -29,7 +29,7 @@
         </nav>
     </header>
 
-    <h2>1. Impressum</h2>
+    <h2 id="imprint">1. Impressum</h2>
 
     <h3>Angaben gemäß § 5 TMG:</h3>
     <ul>
@@ -48,7 +48,7 @@
     <p></p>
     <p><em>Das Impressum wurde mit dem <a href="https://www.activemind.de/datenschutz/impressums-generator/">Impressums-Generator der activeMind AG</a> erstellt.</em></p>
 
-    <h2>2. Datenschutzerklärung</h2>
+    <h2 id="privacy-policy">2. Datenschutzerklärung</h2>
 
     <h3 id="responsible">Verantwortliche</h3>
     <ul>
