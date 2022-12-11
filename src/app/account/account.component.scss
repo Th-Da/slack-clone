@@ -4,6 +4,9 @@
     align-items: center;
     gap: 16px;
     margin: 0;
+    strong {
+        color: var(--primary-col);
+    }
 }
 
 .profile-picture {
@@ -19,8 +22,24 @@
     align-items: flex-start;
     margin-bottom: 16px;
     strong {
-        color: var(--md-primary-col);
+        color: var(--primary-col);
         border-bottom: solid 1px rgba(0, 0, 0, .12);
         margin-bottom: 4px;
+    }
+}
+
+.log-out-btn {
+    background-color: #4a154b;
+    color: white;
+    &:hover {
+        background-color: #611f69e6;
+    }
+}
+
+.edit-profile-btn {
+    background-color: #007a5a;
+    color: white;
+    &:hover {
+        background-color: #009b71;
     }
 }
