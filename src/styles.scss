@@ -11,8 +11,12 @@ body {
 }
 
 :root {
-    --primary-col: #3F51B5;
-    --accent-col: #FF4081;
-    --warn-col: #F44A3E;
+    // Material design
+    --md-primary-col: #3F51B5;
+    --md-accent-col: #FF4081;
+    --md-warn-col: #F44A3E;
+    // Custom
     --error-col: #F7C600;
+    --primary-col: #541554;
+    --secondary-col: #007A5A;
 }
