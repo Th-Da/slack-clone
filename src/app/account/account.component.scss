@@ -11,3 +11,16 @@
     height: 96px;
     border-radius: 50%;
 }
+
+.data-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    strong {
+        color: var(--primary-col);
+        border-bottom: solid 1px rgba(0, 0, 0, .12);
+        margin-bottom: 4px;
+    }
+}
