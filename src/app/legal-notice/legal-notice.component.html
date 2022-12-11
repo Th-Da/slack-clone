@@ -1,4 +1,7 @@
 <div class="content">
+    <button *ngIf="buttonVisible" (click)="scrollToTop()" class="up-btn" mat-fab color="primary">
+        <mat-icon>expand_less</mat-icon>
+    </button>
     <header>
         <h1>Rechtliche Hinweise</h1>
         <p>Stand: 11. Dezember 2022</p>

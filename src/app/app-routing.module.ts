@@ -34,7 +34,7 @@ const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'top',
   onSameUrlNavigation: 'reload',
   anchorScrolling: 'enabled',
-  scrollOffset: [0, 96],
+  scrollOffset: [0, 0],
 }
 
 
