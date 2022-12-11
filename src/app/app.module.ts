@@ -38,6 +38,7 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
 import { DialogDeleteUserComponent } from './dialog-delete-user/dialog-delete-user.component';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 import { DialogGuestUserComponent } from './dialog-guest-user/dialog-guest-user.component';
+import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { DialogGuestUserComponent } from './dialog-guest-user/dialog-guest-user.
     DialogDeleteUserComponent,
     DialogEditUserComponent,
     DialogGuestUserComponent,
+    LegalNoticeComponent,
   ],
   imports: [
     BrowserModule,
