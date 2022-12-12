@@ -1,14 +1,23 @@
-<h2>Get Started</h2>
+<div class="component-wrapper">
+  <div class="comp-left">
+    <div class="left-up">
+      <h1>Slack-Clone</h1>
 
-<button mat-raised-button color="primary" routerLink="/sign-up">Sign Up</button>
-<button mat-raised-button color="primary" routerLink="/login">Login</button>
-
-<div *ngIf="(afAuth.user | async)">
-    <br>
-    <p>User is logged in</p>
-    <button mat-raised-button color="primary" routerLink="/chat">Go to Chat</button>
-    <button mat-raised-button color="accent" (click)="logout()">Log Out</button>
-</div>
-<div *ngIf="!(afAuth.user | async)">
-    <p>User is not logged in</p>
+      <h1>Bring's your the team together. <br />Wherever you are.</h1>
+    </div>
+    <div class="left-botom">
+      <button
+        mat-raised-button
+        color="primary"
+        routerLink="/sign-up"
+        color="signup-button"
+      >
+        Sign Up
+      </button>
+      <div *ngIf="afAuth.user | async">
+        <p>You are already loged in <a routerLink="/chat"> Go to Chat </a></p>
+      </div>
+    </div>
+  </div>
+  <img class="bg-img" src="assets/images/start-bg.png" alt="" />
 </div>

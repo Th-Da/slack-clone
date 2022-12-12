@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { DialogGuestUserComponent } from '../dialog-guest-user/dialog-guest-user.component';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,28 @@ export class LoginComponent implements OnInit {
     this.contactForm;
   }
 
-  openDialog() {
+  /**
+   * checks if the form is valid befor signing in
+   *  @param userEmail value from intputfield email
+   * @param userPassword value from intputfield password
+   */
+  onSubmit(userEmail, userPassword) {
+    if (this.contactForm.valid) {
+      this.authService.signIn(userEmail, userPassword);
+    }
+  }
+
+  /**
+   * Opens the forgot password dialog
+   */
+  openForgotPasswordDialog() {
     this.dialog.open(ForgotPasswordComponent);
+  }
+
+  /**
+   * Opens the guest login dialog
+   */
+  openGuestUserDialog() {
+    this.dialog.open(DialogGuestUserComponent);
   }
 }

@@ -1,0 +1,22 @@
+<h2>Login as guest</h2>
+<p>Please enter a display name as for your guest account.</p>
+
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" ngNativeValidate>
+  <mat-form-field appearance="outline">
+    <mat-label>Display Name</mat-label>
+    <input
+      formControlName="name"
+      type="text"
+      matInput
+      required
+    /> </mat-form-field
+  ><br />
+  <button
+    (click)="onSubmit()"
+    color="login-button"
+    type="submit"
+    mat-raised-button
+  >
+    Login
+  </button>
+</form>

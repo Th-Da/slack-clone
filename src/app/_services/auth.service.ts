@@ -12,6 +12,8 @@ import { FirestorageService } from './firestorage.service';
   providedIn: 'root',
 })
 export class AuthService {
+  loginAsGuest: boolean = false;
+  guestDisplayName: string = '';
   userData: any; // Save logged in user data
   newDisplayName: string = '';
   authErrorIcon: string = 'info';
@@ -79,14 +81,16 @@ export class AuthService {
 
   /**
    * Sign up with email/password
-   * @param email
-   * @param password
+   * @param displayName The name entered by the user
+   * @param email The email address entered by the user
+   * @param password The password entered by the user
    * @returns
    */
-  signUp(email: string, password: string) {
+  signUp(displayName: string, email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
+        this.changeDisplayName(displayName);
         this.sendVerificationMail(); // Call the SendVerificationMail() function when new user sign up and returns promise
         this.setUserData(result.user);
       })
@@ -124,11 +128,27 @@ export class AuthService {
   }
 
   /**
-   * Returns true when user is logged in and email is verified
+   * Returns true when user is logged in and email is verified, or if user is a guest
    */
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null && user.emailVerified !== false ? true : false;
+    return (user !== null) && (this.checkEmailVerification() !== false) ? true : false;
+  }
+
+  /**
+   * Checks if the user is a guest, if yes no email verification is needed
+   * @returns true || false
+   */
+  checkEmailVerification() {
+    const user = JSON.parse(localStorage.getItem('user')!);
+
+    if (this.loginAsGuest) {
+      return true;
+    } else if (user.emailVerified) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -139,7 +159,7 @@ export class AuthService {
     return this.authLogin(new auth.GoogleAuthProvider()).then((res: any) => {
       // Cannot be forwarded immediately after authentication
       setTimeout(() => {
-        this.router.navigate(['chat']);
+        this.router.navigate(['chat/welcome']);
       }, 1000);
     });
   }
@@ -153,7 +173,7 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['chat']);
+        this.router.navigate(['chat/welcome']);
         this.setUserData(result.user);
       })
       .catch((error) => {
@@ -193,9 +213,32 @@ export class AuthService {
   logOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['login']);
+      this.router.navigate(['login']).then(() => {
+        window.location.reload();
+      });
     });
   }
+
+  /**
+   * Creates an anonymous user account in Firebase Authentication and logs in the user
+   * @param guestDisplayName The name of the guest user
+   */
+  guestLogin(guestDisplayName: string) {
+    this.loginAsGuest = true;
+
+    this.afAuth.signInAnonymously().then((result) => {
+      this.setUserData(result.user);
+      this.changeDisplayName(guestDisplayName);
+
+      this.afAuth.onAuthStateChanged(() => {
+        this.router.navigate(['chat/welcome']);
+      });
+
+    }).catch((error) => {
+      this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+    })
+  }
+
 
   /**
    * Changes the displayName of the currently logged in user
@@ -236,7 +279,9 @@ export class AuthService {
     this.afAuth.currentUser.then((user) => {
       this.firestoreService.deleteUser(user.uid); // Delete the user from firestore
       user.delete().then(() => {
-        this.router.navigate(['']);
+        this.router.navigate(['']).then(() => {
+          window.location.reload();
+        });
       });
     });
   }

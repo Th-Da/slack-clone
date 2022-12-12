@@ -2,25 +2,53 @@
   <div class="sign-up-container">
     <h1>First enter your email</h1>
     <span> We suggest using the email address that you use at work.</span>
-    <form class="form">
+    <form
+      class="form"
+      [formGroup]="contactForm"
+      (submit)="onSubmit()"
+      ngNativeValidate
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Display Name</mat-label>
+        <input
+          type="text"
+          matInput
+          #userDisplayName
+          required
+          formControlName="userDisplayName"
+        />
+      </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input type="email" matInput #userEmail required />
+        <input
+          type="email"
+          matInput
+          #userEmail
+          required
+          formControlName="email"
+        />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input type="password" matInput #userPwd required />
+        <input
+          type="password"
+          matInput
+          #userPwd
+          required
+          type="password"
+          formControlName="password"
+        />
       </mat-form-field>
+      <button
+        class="width-25vw"
+        mat-raised-button
+        color="login-button"
+        (click)="onSubmit()"
+      >
+        Sign Up
+      </button>
     </form>
-    <button
-      class="width-25vw"
-      mat-raised-button
-      color="loginbutton"
-      (click)="authService.signUp(userEmail.value, userPwd.value)"
-    >
-      Sign Up
-    </button>
 
     <p>OR</p>
     <div>

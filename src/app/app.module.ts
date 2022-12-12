@@ -38,6 +38,8 @@ import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-chann
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { DialogDeleteUserComponent } from './dialog-delete-user/dialog-delete-user.component';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
+import { DialogGuestUserComponent } from './dialog-guest-user/dialog-guest-user.component';
+import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
     DialogAddChannelComponent,
     DialogDeleteUserComponent,
     DialogEditUserComponent,
+    DialogGuestUserComponent,
+    LegalNoticeComponent,
     ChatroomComponent
   ],
   imports: [
@@ -83,6 +87,6 @@ import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.com
     provideAuth(() => getAuth()),
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

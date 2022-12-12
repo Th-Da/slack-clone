@@ -3,21 +3,30 @@
         <div class="logo-container" (click)="drawer.toggle()">LOGO</div>
 
         <ul class="menu-items">
+            Chats
             <li [routerLink]="['/chat/welcome']" routerLinkActive="router-link-active">
                 # welcome
             </li>
             <li [routerLink]="['/chat/chatroom']" routerLinkActive="router-link-active">
                 # news-chat
             </li>
-            <li *ngFor="let channel of this.firestoreService.allChannels" [routerLink]="['/chat/' + channel.customIdName]">
+            <li *ngFor="let channel of this.firestoreService.allChannels">
                 #{{ channel.channelName }}
             </li>
             <li (click)="openDialog()">
                 <mat-icon>add</mat-icon>Create New-Chat</li>
-            <li (click)="this.authService.logOut()">
-                <mat-icon>logout</mat-icon>Log Out
+        </ul>
+
+        <ul class="menu-items">
+            Users
+            <li>User 1</li>
+            <li *ngFor="let user of this.firestoreService.allUsers">
+                {{ user.displayName }}
             </li>
         </ul>
+        <li class="logout" (click)="this.authService.logOut()">
+            <mat-icon>logout</mat-icon>Log Out
+        </li>
     </mat-drawer>
 
     <div class="example-sidenav-content">
