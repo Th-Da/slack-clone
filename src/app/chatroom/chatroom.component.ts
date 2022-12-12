@@ -28,7 +28,8 @@ export class ChatroomComponent implements OnInit {
   user: User;
   newMessage: any;
   message: Message = new Message();
-  allMessages = [];
+  chat: any;
+  messages: any = [];
   
 
   constructor(
@@ -99,8 +100,16 @@ export class ChatroomComponent implements OnInit {
     .valueChanges()
     .subscribe((changes: any) => {
       console.log('Recived changes from DB', changes);
-      this.allMessages = changes;
+      this.chat = changes;
+      console.log(this.chat);
+      this.renderChat();
     });
+  }
+
+
+  renderChat() {
+    this.messages = this.chat.messages;
+    console.log(this.messages)
   }
 
 }

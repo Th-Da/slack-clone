@@ -3,9 +3,16 @@
     min-height: 90vh;
 }
 
+.massages {
+    height: 70% !important;
+    overflow-y: scroll;
+}
+
 .post-headline {
     display: flex;
     margin-bottom: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
     .profile {
         width: 24px;
         height: 24px;
@@ -16,6 +23,10 @@
             opacity: 0.8;
         }
     }
+}
+
+.message {
+    margin-bottom: 20px;
 }
 
 .message-container {
