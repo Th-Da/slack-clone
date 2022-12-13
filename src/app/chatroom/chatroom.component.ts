@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Channel } from '../_models/channel.class';
 import { Message } from '../_models/message.class';
 import { User } from '../_interfaces/user';
@@ -36,10 +36,11 @@ export class ChatroomComponent implements OnInit {
     public authService: AuthService,
     private fs: AngularFirestore, 
     private route: ActivatedRoute, 
+    public router: Router,
     public dialogRef: MatDialog,
     public firestoreService: FirestoreService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.paramMap.subscribe(paramMap =>  {
         this.channelId = paramMap.get('id');
         console.log('GOT ID:', this.channelId);
@@ -94,6 +95,7 @@ export class ChatroomComponent implements OnInit {
 
 
   updateChat() {
+    this.input = '';
     this.fs
     .collection('channels')
     .doc(this.channelId)
@@ -108,8 +110,15 @@ export class ChatroomComponent implements OnInit {
 
 
   renderChat() {
+    this.messages = [];
     this.messages = this.chat.messages;
-    console.log(this.messages)
+    console.log(this.messages);
   }
+
+
+  editMessage() {}
+
+
+  deleteMessage() {}
 
 }

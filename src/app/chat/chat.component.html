@@ -6,7 +6,7 @@
             <li [routerLink]="['/chat/welcome']" routerLinkActive="router-link-active">
                 # welcome
             </li>
-            <li *ngFor="let channel of this.firestoreService.allChannels" [routerLink]="['/chat/' + channel.customIdName]">
+            <li *ngFor="let channel of this.firestoreService.allChannels" (click)="openChat('/chat/', channel.customIdName)">
                 #{{ channel.channelName }}
             </li>
             <li (click)="openDialog()">
@@ -26,7 +26,7 @@
                     <input class="search_field hide_mobile" type="text" placeholder="search" />
                 </div>
                 <div *ngIf="authService.userData as user" class="user-container">
-                    <span>{{ user.displayName }}</span>
+                    <span class="user-name">{{ user.displayName }}</span>
                     <a [routerLink]="['/chat/account']" routerLinkActive="router-link-active">
                         <img class="profile-picture" src="{{
                 user.photoURL

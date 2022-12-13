@@ -4,12 +4,23 @@
 }
 
 .massages {
-    height: 70% !important;
+    height: 55vh !important;
     overflow-y: scroll;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.massages::-webkit-scrollbar {
+    display: none;
 }
 
 .post-headline {
+    position: relative;
     display: flex;
+    align-items: center;
+    padding-bottom: 5px;
     margin-bottom: 10px;
     font-weight: bold;
     border-bottom: 1px solid black;
@@ -45,4 +56,10 @@
 
 .d-none {
     display: none;
+}
+
+.pin-right-upper-corner {
+    position: absolute;
+    right: 0;
+    top: -10px;
 }
