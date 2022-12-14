@@ -1,11 +1,4 @@
 <div class="component-wrapper">
-  <div class="to-sign-up">
-    <p>New to Slack-Clone?</p>
-    <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active"
-      >Sign up</a
-    >
-  </div>
-
   <div class="sign-in-container">
     <h1>Sign in to Slack</h1>
     <span> We suggest using the email address that you use at work.</span>
@@ -64,5 +57,11 @@
     <button mat-raised-button (click)="this.openGuestUserDialog()">
       Login as guest
     </button>
+    <div class="to-sign-up">
+      <p>New to Slack-Clone?</p>
+      <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active"
+        >Sign up</a
+      >
+    </div>
   </div>
 </div>

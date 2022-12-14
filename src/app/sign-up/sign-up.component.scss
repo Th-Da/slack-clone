@@ -1,75 +1,102 @@
 h1 {
-    font-size: 48px;
-    font-weight: 700;
-    letter-spacing: -0.75px;
-    line-height: 46px;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.75px;
+  line-height: 46px;
+  text-align: center;
 }
 
 .component-wrapper {
-    width: 100vw;
-    height: 100vh;
+  width: 100vw;
+  height: 100vh;
 }
 
 a {
-    text-decoration: none;
-    color: #1264a3;
+  text-decoration: none;
+  color: #1264a3;
 }
 
 .sign-up-container {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 32px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
 }
 
 .width-25vw {
-    width: 25vw;
+  width: 25vw;
+  min-width: 230px;
 }
 
 .google-icon {
-    height: 24px;
-    padding-right: 8px;
+  height: 24px;
+  padding-right: 8px;
 }
 
 .sign-up-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .google-login {
-    padding: 8px;
-    white-space: break-spaces;
-    background-color: #fff;
-    border: 2px solid #4285f4;
+  padding: 8px;
+  white-space: break-spaces;
+  background-color: #fff;
+  border: 2px solid #4285f4;
+  color: #4285f4;
+  &:active {
     color: #4285f4;
-    &:active {
-        color: #4285f4;
-    }
+  }
 }
 
 .mat-login-button {
-    background-color: #4a154b;
-    color: white;
-    &:hover {
-        background-color: #611f69e6;
-    }
+  background-color: #4a154b;
+  color: white;
+  &:hover {
+    background-color: #611f69e6;
+  }
 }
 
 mat-form-field {
-    width: 25vw;
+  width: 25vw;
+  min-width: 230px;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .to-sign-in {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 10px;
+}
+
+@media (max-width: 1024px) {
+  .sign-up-container {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sign-up-container {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sign-up-container {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 375px) {
+  .sign-up-container {
+    gap: 8px;
+  }
 }
