@@ -16,6 +16,10 @@ a {
   cursor: pointer;
 }
 
+span {
+  text-align: center;
+}
+
 .to-sign-up {
   position: absolute;
   top: 32px;
@@ -33,6 +37,7 @@ a {
 
 .width-25vw {
   width: 25vw;
+  min-width: 230px;
 }
 
 .google-icon {
@@ -42,6 +47,7 @@ a {
 
 .google-login {
   padding: 8px;
+  min-width: fit-content;
   white-space: break-spaces;
   background-color: #fff;
   border: 2px solid #4285f4;
@@ -61,4 +67,33 @@ a {
 
 mat-form-field {
   width: 25vw;
+  min-width: 230px;
+}
+
+@media (max-width: 1024px) {
+  .sign-in-container {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sign-in-container {
+    gap: 16px;
+  }
+
+  .to-sign-up {
+    position: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .sign-in-container {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 375px) {
+  .sign-in-container {
+    gap: 8px;
+  }
 }
