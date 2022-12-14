@@ -42,83 +42,11 @@ export class ChatroomComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap =>  {
-        this.channelId = paramMap.get('id');
-        console.log('GOT ID:', this.channelId);
-        this.getChannel();
+        this.firestoreService.channelId = paramMap.get('id');
+        console.log('GOT ID:', this.firestoreService.channelId);
     });
-    this.getUserData();
-    this.updateChat();
+    this.firestoreService.updateChat();
   }
 
-  getChannel() {
-    if (this.channelId) {
-      this.fs
-        .collection('channels')
-        .doc(this.channelId)
-        .valueChanges()
-        .subscribe((channel: any) => {
-          this.channel = new Channel(channel);
-          console.log('Retrieved channel:', this.channel);
-        });      
-    }
-  }
-
-
-  getUserData() {
-    let currentUserAsText = localStorage.getItem('user');
-    if (currentUserAsText) {
-      this.currentUserJSON = JSON.parse(currentUserAsText);
-      this.currentUserName = this.currentUserJSON.displayName;
-      this.currentUserId = this.currentUserJSON.uid;
-      this.currentUserPhotoUrl = this.currentUserJSON.photoURL;
-    }
-    console.log(this.currentUserName)
-  }
-
-
-  postMessage() {
-    this.message = new Message ({
-      uid: this.currentUserId,
-      displayName: this.currentUserName,
-      photoURL: this.currentUserPhotoUrl,
-      message: this.input
-    });
-    console.log('Adding message', this.message);
-    this.fs
-    .collection('channels')
-    .doc(this.channelId)
-    .update({
-      messages: arrayUnion(this.message.toJSON()) 
-    });
-    this.updateChat();
-  }
-
-
-  updateChat() {
-    this.input = '';
-    this.fs
-    .collection('channels')
-    .doc(this.channelId)
-    .valueChanges()
-    .subscribe((changes: any) => {
-      console.log('Recived changes from DB', changes);
-      this.chat = changes;
-      console.log(this.chat);
-      this.renderChat();
-    });
-  }
-
-
-  renderChat() {
-    this.messages = [];
-    this.messages = this.chat.messages;
-    console.log(this.messages);
-  }
-
-
-  editMessage() {}
-
-
-  deleteMessage() {}
 
 }

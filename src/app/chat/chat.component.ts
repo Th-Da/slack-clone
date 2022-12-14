@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit {
   openChat(url, id) {
     this.router.navigate([url + id])
     .then(() => {
-      window.location.reload();
+      this.firestoreService.updateChat();
     });
   }
 

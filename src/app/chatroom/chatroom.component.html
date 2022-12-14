@@ -1,18 +1,18 @@
 <div class="chatroom">
-    <h2> {{ channel.channelName }} </h2>
+    <h2> {{ this.firestoreService.channel.channelName }} </h2>
 
     <div class="massages">
-        <mat-card class="message" *ngFor="let message of this.messages">
+        <mat-card class="message" *ngFor="let message of this.firestoreService.messages">
             <div class="post-headline">
 
                 <img class="profile" src="{{ message.photoURL }}" alt=""> {{ message.displayName }}
 
-                <button *ngIf="message.uid == this.currentUserId" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
+                <button *ngIf="message.uid == this.firestoreService.currentUserId" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 <mat-menu #userMenu="matMenu">
-                    <button mat-menu-item (click)="editMessage()">Edit</button>
-                    <button mat-menu-item (click)="deleteMessage()">Delete</button>
+                    <button mat-menu-item (click)="this.firestoreService.editMessage()">Edit</button>
+                    <button mat-menu-item (click)="this.firestoreService.deleteMessage()">Delete</button>
                 </mat-menu>
             </div>
             <div>
@@ -25,9 +25,9 @@
     <div class="message-container">
         <mat-form-field appearance="fill">
             <mat-label>Your Message</mat-label>
-            <textarea [(ngModel)]="input" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
+            <textarea [(ngModel)]="this.firestoreService.input" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
         </mat-form-field>
-        <button mat-raised-button (click)="postMessage()">Post</button>
+        <button mat-raised-button (click)="this.firestoreService.postMessage()">Post</button>
     </div>
 
 </div>

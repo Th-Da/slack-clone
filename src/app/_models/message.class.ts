@@ -6,8 +6,8 @@ export class Message {
 
     constructor(obj?: any) {
         this.uid = obj ? obj.uid : '';
-        this.displayName = obj ? obj.displayName : '';
-        this.photoURL = obj ? obj.photoURL : '';
+        this.displayName = obj ? obj.displayName : 'Guest';
+        this.photoURL = obj ? obj.photoURL : './../../../assets/img/blank_user.svg';
         this.message = obj ? obj.message : '';
     }
 
