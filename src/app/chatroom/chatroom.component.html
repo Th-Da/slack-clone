@@ -1,7 +1,7 @@
 <div class="chatroom">
     <h2> {{ this.firestoreService.channel.channelName }} </h2>
 
-    <div class="massages">
+    <div class="massages" id="messageBox">
         <mat-card class="message" *ngFor="let message of this.firestoreService.messages">
             <div class="post-headline">
 
@@ -11,8 +11,8 @@
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 <mat-menu #userMenu="matMenu">
-                    <button mat-menu-item (click)="this.firestoreService.editMessage()">Edit</button>
-                    <button mat-menu-item (click)="this.firestoreService.deleteMessage()">Delete</button>
+                    <button mat-menu-item (click)="this.editMessage()">Edit</button>
+                    <button mat-menu-item (click)="this.firestoreService.deleteMessage(message)">Delete</button>
                 </mat-menu>
             </div>
             <div>

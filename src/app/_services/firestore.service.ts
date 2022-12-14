@@ -27,16 +27,13 @@ export class FirestoreService {
   message: Message = new Message();
   chat: any;
   messages: any = [];
+  currentMessage: any;
 
   constructor(private firestore: AngularFirestore, 
     private route: ActivatedRoute) { }
 
 
   getChannel() {
-    // this.route.paramMap.subscribe(paramMap =>  {
-    //     this.channelId = paramMap.get('id');
-    //     console.log('GOT ID:', this.channelId);
-    // });
     if (this.channelId) {
       this.firestore
         .collection('channels')
@@ -62,20 +59,6 @@ export class FirestoreService {
       this.currentUserPhotoUrl = this.currentUserJSON.photoURL;
     }
     console.log(this.currentUserName);
-  }
-
-  /**
-   * CRUD => READ
-   * 1. Gets the data from the users collection
-   * 2. Updates the local variable allUsers
-   */
-  getAllUsers() {
-    this.firestore
-      .collection('users')
-      .valueChanges()
-      .subscribe((changes: any) => {
-        this.allUsers = changes;
-      });
   }
   
 
@@ -130,9 +113,32 @@ export class FirestoreService {
     console.log(this.messages);
   }
 
-  editMessage() {}
+  deleteMessage(message) {
+    this.currentMessage = message;
+    console.log('message to delete: ', this.currentMessage);
+    this.firestore
+    .collection('channels')
+    .doc(this.channelId)
+    .update({
+      messages: arrayRemove(this.currentMessage) 
+    });
+    this.updateChat();
+  }
+  
 
-  deleteMessage() {}
+  /**
+   * CRUD => READ
+   * 1. Gets the data from the users collection
+   * 2. Updates the local variable allUsers
+   */
+  getAllUsers() {
+    this.firestore
+      .collection('users')
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.allUsers = changes;
+      });
+  }
 
   /**
    * Updates the current user in the firestore
