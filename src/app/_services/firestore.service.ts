@@ -32,6 +32,7 @@ export class FirestoreService {
 
   directmessages: Directmessage = new Directmessage();
   directmessagesId: any = '';
+  directmessage: any;
   userIds: any;
 
   constructor(
@@ -93,16 +94,6 @@ export class FirestoreService {
       });
   }
 
-  getDirectmessages() {
-    this.firestore
-      .collection('directmessage')
-      .doc(this.userIds)
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
-        this.directmessages = changes;
-      });
-  }
-
   updateChat() {
     this.getChannel();
     if (this.channelId) {
@@ -126,6 +117,28 @@ export class FirestoreService {
     this.messages = [];
     this.messages = this.chat.messages;
     console.log(this.messages);
+  }
+
+  getDirectmessages() {
+    this.firestore
+      .collection('directmessages')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.directmessage = changes;
+      });
+  }
+
+  upadteDirectmessage() {
+    this.getDirectmessages();
+    if (this.directmessagesId) {
+      this.firestore
+        .collection('directmessages')
+        .doc(this.directmessagesId)
+        .valueChanges()
+        .subscribe((changes: any) => {
+          this.directmessage = changes;
+        });
+    }
   }
 
   deleteMessage(message) {

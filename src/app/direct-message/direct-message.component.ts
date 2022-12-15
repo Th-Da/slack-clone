@@ -25,6 +25,6 @@ export class DirectMessageComponent implements OnInit {
       this.firestoreService.userIds = paramMap.get('uid');
       console.log('direct', this.firestoreService.userIds);
     });
-    this.firestoreService.getDirectmessages();
+    this.firestoreService.upadteDirectmessage();
   }
 }

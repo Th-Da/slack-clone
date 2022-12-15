@@ -32,8 +32,9 @@ export class ChatComponent implements OnInit {
   }
 
   openDirectMessage(url, uid) {
-    this.router.navigate([url + uid]);
-    this.firestoreService.getDirectmessages();
+    this.router.navigate([url + uid]).then(() => {
+      this.firestoreService.upadteDirectmessage();
+    });
   }
 
   openDialog() {
