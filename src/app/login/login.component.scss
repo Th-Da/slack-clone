@@ -2,7 +2,9 @@ h1 {
   font-size: 48px;
   font-weight: 700;
   letter-spacing: -0.75px;
+  display: flex;
   line-height: 46px;
+  align-items: center;
 }
 
 .component-wrapper {
@@ -43,6 +45,11 @@ span {
 .google-icon {
   height: 24px;
   padding-right: 8px;
+}
+
+.logo {
+  height: 50px;
+  margin-left: 12px;
 }
 
 .google-login {
@@ -95,5 +102,9 @@ mat-form-field {
 @media (max-width: 375px) {
   .sign-in-container {
     gap: 8px;
+  }
+
+  .logo {
+    display: none;
   }
 }
