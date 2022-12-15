@@ -18,18 +18,22 @@ export class ChatComponent implements OnInit {
     public firestoreService: FirestoreService,
     public router: Router,
     public dialog: MatDialog
-  ) { }
-
+  ) {}
 
   ngOnInit(): void {
     this.firestoreService.getAllChannels();
+    this.firestoreService.getDirectmessages();
   }
 
   openChat(url, id) {
-    this.router.navigate([url + id])
-    .then(() => {
+    this.router.navigate([url + id]).then(() => {
       this.firestoreService.updateChat();
     });
+  }
+
+  openDirectMessage(url, uid) {
+    this.router.navigate([url + uid]);
+    this.firestoreService.getDirectmessages();
   }
 
   openDialog() {

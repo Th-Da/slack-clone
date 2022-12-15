@@ -11,6 +11,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountComponent } from './account/account.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
+import { DirectMessageComponent } from './direct-message/direct-message.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'get-started', pathMatch: 'full' },
@@ -23,18 +24,14 @@ const routes: Routes = [
   {
     path: 'chat',
     children: [
-      { path: 'welcome', 
-      component: WelcomeComponent 
-      },
-      { path: 'account',
-      component: AccountComponent 
-      },
-      { path: ':id', 
-      component: ChatroomComponent 
-      }
-      ],
-    component: ChatComponent, canActivate: [AuthGuard]},
-  
+      { path: 'welcome', component: WelcomeComponent },
+      { path: 'account', component: AccountComponent },
+      { path: ':id', component: ChatroomComponent },
+      { path: ':uid', component: DirectMessageComponent },
+    ],
+    component: ChatComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 const routerOptions: ExtraOptions = {
@@ -42,11 +39,10 @@ const routerOptions: ExtraOptions = {
   onSameUrlNavigation: 'reload',
   anchorScrolling: 'enabled',
   scrollOffset: [0, 0],
-}
-
+};
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, routerOptions)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

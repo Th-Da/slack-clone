@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from '../_models/user.class';
 import { Message } from '../_models/message.class';
 import { Channel } from '../_models/channel.class';
-import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { Directmessage } from '../_models/directmessage.class';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class FirestoreService {
   allChannels: any;
   userData: any; // Gets the data from auth service as observable
   userDataObject: User;
-  
+
   channelId: any = '';
   input: any;
   currentUserName: any;
@@ -29,9 +30,14 @@ export class FirestoreService {
   messages: any = [];
   currentMessage: any;
 
-  constructor(private firestore: AngularFirestore, 
-    private route: ActivatedRoute) { }
+  directmessages: Directmessage = new Directmessage();
+  directmessagesId: any = '';
+  userIds: any;
 
+  constructor(
+    private firestore: AngularFirestore,
+    private route: ActivatedRoute
+  ) {}
 
   getChannel() {
     if (this.channelId) {
@@ -42,13 +48,12 @@ export class FirestoreService {
         .subscribe((channel: any) => {
           this.channel = channel;
           console.log('Retrieved channel:', this.channel);
-        });      
+        });
     } else {
       console.log('no channelId on getChannel()!');
     }
     this.getUserData();
   }
-
 
   getUserData() {
     let currentUserAsText = localStorage.getItem('user');
@@ -60,48 +65,58 @@ export class FirestoreService {
     }
     console.log(this.currentUserName);
   }
-  
 
   postMessage() {
-    this.message = new Message ({
+    this.message = new Message({
       uid: this.currentUserId,
       displayName: this.currentUserName || 'Guest',
-      photoURL: this.currentUserPhotoUrl || './../../../assets/img/blank_user.svg',
-      message: this.input
+      photoURL:
+        this.currentUserPhotoUrl || './../../../assets/img/blank_user.svg',
+      message: this.input,
     });
     console.log('Adding message', this.message);
     this.firestore
-    .collection('channels')
-    .doc(this.channelId)
-    .update({
-      messages: arrayUnion(this.message.toJSON()) 
-    });
+      .collection('channels')
+      .doc(this.channelId)
+      .update({
+        messages: arrayUnion(this.message.toJSON()),
+      });
     this.updateChat();
   }
 
   getAllChannels() {
     this.firestore
       .collection('channels')
-      .valueChanges({idField: 'customIdName'})
+      .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
       });
   }
-  
+
+  getDirectmessages() {
+    this.firestore
+      .collection('directmessage')
+      .doc(this.userIds)
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.directmessages = changes;
+      });
+  }
+
   updateChat() {
     this.getChannel();
     if (this.channelId) {
       this.input = '';
       this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .valueChanges()
-      .subscribe((changes: any) => {
-        console.log('Recived changes from DB', changes);
-        this.chat = changes;
-        console.log(this.chat);
-        this.renderChat();
-      });
+        .collection('channels')
+        .doc(this.channelId)
+        .valueChanges()
+        .subscribe((changes: any) => {
+          console.log('Recived changes from DB', changes);
+          this.chat = changes;
+          console.log(this.chat);
+          this.renderChat();
+        });
     } else {
       console.log('no channelId on updateChat()!');
     }
@@ -117,14 +132,13 @@ export class FirestoreService {
     this.currentMessage = message;
     console.log('message to delete: ', this.currentMessage);
     this.firestore
-    .collection('channels')
-    .doc(this.channelId)
-    .update({
-      messages: arrayRemove(this.currentMessage) 
-    });
+      .collection('channels')
+      .doc(this.channelId)
+      .update({
+        messages: arrayRemove(this.currentMessage),
+      });
     this.updateChat();
   }
-  
 
   /**
    * CRUD => READ
@@ -158,8 +172,6 @@ export class FirestoreService {
    * @param uid The document id from the 'users' collection
    */
   deleteUser(uid: string) {
-    this.firestore.collection('users')
-      .doc(uid)
-      .delete()
+    this.firestore.collection('users').doc(uid).delete();
   }
 }

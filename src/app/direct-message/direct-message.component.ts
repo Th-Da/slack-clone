@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
 
 @Component({
-  selector: 'app-chatroom',
-  templateUrl: './chatroom.component.html',
-  styleUrls: ['./chatroom.component.scss'],
+  selector: 'app-direct-message',
+  templateUrl: './direct-message.component.html',
+  styleUrls: ['./direct-message.component.scss'],
 })
-export class ChatroomComponent implements OnInit {
-  channelId: any = '';
-  input: any;
+export class DirectMessageComponent implements OnInit {
+  userIds: any = '';
 
   constructor(
     public authService: AuthService,
@@ -22,13 +20,11 @@ export class ChatroomComponent implements OnInit {
     public firestoreService: FirestoreService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
-      this.firestoreService.channelId = paramMap.get('id');
-      console.log('GOT ID:', this.firestoreService.channelId);
+      this.firestoreService.userIds = paramMap.get('uid');
+      console.log('direct', this.firestoreService.userIds);
     });
-    this.firestoreService.updateChat();
+    this.firestoreService.getDirectmessages();
   }
-
-  editMessage() {}
 }
