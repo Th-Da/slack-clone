@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogDeleteMessageComponent } from '../dialog-delete-message/dialog-delete-message.component';
 import { DialogEditMessageComponent } from '../dialog-edit-message/dialog-edit-message.component';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
@@ -35,9 +36,15 @@ export class ChatroomComponent implements OnInit {
   }
 
   
+  dialogDeleteMessage(message) {
+    this.firestoreService.currentMessage = message;
+    this.dialog.open(DialogDeleteMessageComponent);
+  }
+
 
   dialogEditMessage(message) {
-    this.firestoreService.deleteMessage(message);
+    this.firestoreService.currentMessage = message;
+    this.firestoreService.deleteMessage();
     console.log('message to edit: ', this.firestoreService.currentMessage);
     this.dialog.open(DialogEditMessageComponent);
   }

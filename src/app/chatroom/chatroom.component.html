@@ -12,7 +12,7 @@
                   </button>
                 <mat-menu #userMenu="matMenu">
                     <button mat-menu-item (click)="this.dialogEditMessage(message)">Edit</button>
-                    <button mat-menu-item (click)="this.firestoreService.deleteMessage(message)">Delete</button>
+                    <button mat-menu-item (click)="this.dialogDeleteMessage(message)">Delete</button>
                 </mat-menu>
             </div>
             <div>
