@@ -97,9 +97,7 @@ export class FirestoreService {
       .doc(this.channelId)
       .valueChanges()
       .subscribe((changes: any) => {
-        console.log('Recived changes from DB', changes);
         this.chat = changes;
-        console.log(this.chat);
         this.renderChat();
       });
     } else {
@@ -114,6 +112,7 @@ export class FirestoreService {
   }
 
   deleteMessage(message) {
+    this.currentMessage = '';
     this.currentMessage = message;
     console.log('message to delete: ', this.currentMessage);
     this.firestore
@@ -121,6 +120,17 @@ export class FirestoreService {
     .doc(this.channelId)
     .update({
       messages: arrayRemove(this.currentMessage) 
+    });
+    this.updateChat();
+    console.log('message deleted!', this.currentMessage);
+  }
+
+  saveMessage() {
+    this.firestore
+    .collection('channels')
+    .doc(this.channelId)
+    .update({
+      messages: arrayUnion(this.currentMessage) 
     });
     this.updateChat();
   }

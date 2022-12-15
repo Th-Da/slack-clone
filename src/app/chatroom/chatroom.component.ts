@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogEditMessageComponent } from '../dialog-edit-message/dialog-edit-message.component';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
 
@@ -22,7 +23,8 @@ export class ChatroomComponent implements OnInit {
     private route: ActivatedRoute, 
     public router: Router,
     public dialogRef: MatDialog,
-    public firestoreService: FirestoreService) { }
+    public firestoreService: FirestoreService,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(paramMap =>  {
@@ -34,7 +36,11 @@ export class ChatroomComponent implements OnInit {
 
   
 
-  editMessage() {}
+  dialogEditMessage(message) {
+    this.firestoreService.deleteMessage(message);
+    console.log('message to edit: ', this.firestoreService.currentMessage);
+    this.dialog.open(DialogEditMessageComponent);
+  }
 
 
 }
