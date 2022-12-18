@@ -112,7 +112,6 @@ export class FirestoreService {
   }
 
   deleteMessage() {
-    console.log('message to delete: ', this.currentMessage);
     this.firestore
     .collection('channels')
     .doc(this.channelId)

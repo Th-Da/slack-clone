@@ -43,10 +43,12 @@ export class ChatroomComponent implements OnInit {
 
 
   dialogEditMessage(message) {
+    let indexOfMessage = this.firestoreService.messages.indexOf(message);
+    console.log('index of message: ', indexOfMessage);
     this.firestoreService.currentMessage = message;
     this.firestoreService.deleteMessage();
     console.log('message to edit: ', this.firestoreService.currentMessage);
-    this.dialog.open(DialogEditMessageComponent);
+    this.dialog.open(DialogEditMessageComponent, { disableClose: true });
   }
 
 
