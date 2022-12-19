@@ -37,6 +37,7 @@ export class ChatComponent implements OnInit {
       .then(() => {
         this.firestoreService.upadteDirectmessage();
         this.firestoreService.dmId = this.authService.userData.uid + '-' + uid;
+        this.firestoreService.participantUid = uid;
       });
   }
 

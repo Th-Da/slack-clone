@@ -28,6 +28,8 @@ export class FirestoreService {
   directmessage: any;
   directmessagesId: any;
   dmId: string;
+  participantUid: string;
+  participantUser: any;
   userIds: any;
 
   constructor(
@@ -105,13 +107,7 @@ export class FirestoreService {
 
   postDirectmessage() {
     const authService = this.injector.get(AuthService);
-
-    debugger;
-    console.log('userData: ', authService.userData);
-    console.log(
-      'userData to JSON',
-      new User(authService.userData).userToJSON()
-    );
+    /*     this.getUser(this.participantUid); */
 
     this.firestore
       .collection('directmessages')
@@ -120,7 +116,7 @@ export class FirestoreService {
         name: 'Test',
         participants: {
           user1: new User(authService.userData).userToJSON(),
-          user2: new User(),
+          user2: new User(this.participantUser).userToJSON(),
         },
       });
   }
@@ -172,6 +168,19 @@ export class FirestoreService {
       .valueChanges()
       .subscribe((changes: any) => {
         this.allUsers = changes;
+      });
+  }
+
+  getUser(uid: string) {
+    let allUsers = [];
+
+    this.firestore
+      .collection('users')
+      .valueChanges()
+      .subscribe((changes: any) => {
+        allUsers = changes;
+        const user = allUsers.find((user) => user.uid == uid);
+        this.participantUser = user;
       });
   }
 
