@@ -1,110 +1,122 @@
 h1 {
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: -0.75px;
-  display: flex;
-  line-height: 46px;
-  align-items: center;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.75px;
+    display: flex;
+    line-height: 46px;
+    align-items: center;
 }
 
 .component-wrapper {
-  width: 100vw;
-  height: 100vh;
+    width: 100vw;
+    height: 100vh;
 }
 
 a {
-  text-decoration: none;
-  color: #1264a3;
-  cursor: pointer;
+    text-decoration: none;
+    color: #1264a3;
+    cursor: pointer;
 }
 
 span {
-  text-align: center;
+    text-align: center;
 }
 
 .to-sign-up {
-  position: absolute;
-  top: 32px;
-  right: 32px;
+    position: absolute;
+    top: 32px;
+    right: 32px;
 }
 
 .sign-in-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
 }
 
 .width-25vw {
-  width: 25vw;
-  min-width: 230px;
+    width: 25vw;
+    min-width: 230px;
 }
 
 .google-icon {
-  height: 24px;
-  padding-right: 8px;
+    height: 24px;
+    padding-right: 8px;
 }
 
 .logo {
-  height: 50px;
-  margin-left: 12px;
+    height: 50px;
+    margin-left: 12px;
 }
 
 .google-login {
-  padding: 8px;
-  min-width: fit-content;
-  white-space: break-spaces;
-  background-color: #fff;
-  border: 2px solid #4285f4;
-  color: #4285f4;
-  &:active {
+    padding: 8px;
+    min-width: fit-content;
+    white-space: break-spaces;
+    background-color: #fff;
+    border: 2px solid #4285f4;
     color: #4285f4;
-  }
+    &:active {
+        color: #4285f4;
+    }
 }
 
 .mat-login-button {
-  background-color: #4a154b;
-  color: white;
-  &:hover {
-    background-color: #611f69e6;
-  }
+    background-color: #4a154b;
+    color: white;
+    &:hover {
+        background-color: #611f69e6;
+    }
 }
 
 mat-form-field {
-  width: 25vw;
-  min-width: 230px;
+    width: 25vw;
+    min-width: 230px;
+}
+
+.legal-notice-link {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 @media (max-width: 1024px) {
-  .sign-in-container {
-    gap: 24px;
-  }
+    .sign-in-container {
+        gap: 24px;
+    }
 }
 
 @media (max-width: 768px) {
-  .sign-in-container {
-    gap: 16px;
-  }
-
-  .to-sign-up {
-    position: unset;
-  }
+    .sign-in-container {
+        gap: 16px;
+    }
+    .to-sign-up {
+        position: unset;
+    }
+    .legal-notice-link {
+        transform: translate(-50%, -50%);
+        right: unset;
+        left: 50%;
+    }
 }
 
 @media (max-width: 480px) {
-  .sign-in-container {
-    gap: 8px;
-  }
+    .sign-in-container {
+        gap: 8px;
+    }
 }
 
 @media (max-width: 375px) {
-  .sign-in-container {
-    gap: 8px;
-  }
-
-  .logo {
-    display: none;
-  }
+    .sign-in-container {
+        gap: 8px;
+    }
+    .logo {
+        display: none;
+    }
 }
