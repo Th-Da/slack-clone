@@ -27,7 +27,9 @@ export class FirestoreService {
   message: Message = new Message();
   chat: any;
   messages: any = [];
+  newMessages: any = [];
   currentMessage: any;
+  indexOfMessage: number;
 
   constructor(private firestore: AngularFirestore, 
     private route: ActivatedRoute) { }
@@ -122,13 +124,33 @@ export class FirestoreService {
     console.log('message deleted!', this.currentMessage);
   }
 
+  deleteAllMessagesOfChat() {
+    this.newMessages = this.messages;
+    for (let i = 0; i < this.messages.length; i++) {
+      const element = this.messages[i];
+      this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .update({
+        messages: arrayRemove(element) 
+      });
+    }
+  }
+
   saveMessage() {
-    this.firestore
-    .collection('channels')
-    .doc(this.channelId)
-    .update({
-      messages: arrayUnion(this.currentMessage) 
-    });
+    this.newMessages[this.indexOfMessage] = this.currentMessage;
+
+    for (let i = 0; i < this.newMessages.length; i++) {
+      const element = this.newMessages[i];
+      console.log('New messages on firestore: ' ,element)
+      this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .update({
+        messages: arrayUnion(element) 
+      });
+      
+    }
     this.updateChat();
   }
   
