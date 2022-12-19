@@ -7,9 +7,9 @@
 
                 <img class="profile" src="{{ message.photoURL }}" alt=""> {{ message.displayName }}
 
-                <button *ngIf="message.uid == this.firestoreService.currentUserId" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
+                <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
                     <mat-icon>more_vert</mat-icon>
-                  </button>
+                </button>
                 <mat-menu #userMenu="matMenu">
                     <button mat-menu-item (click)="this.editMessage()">Edit</button>
                     <button mat-menu-item (click)="this.firestoreService.deleteMessage(message)">Delete</button>
