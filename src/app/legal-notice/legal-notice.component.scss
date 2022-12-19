@@ -9,6 +9,16 @@
     background-color: var(--primary-col) !important;
 }
 
+h1,
+h2,
+h3,
+a,
+strong {
+    word-wrap: break-word;
+    text-align: center;
+    line-height: initial;
+}
+
 a {
     text-decoration: none;
     color: #1264a3;
