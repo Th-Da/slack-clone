@@ -119,6 +119,10 @@ export class FirestoreService {
     console.log(this.messages);
   }
 
+  postDirectmessage() {
+    this.firestore.collection('directmessages').doc();
+  }
+
   getDirectmessages() {
     this.firestore
       .collection('directmessages')

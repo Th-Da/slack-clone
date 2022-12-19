@@ -27,7 +27,7 @@ const routes: Routes = [
       { path: 'welcome', component: WelcomeComponent },
       { path: 'account', component: AccountComponent },
       { path: ':id', component: ChatroomComponent },
-      { path: ':uid', component: DirectMessageComponent },
+      { path: 'dm/:uid', component: DirectMessageComponent },
     ],
     component: ChatComponent,
     canActivate: [AuthGuard],
