@@ -142,6 +142,8 @@ export class FirestoreService {
         .subscribe((changes: any) => {
           this.directmessage = changes;
         });
+    } else {
+      console.log('no directmessagesId on upadteDirectmessage()!');
     }
   }
 
