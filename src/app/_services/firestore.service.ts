@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ActivatedRoute } from '@angular/router';
 import { User } from '../_models/user.class';
 import { Message } from '../_models/message.class';
 import { Channel } from '../_models/channel.class';
-import { doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
-import { Directmessage } from '../_models/directmessage.class';
+import { arrayUnion, arrayRemove } from 'firebase/firestore';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +17,6 @@ export class FirestoreService {
 
   channelId: any = '';
   input: any;
-  currentUserName: any;
-  currentUserId: any;
-  currentUserPhotoUrl: any;
-  currentUserJSON: any;
   channel: Channel = new Channel();
   user: User;
   newMessage: any;
@@ -30,10 +25,10 @@ export class FirestoreService {
   messages: any = [];
   currentMessage: any;
 
-  directmessages: Directmessage = new Directmessage();
-  directmessagesId: any = '';
-  directmessage: any;
-  userIds: any;
+  constructor(
+    private firestore: AngularFirestore,
+    private injector: Injector
+  ) {}
 
   constructor(
     private firestore: AngularFirestore,
@@ -53,26 +48,15 @@ export class FirestoreService {
     } else {
       console.log('no channelId on getChannel()!');
     }
-    this.getUserData();
-  }
-
-  getUserData() {
-    let currentUserAsText = localStorage.getItem('user');
-    if (currentUserAsText) {
-      this.currentUserJSON = JSON.parse(currentUserAsText);
-      this.currentUserName = this.currentUserJSON.displayName;
-      this.currentUserId = this.currentUserJSON.uid;
-      this.currentUserPhotoUrl = this.currentUserJSON.photoURL;
-    }
-    console.log(this.currentUserName);
   }
 
   postMessage() {
+    const authService = this.injector.get(AuthService);
+
     this.message = new Message({
-      uid: this.currentUserId,
-      displayName: this.currentUserName || 'Guest',
-      photoURL:
-        this.currentUserPhotoUrl || './../../../assets/img/blank_user.svg',
+      uid: authService.userData.uid,
+      displayName: authService.userData.displayName,
+      photoURL: authService.userData.photoURL,
       message: this.input,
     });
     console.log('Adding message', this.message);

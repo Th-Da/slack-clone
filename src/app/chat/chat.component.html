@@ -22,10 +22,7 @@
       <ul class="menu-items">
         Users
         <li>User 1</li>
-        <li
-          *ngFor="let user of this.firestoreService.allUsers"
-          (click)="openDirectMessage('/chat/dm/', user.uid)"
-        >
+        <li *ngFor="let user of this.firestoreService.allUsers">
           {{ user.displayName }}
         </li>
       </ul>
@@ -33,6 +30,9 @@
         <mat-icon>logout</mat-icon>Log Out
       </li>
     </ul>
+    <a class="legal-notice-link" routerLink="/legal-notice"
+      >Imprint <span>|</span> Privacy Policy</a
+    >
   </mat-drawer>
 
   <div class="example-sidenav-content">

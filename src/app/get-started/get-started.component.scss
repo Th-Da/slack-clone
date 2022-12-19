@@ -1,84 +1,98 @@
 h1 {
-  font-size: calc(16px + 6 * (100vw - 320px) / 240);
-  font-weight: 700;
-  letter-spacing: 2.25px;
-  line-height: 120%;
-  color: white;
-  display: flex;
-  align-items: center;
+    font-size: calc(16px + 6 * (100vw - 320px) / 240);
+    font-weight: 700;
+    letter-spacing: 2.25px;
+    line-height: 120%;
+    color: white;
+    display: flex;
+    align-items: center;
 }
 
 a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
 
 .logo {
-  height: calc(16px + 9 * (100vw - 320px) / 240);
-  padding-left: 24px;
+    height: calc(16px + 9 * (100vw - 320px) / 240);
+    padding-left: 24px;
 }
 
 .component-wrapper {
-  width: 100vw;
-  display: flex;
-  height: 100vh;
-  background-color: #541554;
-  justify-content: space-between;
-  align-items: center;
-  overflow: hidden;
+    width: 100vw;
+    display: flex;
+    height: 100vh;
+    background-color: #541554;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
 }
 
 .comp-left {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  margin: 13% 0 13% 13%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 13% 0 13% 13%;
 }
 
 .bg-img {
-  width: 40vw;
-  margin: 13% 3% 13% 0;
+    width: 40vw;
+    margin: 13% 3% 13% 0;
 }
 
 .mat-signup-button {
-  width: 25vw;
-  background-color: #007a5a;
-  color: white;
-  &:hover {
-    background-color: #009b71;
-  }
+    width: 25vw;
+    background-color: #007a5a;
+    color: white;
+    &:hover {
+        background-color: #009b71;
+    }
+}
+
+.legal-notice-link {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    span {
+        color: black;
+    }
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
 @media (min-width: 1440px) {
-  a,
-  p,
-  button {
-    font-size: 16px;
-  }
-
-  .mat-signup-button {
-    height: 50px;
-  }
+    a,
+    p,
+    button {
+        font-size: 16px;
+    }
+    .mat-signup-button {
+        height: 50px;
+    }
 }
 
 @media (max-width: 768px) {
-  .component-wrapper {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .comp-left {
-    margin: 0 0 0 0;
-    height: initial;
-  }
-
-  .bg-img {
-    width: 55vw;
-    margin: 0;
-  }
-  .logo {
-    margin-left: 12px;
-  }
+    .component-wrapper {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .comp-left {
+        margin: 0 0 0 0;
+        height: initial;
+    }
+    .bg-img {
+        width: 55vw;
+        margin: 0;
+    }
+    .logo {
+        margin-left: 12px;
+    }
+    .legal-notice-link {
+        transform: translate(-50%, -50%);
+        right: unset;
+        left: 50%;
+    }
 }

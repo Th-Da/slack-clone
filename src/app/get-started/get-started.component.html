@@ -1,26 +1,22 @@
 <div class="component-wrapper">
-  <div class="comp-left">
-    <div class="left-up">
-      <h1>
-        Slack-Clone
-        <img class="logo" src="./../../assets/images/logo.svg" alt="" />
-      </h1>
+    <div class="comp-left">
+        <div class="left-up">
+            <h1>
+                Slack-Clone
+                <img class="logo" src="./../../assets/images/logo.svg" alt="" />
+            </h1>
 
-      <h1>Bring's your the team together. <br />Wherever you are.</h1>
-    </div>
-    <div class="left-botom">
-      <button
-        mat-raised-button
-        color="primary"
-        routerLink="/sign-up"
-        color="signup-button"
-      >
+            <h1>Bring's your the team together. <br />Wherever you are.</h1>
+        </div>
+        <div class="left-botom">
+            <button mat-raised-button color="primary" routerLink="/sign-up" color="signup-button">
         Sign Up
       </button>
-      <div *ngIf="afAuth.user | async">
-        <p>You are already loged in <a routerLink="/chat"> Go to Chat </a></p>
-      </div>
+            <div *ngIf="afAuth.user | async">
+                <p>You are already loged in <a routerLink="/chat"> Go to Chat </a></p>
+            </div>
+        </div>
     </div>
-  </div>
-  <img class="bg-img" src="assets/images/start-bg.png" alt="" />
+    <img class="bg-img" src="assets/images/start-bg.png" alt="" />
 </div>
+<a class="legal-notice-link" routerLink="/legal-notice">Imprint <span>|</span> Privacy Policy</a>
