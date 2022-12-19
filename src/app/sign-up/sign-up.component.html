@@ -1,75 +1,38 @@
 <div class="component-wrapper">
-  <div class="sign-up-container">
-    <h1>First enter your email</h1>
-    <span> We suggest using the email address that you use at work.</span>
-    <form
-      class="form"
-      [formGroup]="contactForm"
-      (submit)="onSubmit()"
-      ngNativeValidate
-    >
-      <mat-form-field appearance="outline">
-        <mat-label>Display Name</mat-label>
-        <input
-          type="text"
-          matInput
-          #userDisplayName
-          required
-          formControlName="userDisplayName"
-        />
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input
-          type="email"
-          matInput
-          #userEmail
-          required
-          formControlName="email"
-        />
-      </mat-form-field>
+    <div class="sign-up-container">
+        <h1>First enter your email</h1>
+        <span> We suggest using the email address that you use at work.</span>
+        <form class="form" [formGroup]="contactForm" (submit)="onSubmit()" ngNativeValidate>
+            <mat-form-field appearance="outline">
+                <mat-label>Display Name</mat-label>
+                <input type="text" matInput #userDisplayName required formControlName="userDisplayName" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput #userEmail required formControlName="email" />
+            </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input
-          type="password"
-          matInput
-          #userPwd
-          required
-          type="password"
-          formControlName="password"
-        />
-      </mat-form-field>
-      <button
-        class="width-25vw"
-        mat-raised-button
-        color="login-button"
-        (click)="onSubmit()"
-      >
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput #userPwd required type="password" formControlName="password" />
+            </mat-form-field>
+            <button class="width-25vw" mat-raised-button color="login-button" (click)="onSubmit()">
         Sign Up
       </button>
-    </form>
+        </form>
 
-    <p>OR</p>
-    <div>
-      <button
-        class="width-25vw google-login"
-        mat-stroked-button
-        id="googleLogin"
-        (click)="authService.googleAuth()"
-      >
+        <p>OR</p>
+        <div>
+            <button class="width-25vw google-login" mat-stroked-button id="googleLogin" (click)="authService.googleAuth()">
         <img class="google-icon" src="assets/images/googleicon.png" alt="" />
         Continue with Google
       </button>
-    </div>
-    <div class="to-sign-in">
-      <p>Already using Slack-Clone?</p>
-      <a
-        (click)="this.utils.redirectToLogin()"
-        [routerLink]="['/sign-up']"
-        routerLinkActive="router-link-active"
-        >Sign in to an existing worksapce</a
+        </div>
+        <div class="to-sign-in">
+            <p>Already using Slack-Clone?</p>
+            <a (click)="this.utils.redirectToLogin()" [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign in to an existing worksapce</a
       >
     </div>
   </div>
-</div>
+  <a class="legal-notice-link" routerLink="/legal-notice">Imprint <span>|</span> Privacy Policy</a>
+        </div>
