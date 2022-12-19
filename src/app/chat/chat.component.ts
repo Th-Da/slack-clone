@@ -32,9 +32,12 @@ export class ChatComponent implements OnInit {
   }
 
   openDirectMessage(url, uid) {
-    this.router.navigate([url + uid]).then(() => {
-      this.firestoreService.upadteDirectmessage();
-    });
+    this.router
+      .navigate([url + this.authService.userData.uid + '-' + uid])
+      .then(() => {
+        this.firestoreService.upadteDirectmessage();
+        this.firestoreService.dmId = this.authService.userData.uid + '-' + uid;
+      });
   }
 
   openDialog() {

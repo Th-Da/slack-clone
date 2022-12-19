@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from '../_models/user.class';
 import { Message } from '../_models/message.class';
 import { Channel } from '../_models/channel.class';
-import { arrayUnion, arrayRemove } from 'firebase/firestore';
+import { arrayUnion, arrayRemove, endBefore } from 'firebase/firestore';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -25,14 +25,14 @@ export class FirestoreService {
   messages: any = [];
   currentMessage: any;
 
-  constructor(
-    private firestore: AngularFirestore,
-    private injector: Injector
-  ) {}
+  directmessage: any;
+  directmessagesId: any;
+  dmId: string;
+  userIds: any;
 
   constructor(
     private firestore: AngularFirestore,
-    private route: ActivatedRoute
+    private injector: Injector
   ) {}
 
   getChannel() {
@@ -104,7 +104,25 @@ export class FirestoreService {
   }
 
   postDirectmessage() {
-    this.firestore.collection('directmessages').doc();
+    const authService = this.injector.get(AuthService);
+
+    debugger;
+    console.log('userData: ', authService.userData);
+    console.log(
+      'userData to JSON',
+      new User(authService.userData).userToJSON()
+    );
+
+    this.firestore
+      .collection('directmessages')
+      .doc(this.dmId)
+      .set({
+        name: 'Test',
+        participants: {
+          user1: new User(authService.userData).userToJSON(),
+          user2: new User(),
+        },
+      });
   }
 
   getDirectmessages() {

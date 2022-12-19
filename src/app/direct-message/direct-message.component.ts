@@ -10,21 +10,16 @@ import { FirestoreService } from '../_services/firestore.service';
   styleUrls: ['./direct-message.component.scss'],
 })
 export class DirectMessageComponent implements OnInit {
-  userIds: any = '';
-
   constructor(
     public authService: AuthService,
     private route: ActivatedRoute,
-    public router: Router,
     public dialogRef: MatDialog,
     public firestoreService: FirestoreService
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
-      this.firestoreService.userIds = paramMap.get('uid');
-      console.log('direct', this.firestoreService.userIds);
+      this.firestoreService.dmId = paramMap.get('uid');
     });
-    this.firestoreService.upadteDirectmessage();
   }
 }
