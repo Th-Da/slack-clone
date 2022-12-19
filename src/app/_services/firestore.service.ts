@@ -31,6 +31,7 @@ export class FirestoreService {
   participantUid: string;
   participantUser: any;
   userIds: any;
+  dmInput: string;
 
   constructor(
     private firestore: AngularFirestore,
@@ -107,19 +108,34 @@ export class FirestoreService {
 
   postDirectmessage() {
     const authService = this.injector.get(AuthService);
-    /*     this.getUser(this.participantUid); */
+
+    debugger;
+    // if (this.dmId.includes(this.participantUid && authService.userData.uid)) {
+    //   console.log('Funzt');
+    // } else {
+    //   console.log('Njet');
+    // }
 
     this.firestore
       .collection('directmessages')
       .doc(this.dmId)
       .set({
-        name: 'Test',
         participants: {
           user1: new User(authService.userData).userToJSON(),
           user2: new User(this.participantUser).userToJSON(),
         },
+        // postDirectmessages(dmId, message);
       });
   }
+
+  // postDirectmessages(dmId, message) {
+  //   this.firestore
+  //     .collection('channels')
+  //     .doc(this.channelId)
+  //     .update({
+  //       messages: arrayUnion(this.message.toJSON()),
+  //     });
+  // }
 
   getDirectmessages() {
     this.firestore
