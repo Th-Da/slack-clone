@@ -23,7 +23,9 @@ export class FirestoreService {
   message: Message = new Message();
   chat: any;
   messages: any = [];
+  newMessages: any = [];
   currentMessage: any;
+  indexOfMessage: number;
 
   constructor(
     private firestore: AngularFirestore,
@@ -79,15 +81,13 @@ export class FirestoreService {
     if (this.channelId) {
       this.input = '';
       this.firestore
-        .collection('channels')
-        .doc(this.channelId)
-        .valueChanges()
-        .subscribe((changes: any) => {
-          console.log('Recived changes from DB', changes);
-          this.chat = changes;
-          console.log(this.chat);
-          this.renderChat();
-        });
+      .collection('channels')
+      .doc(this.channelId)
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.chat = changes;
+        this.renderChat();
+      });
     } else {
       console.log('no channelId on updateChat()!');
     }
@@ -99,9 +99,7 @@ export class FirestoreService {
     console.log(this.messages);
   }
 
-  deleteMessage(message) {
-    this.currentMessage = message;
-    console.log('message to delete: ', this.currentMessage);
+  deleteMessage() {
     this.firestore
       .collection('channels')
       .doc(this.channelId)
@@ -109,8 +107,39 @@ export class FirestoreService {
         messages: arrayRemove(this.currentMessage)
       });
     this.updateChat();
+    console.log('message deleted!', this.currentMessage);
   }
 
+  deleteAllMessagesOfChat() {
+    this.newMessages = this.messages;
+    for (let i = 0; i < this.messages.length; i++) {
+      const element = this.messages[i];
+      this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .update({
+        messages: arrayRemove(element) 
+      });
+    }
+  }
+
+  saveMessage() {
+    this.newMessages[this.indexOfMessage] = this.currentMessage;
+
+    for (let i = 0; i < this.newMessages.length; i++) {
+      const element = this.newMessages[i];
+      console.log('New messages on firestore: ' ,element)
+      this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .update({
+        messages: arrayUnion(element) 
+      });
+      
+    }
+    this.updateChat();
+  }
+  
 
   /**
    * CRUD => READ
