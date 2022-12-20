@@ -5,6 +5,7 @@ import { Message } from '../_models/message.class';
 import { Channel } from '../_models/channel.class';
 import { arrayUnion, arrayRemove, endBefore } from 'firebase/firestore';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -109,33 +110,48 @@ export class FirestoreService {
   createDmChat() {
     const authService = this.injector.get(AuthService);
 
-    debugger;
-    // if (this.dmId.includes(this.participantUid && authService.userData.uid)) {
-    //   console.log('Funzt');
-    // } else {
-    //   console.log('Njet');
-    // }
-
     this.firestore
       .collection('directmessages')
-      .doc(this.dmId)
-      .set({
-        participants: {
-          user1: new User(authService.userData).userToJSON(),
-          user2: new User(this.participantUser).userToJSON(),
-        },
-        // postDirectmessages(dmId, message);
+      .valueChanges()
+      .subscribe((changes) => {
+        console.log(changes);
+        if (changes.length > 0) {
+          console.log('array exists');
+        } else {
+          this.firestore
+            .collection('directmessages')
+            .doc(this.dmId)
+            .set({
+              participants: {
+                user1: new User(authService.userData).userToJSON(),
+                user2: new User(this.participantUser).userToJSON(),
+              },
+              messages: [],
+            })
+            .then(() => {
+              this.postDirectmessages();
+            });
+          return;
+        }
       });
   }
 
-  // postDirectmessages(dmId, message) {
-  //   this.firestore
-  //     .collection('channels')
-  //     .doc(this.channelId)
-  //     .update({
-  //       messages: arrayUnion(this.message.toJSON()),
-  //     });
-  // }
+  postDirectmessages() {
+    const authService = this.injector.get(AuthService);
+
+    this.message = new Message({
+      uid: authService.userData.uid,
+      displayName: authService.userData.displayName,
+      photoURL: authService.userData.photoURL,
+      message: this.dmInput,
+    });
+    this.firestore
+      .collection('directmessages')
+      .doc(this.dmId)
+      .update({
+        messages: arrayUnion(this.message.toJSON()),
+      });
+  }
 
   getDirectmessages() {
     this.firestore
