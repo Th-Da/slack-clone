@@ -18,7 +18,7 @@ export class ChatComponent implements OnInit {
     public firestoreService: FirestoreService,
     public router: Router,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.firestoreService.getAllChannels();
@@ -37,7 +37,6 @@ export class ChatComponent implements OnInit {
       .then(() => {
         this.firestoreService.upadteDirectmessage();
         this.firestoreService.dmId = this.authService.userData.uid + '-' + uid;
-        this.firestoreService.participantUid = uid;
       });
   }
 

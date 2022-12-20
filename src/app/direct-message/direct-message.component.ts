@@ -15,13 +15,11 @@ export class DirectMessageComponent implements OnInit {
     private route: ActivatedRoute,
     public dialogRef: MatDialog,
     public firestoreService: FirestoreService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
       this.firestoreService.dmId = paramMap.get('uid');
-      this.firestoreService.participantUid = paramMap.get('uid').split('-')[1];
-      this.firestoreService.getUser(paramMap.get('uid').split('-')[1]);
     });
   }
 }
