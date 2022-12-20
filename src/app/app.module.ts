@@ -42,6 +42,7 @@ import { DialogGuestUserComponent } from './dialog-guest-user/dialog-guest-user.
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { DialogEditMessageComponent } from './dialog-edit-message/dialog-edit-message.component';
 import { DialogDeleteMessageComponent } from './dialog-delete-message/dialog-delete-message.component';
+import { DirectMessageComponent } from './direct-message/direct-message.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { DialogDeleteMessageComponent } from './dialog-delete-message/dialog-del
     ChatroomComponent,
     DialogEditMessageComponent,
     DialogDeleteMessageComponent,
+    DirectMessageComponent,
   ],
   imports: [
     BrowserModule,

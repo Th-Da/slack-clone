@@ -106,62 +106,7 @@ export class FirestoreService {
     console.log(this.messages);
   }
 
-  postDirectmessage() {
-    const authService = this.injector.get(AuthService);
-
-    debugger;
-    // if (this.dmId.includes(this.participantUid && authService.userData.uid)) {
-    //   console.log('Funzt');
-    // } else {
-    //   console.log('Njet');
-    // }
-
-    this.firestore
-      .collection('directmessages')
-      .doc(this.dmId)
-      .set({
-        participants: {
-          user1: new User(authService.userData).userToJSON(),
-          user2: new User(this.participantUser).userToJSON(),
-        },
-        // postDirectmessages(dmId, message);
-      });
-  }
-
-  // postDirectmessages(dmId, message) {
-  //   this.firestore
-  //     .collection('channels')
-  //     .doc(this.channelId)
-  //     .update({
-  //       messages: arrayUnion(this.message.toJSON()),
-  //     });
-  // }
-
-  getDirectmessages() {
-    this.firestore
-      .collection('directmessages')
-      .valueChanges({ idField: 'customIdName' })
-      .subscribe((changes: any) => {
-        this.directmessage = changes;
-      });
-  }
-
-  upadteDirectmessage() {
-    this.getDirectmessages();
-    if (this.directmessagesId) {
-      this.firestore
-        .collection('directmessages')
-        .doc(this.directmessagesId)
-        .valueChanges()
-        .subscribe((changes: any) => {
-          this.directmessage = changes;
-        });
-    } else {
-      console.log('no directmessagesId on upadteDirectmessage()!');
-    }
-  }
-
-  postDirectmessage() {
+  createDmChat() {
     const authService = this.injector.get(AuthService);
 
     debugger;

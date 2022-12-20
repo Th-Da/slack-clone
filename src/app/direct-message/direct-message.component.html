@@ -2,16 +2,11 @@
   <h2>{{ this.firestoreService.channel.channelName }}</h2>
 
   <div class="massages" id="messageBox">
-    <mat-card
-      class="message"
-      *ngFor="let message of this.firestoreService.messages"
-    >
+    <mat-card class="message">
       <div class="post-headline">
-        <img class="profile" src="{{ message.photoURL }}" alt="" />
-        {{ message.displayName }}
+        <img class="profile" src="" alt="" /> displayName
 
         <button
-          *ngIf="message.uid == this.authService.userData.uid"
           mat-icon-button
           class="pin-right-upper-corner"
           [matMenuTriggerFor]="userMenu"
@@ -20,17 +15,10 @@
         </button>
         <mat-menu #userMenu="matMenu">
           <button mat-menu-item>Edit</button>
-          <button
-            mat-menu-item
-            (click)="this.firestoreService.deleteMessage(message)"
-          >
-            Delete
-          </button>
+          <button mat-menu-item>Delete</button>
         </mat-menu>
       </div>
-      <div>
-        {{ message.message }}
-      </div>
+      <div>message</div>
     </mat-card>
   </div>
 
@@ -46,10 +34,7 @@
         cdkAutosizeMaxRows="10"
       ></textarea>
     </mat-form-field>
-    <button
-      mat-raised-button
-      (click)="this.firestoreService.postDirectmessage()"
-    >
+    <button mat-raised-button (click)="this.firestoreService.createDmChat()">
       Post
     </button>
   </div>
