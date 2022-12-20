@@ -23,6 +23,7 @@ export class FirestoreService {
   message: Message = new Message();
   chat: any;
   messages: any = [];
+  newMessages: any = [];
   currentMessage: any;
 
   directmessage: any;
@@ -32,6 +33,7 @@ export class FirestoreService {
   participantUser: any;
   userIds: any;
   dmInput: string;
+  indexOfMessage: number;
 
   constructor(
     private firestore: AngularFirestore,
@@ -90,9 +92,7 @@ export class FirestoreService {
         .doc(this.channelId)
         .valueChanges()
         .subscribe((changes: any) => {
-          console.log('Recived changes from DB', changes);
           this.chat = changes;
-          console.log(this.chat);
           this.renderChat();
         });
     } else {
@@ -161,15 +161,98 @@ export class FirestoreService {
     }
   }
 
-  deleteMessage(message) {
-    this.currentMessage = message;
-    console.log('message to delete: ', this.currentMessage);
+  postDirectmessage() {
+    const authService = this.injector.get(AuthService);
+
+    debugger;
+    // if (this.dmId.includes(this.participantUid && authService.userData.uid)) {
+    //   console.log('Funzt');
+    // } else {
+    //   console.log('Njet');
+    // }
+
+    this.firestore
+      .collection('directmessages')
+      .doc(this.dmId)
+      .set({
+        participants: {
+          user1: new User(authService.userData).userToJSON(),
+          user2: new User(this.participantUser).userToJSON(),
+        },
+        // postDirectmessages(dmId, message);
+      });
+  }
+
+  // postDirectmessages(dmId, message) {
+  //   this.firestore
+  //     .collection('channels')
+  //     .doc(this.channelId)
+  //     .update({
+  //       messages: arrayUnion(this.message.toJSON()),
+  //     });
+  // }
+
+  getDirectmessages() {
+    this.firestore
+      .collection('directmessages')
+      .valueChanges({ idField: 'customIdName' })
+      .subscribe((changes: any) => {
+        this.directmessage = changes;
+      });
+  }
+
+  upadteDirectmessage() {
+    this.getDirectmessages();
+    if (this.directmessagesId) {
+      this.firestore
+        .collection('directmessages')
+        .doc(this.directmessagesId)
+        .valueChanges()
+        .subscribe((changes: any) => {
+          this.directmessage = changes;
+        });
+    } else {
+      console.log('no directmessagesId on upadteDirectmessage()!');
+    }
+  }
+
+  deleteMessage() {
     this.firestore
       .collection('channels')
       .doc(this.channelId)
       .update({
         messages: arrayRemove(this.currentMessage),
       });
+    this.updateChat();
+    console.log('message deleted!', this.currentMessage);
+  }
+
+  deleteAllMessagesOfChat() {
+    this.newMessages = this.messages;
+    for (let i = 0; i < this.messages.length; i++) {
+      const element = this.messages[i];
+      this.firestore
+        .collection('channels')
+        .doc(this.channelId)
+        .update({
+          messages: arrayRemove(element),
+        });
+    }
+  }
+
+  saveMessage() {
+    this.newMessages[this.indexOfMessage] = this.currentMessage;
+
+    for (let i = 0; i < this.newMessages.length; i++) {
+      const element = this.newMessages[i];
+      console.log('New messages on firestore: ', element);
+      this.firestore
+        .collection('channels')
+        .doc(this.channelId)
+        .update({
+          messages: arrayUnion(element),
+        });
+    }
     this.updateChat();
   }
 
