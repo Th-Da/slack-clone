@@ -30,6 +30,7 @@
     height: 30px;
     width: 30px;
     padding-right: 12px;
+    padding-left: 12px;
 }
 
 mat-toolbar,
@@ -172,5 +173,12 @@ mat-toolbar-row {
 @media (max-width: 700px) {
     .user-name {
         display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    .sidenav {
+        width: 100vw;
+        max-width: 100%;
     }
 }
