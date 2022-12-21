@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class FirestoreService {
-  allUsers: any;
+  allOtherUsers: Array<any>;
   allChannels: any;
   userData: any; // Gets the data from auth service as observable
   userDataObject: User;
@@ -37,7 +37,7 @@ export class FirestoreService {
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
-  ) {}
+  ) { }
 
   getChannel() {
     if (this.channelId) {
@@ -111,8 +111,6 @@ export class FirestoreService {
    * Otherwise a new chat will be created
    */
   createDmChat() {
-    // FIXME Avoid sending message to my own
-
     this.getDirectmessages();
     this.checkExistingDmChat();
 
@@ -237,16 +235,17 @@ export class FirestoreService {
   }
 
   /**
-   * CRUD => READ
-   * 1. Gets the data from the users collection
-   * 2. Updates the local variable allUsers
+   * Gets all users except the current logged in user
+   * Needed for direct messages
    */
-  getAllUsers() {
+  getAllOtherUsers() {
+    const authService = this.injector.get(AuthService);
+
     this.firestore
       .collection('users')
       .valueChanges()
       .subscribe((changes: any) => {
-        this.allUsers = changes;
+        this.allOtherUsers = changes.filter(user => user.uid !== authService.userData.uid);
       });
   }
 

@@ -16,7 +16,7 @@
 
             <ul class="menu-items">
                 Users
-                <li *ngFor="let user of this.firestoreService.allUsers" (click)="openDirectMessage('/chat/dm/', user.uid)">
+                <li *ngFor="let user of this.firestoreService.allOtherUsers" (click)="openDirectMessage('/chat/dm/', user.uid)">
                     {{ user.displayName }}
                 </li>
             </ul>
