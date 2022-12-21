@@ -111,11 +111,13 @@ export class FirestoreService {
    * Otherwise a new chat will be created
    */
   createDmChat() {
+    // FIXME Avoid sending message to my own
+
     this.getDirectmessages();
     this.checkExistingDmChat();
 
     if (this.dmChatExists) {
-      this.postDirectmessages(this.dmId);
+      this.postDirectmessages();
     } else {
       this.firestore
         .collection('directmessages')
@@ -124,7 +126,7 @@ export class FirestoreService {
           messages: [],
         })
         .then(() => {
-          this.postDirectmessages(this.dmId);
+          this.postDirectmessages();
         });
     }
   }
@@ -136,23 +138,24 @@ export class FirestoreService {
     const authService = this.injector.get(AuthService);
 
     if (this.directMessages.length == 0) {
-      console.log('chat doesnt exist');
       this.dmChatExists = false;
     } else {
-      this.directMessages.forEach((element) => {
+      for (let i = 0; i < this.directMessages.length; i++) {
         if (
-          element.dmId.includes(authService.userData.uid && this.participantUid)
+          this.directMessages[i].dmId.includes(authService.userData.uid) &&
+          this.directMessages[i].dmId.includes(this.participantUid)
         ) {
           this.dmChatExists = true;
-          this.dmId = element.dmId;
+          this.dmId = this.directMessages[i].dmId;
+          break;
         } else {
           this.dmChatExists = false;
         }
-      });
+      }
     }
   }
 
-  postDirectmessages(dmId: string) {
+  postDirectmessages() {
     const authService = this.injector.get(AuthService);
 
     this.message = new Message({
@@ -163,7 +166,7 @@ export class FirestoreService {
     });
     this.firestore
       .collection('directmessages')
-      .doc(dmId)
+      .doc(this.dmId)
       .update({
         messages: arrayUnion(this.message.toJSON()),
       });
