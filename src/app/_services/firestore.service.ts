@@ -37,7 +37,7 @@ export class FirestoreService {
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
-  ) { }
+  ) {}
 
   getChannel() {
     if (this.channelId) {
@@ -115,7 +115,7 @@ export class FirestoreService {
     this.checkExistingDmChat();
 
     if (this.dmChatExists) {
-      this.postDirectmessages();
+      this.postDirectmessages(this.dmId);
     } else {
       this.firestore
         .collection('directmessages')
@@ -124,7 +124,7 @@ export class FirestoreService {
           messages: [],
         })
         .then(() => {
-          this.postDirectmessages();
+          this.postDirectmessages(this.dmId);
         });
     }
   }
@@ -139,9 +139,12 @@ export class FirestoreService {
       console.log('chat doesnt exist');
       this.dmChatExists = false;
     } else {
-      this.directMessages.forEach(element => {
-        if (element.dmId.includes(authService.userData.uid && this.participantUid)) {
+      this.directMessages.forEach((element) => {
+        if (
+          element.dmId.includes(authService.userData.uid && this.participantUid)
+        ) {
           this.dmChatExists = true;
+          this.dmId = element.dmId;
         } else {
           this.dmChatExists = false;
         }
@@ -149,7 +152,7 @@ export class FirestoreService {
     }
   }
 
-  postDirectmessages() {
+  postDirectmessages(dmId: string) {
     const authService = this.injector.get(AuthService);
 
     this.message = new Message({
@@ -160,7 +163,7 @@ export class FirestoreService {
     });
     this.firestore
       .collection('directmessages')
-      .doc(this.dmId)
+      .doc(dmId)
       .update({
         messages: arrayUnion(this.message.toJSON()),
       });
