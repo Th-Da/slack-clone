@@ -19,6 +19,7 @@ export class DirectMessageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setDmChatId();
+    this.firestoreService.updateDirectChat();
   }
 
   /**

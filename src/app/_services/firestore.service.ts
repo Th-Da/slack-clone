@@ -34,6 +34,8 @@ export class FirestoreService {
   dmId: string; // The unique id of a direct chat consisting of both user ids
   dmInput: string;
   dmChatExists: boolean;
+  participantUser: any;
+  participantUserName: string;
 
   constructor(
     private firestore: AngularFirestore,
@@ -193,6 +195,21 @@ export class FirestoreService {
       .subscribe((changes: any) => {
         this.directMessages = changes;
       });
+  }
+
+  // TODO WIP => Implement Template update
+  updateDirectChat() {
+    this.getParticipantUser();
+  }
+
+  /**
+   * Gets the participant user and it's displayName
+   */
+  getParticipantUser() {
+    this.firestore.collection('users').doc(this.participantUid).valueChanges().subscribe((changes) => {
+      this.participantUser = changes;
+      this.participantUserName = this.participantUser.displayName;
+    })
   }
 
   deleteMessage() {

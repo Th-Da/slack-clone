@@ -37,6 +37,7 @@ export class ChatComponent implements OnInit {
       .navigate([url + this.authService.userData.uid + '-' + uid])
       .then(() => {
         this.firestoreService.dmId = this.authService.userData.uid + '-' + uid;
+        this.firestoreService.updateDirectChat();
       });
   }
 
