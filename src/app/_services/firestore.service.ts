@@ -24,9 +24,10 @@ export class FirestoreService {
   chat: any;
   messages: any = [];
   newMessages: any = [];
+  oldMessages: any = [];
   currentMessage: any;
   indexOfMessage: number;
-
+  messageToDelete: any;
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
@@ -41,7 +42,7 @@ export class FirestoreService {
         .valueChanges()
         .subscribe((channel: any) => {
           this.channel = channel;
-          console.log('Retrieved channel:', this.channel);
+          //console.log('Retrieved channel:', this.channel);
         });
     } else {
       console.log('no channelId on getChannel()!');
@@ -96,7 +97,6 @@ export class FirestoreService {
   renderChat() {
     this.messages = [];
     this.messages = this.chat.messages;
-    console.log(this.messages);
   }
 
   deleteMessage() {
@@ -111,7 +111,6 @@ export class FirestoreService {
   }
 
   deleteAllMessagesOfChat() {
-    this.newMessages = this.messages;
     for (let i = 0; i < this.messages.length; i++) {
       const element = this.messages[i];
       this.firestore
@@ -123,12 +122,13 @@ export class FirestoreService {
     }
   }
 
-  saveMessage() {
-    this.newMessages[this.indexOfMessage] = this.currentMessage;
-
+  async saveMessage() {
+    //this.newMessages[this.indexOfMessage] = this.currentMessage;
+    this.newMessages.splice(this.indexOfMessage, 1, this.currentMessage)
+    console.log('NEW Messages: ', this.newMessages);
+    await this.deleteAllMessagesOfChat();
     for (let i = 0; i < this.newMessages.length; i++) {
       const element = this.newMessages[i];
-      console.log('New messages on firestore: ' ,element)
       this.firestore
       .collection('channels')
       .doc(this.channelId)
@@ -137,6 +137,19 @@ export class FirestoreService {
       });
       
     }
+    await this.updateChat();
+    this.removeFirstItemOnFirestore();
+  }
+
+
+  removeFirstItemOnFirestore() {
+    console.log('messageToDelete: ', this.messageToDelete);
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .update({
+        messages: arrayRemove(this.messageToDelete) 
+      });
     this.updateChat();
   }
   
