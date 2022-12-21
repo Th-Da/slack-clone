@@ -24,18 +24,18 @@ export class FirestoreService {
   chat: any;
   messages: any = [];
   newMessages: any = [];
-  oldMessages: any = [];
   currentMessage: any;
   indexOfMessage: number;
-  messageToDelete: any;
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
   ) { }
 
 
+/**
+ * get the correct document from firestore DB and save the content in the chanel variable
+ */
   getChannel() {
-    if (this.channelId) {
       this.firestore
         .collection('channels')
         .doc(this.channelId)
@@ -44,21 +44,21 @@ export class FirestoreService {
           this.channel = channel;
           //console.log('Retrieved channel:', this.channel);
         });
-    } else {
-      console.log('no channelId on getChannel()!');
-    }
   }
 
+
+  /**
+   * 1. saves a new message in the firestore document in the messages array.
+   * 2. updates the chat.
+   */
   postMessage() {
     const authService = this.injector.get(AuthService);
-
     this.message = new Message({
       uid: authService.userData.uid,
       displayName: authService.userData.displayName,
       photoURL: authService.userData.photoURL,
       message: this.input
     });
-    console.log('Adding message', this.message);
     this.firestore
       .collection('channels')
       .doc(this.channelId)
@@ -68,6 +68,10 @@ export class FirestoreService {
     this.updateChat();
   }
 
+
+  /**
+   * get all documents from the firestore collection ('channels') and save the content in the chanel variable
+   */
   getAllChannels() {
     this.firestore
       .collection('channels')
@@ -77,10 +81,14 @@ export class FirestoreService {
       });
   }
 
+
+  /**
+   * 1. empty the input at textarea.
+   * 2. get the data from the firestore document 
+   */
   updateChat() {
+    this.input = '';
     this.getChannel();
-    if (this.channelId) {
-      this.input = '';
       this.firestore
       .collection('channels')
       .doc(this.channelId)
@@ -89,9 +97,6 @@ export class FirestoreService {
         this.chat = changes;
         this.renderChat();
       });
-    } else {
-      console.log('no channelId on updateChat()!');
-    }
   }
 
   renderChat() {
@@ -99,6 +104,10 @@ export class FirestoreService {
     this.messages = this.chat.messages;
   }
 
+
+  /**
+   * removes an element from the messages array on the firestore document.
+   */
   deleteMessage() {
     this.firestore
       .collection('channels')
@@ -110,9 +119,14 @@ export class FirestoreService {
     console.log('message deleted!', this.currentMessage);
   }
 
+
+  /**
+   * removes all elements from the messages array on the firestore document.
+   */
   deleteAllMessagesOfChat() {
     for (let i = 0; i < this.messages.length; i++) {
       const element = this.messages[i];
+      console.log('deletet message: ', element);
       this.firestore
       .collection('channels')
       .doc(this.channelId)
@@ -122,37 +136,25 @@ export class FirestoreService {
     }
   }
 
-  async saveMessage() {
-    //this.newMessages[this.indexOfMessage] = this.currentMessage;
-    this.newMessages.splice(this.indexOfMessage, 1, this.currentMessage)
-    console.log('NEW Messages: ', this.newMessages);
-    await this.deleteAllMessagesOfChat();
-    for (let i = 0; i < this.newMessages.length; i++) {
-      const element = this.newMessages[i];
-      this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .update({
-        messages: arrayUnion(element) 
-      });
-      
-    }
-    await this.updateChat();
-    this.removeFirstItemOnFirestore();
+
+  /**
+   * 1. saves all messages (incl. the edited message) in the firestore document in the messages array.
+   * 
+   */
+  saveMessage() {
+      this.newMessages.splice(this.indexOfMessage, 1, this.currentMessage)
+      for (let i = 0; i < this.newMessages.length; i++) {
+        const element = this.newMessages[i];
+        this.firestore
+        .collection('channels')
+        .doc(this.channelId)
+        .update({
+          messages: arrayUnion(element) 
+        });      
+      }
+      this.updateChat();
   }
 
-
-  removeFirstItemOnFirestore() {
-    console.log('messageToDelete: ', this.messageToDelete);
-    this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .update({
-        messages: arrayRemove(this.messageToDelete) 
-      });
-    this.updateChat();
-  }
-  
 
   /**
    * CRUD => READ
