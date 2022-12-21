@@ -3,9 +3,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from '../_models/user.class';
 import { Message } from '../_models/message.class';
 import { Channel } from '../_models/channel.class';
-import { arrayUnion, arrayRemove, endBefore } from 'firebase/firestore';
+import { arrayUnion, arrayRemove } from 'firebase/firestore';
 import { AuthService } from './auth.service';
-import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +28,7 @@ export class FirestoreService {
 
   directMessages: any; // All direct messages from firestore
   directmessagesId: any;
+  participantUid: string;
   dmId: string; // The unique id of a direct chat consisting of both user ids
   dmInput: string;
   dmChatExists: boolean;
@@ -133,16 +133,16 @@ export class FirestoreService {
    * Checks if a dm chat already exists in the Firestore with a specific id
    */
   checkExistingDmChat() {
+    const authService = this.injector.get(AuthService);
+
     if (this.directMessages.length == 0) {
       console.log('chat doesnt exist');
       this.dmChatExists = false;
     } else {
       this.directMessages.forEach(element => {
-        if (element.dmId == this.dmId) {
-          console.log('chat exists');
+        if (element.dmId.includes(authService.userData.uid && this.participantUid)) {
           this.dmChatExists = true;
         } else {
-          console.log('chat doesnt exist');
           this.dmChatExists = false;
         }
       });

@@ -20,6 +20,7 @@ export class DirectMessageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap) => {
       this.firestoreService.dmId = paramMap.get('uid');
+      this.firestoreService.participantUid = paramMap.get('uid').split('-')[1];
     });
   }
 }
