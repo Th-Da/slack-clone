@@ -30,6 +30,7 @@ export class FirestoreService {
 
   // ################################################# Direct messages 
   directMessages: any; // All direct messages from firestore
+  directChatMessages: Array<any>; // The messages array from one single chat
   participantUid: string;
   dmId: string; // The unique id of a direct chat consisting of both user ids
   dmInput: string;
@@ -197,9 +198,12 @@ export class FirestoreService {
       });
   }
 
-  // TODO WIP => Implement Template update
+  /**
+   * Updates the current chat when you click on a direct chat or reload it
+   */
   updateDirectChat() {
     this.getParticipantUser();
+    this.getDirectChatMessages();
   }
 
   /**
@@ -209,6 +213,18 @@ export class FirestoreService {
     this.firestore.collection('users').doc(this.participantUid).valueChanges().subscribe((changes) => {
       this.participantUser = changes;
       this.participantUserName = this.participantUser.displayName;
+    })
+  }
+
+  /**
+   * Fetches the current document of the chat from the Firestore and stores the messages array local
+   */
+  getDirectChatMessages() {
+    let currentDirectMessage;
+
+    this.firestore.collection('directmessages').doc(this.dmId).valueChanges().subscribe((changes) => {
+      currentDirectMessage = changes;
+      this.directChatMessages = currentDirectMessage.messages;
     })
   }
 

@@ -5,7 +5,7 @@
         <mat-card class="message" *ngFor="let message of this.firestoreService.messages">
             <div class="post-headline">
 
-                <img class="profile" src="{{ message.photoURL }}" alt=""> {{ message.displayName }}
+                <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}"> <span>{{ message.displayName }}</span>
 
                 <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
                     <mat-icon>more_vert</mat-icon>

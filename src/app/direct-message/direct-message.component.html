@@ -2,9 +2,9 @@
     <h2>{{ this.firestoreService.participantUserName}}</h2>
 
     <div class="massages" id="messageBox">
-        <mat-card class="message">
+        <mat-card class="message" *ngFor="let message of this.firestoreService.directChatMessages">
             <div class="post-headline">
-                <img class="profile" src="" alt="" /> displayName
+                <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" /> <span>{{ message.displayName }}</span>
 
                 <button mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
           <mat-icon>more_vert</mat-icon>
@@ -14,7 +14,7 @@
                     <button mat-menu-item>Delete</button>
                 </mat-menu>
             </div>
-            <div>message</div>
+            <div>{{ message.message }}</div>
         </mat-card>
     </div>
 
