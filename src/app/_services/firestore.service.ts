@@ -50,17 +50,16 @@ export class FirestoreService {
    * get the correct document from firestore DB and save the content in the chanel variable
    */
   getChannel() {
-    if (this.channelId) {
-      this.firestore
-        .collection('channels')
-        .doc(this.channelId)
-        .valueChanges()
-        .subscribe((channel: any) => {
-          this.channel = channel;
-          //console.log('Retrieved channel:', this.channel);
-        });
-    }
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .valueChanges()
+      .subscribe((channel: any) => {
+        this.channel = channel;
+        //console.log('Retrieved channel:', this.channel);
+      });
   }
+
 
   /**
    * 1. saves a new message in the firestore document in the messages array.
@@ -102,19 +101,14 @@ export class FirestoreService {
   updateChat() {
     this.messageInput = '';
     this.getChannel();
-    if (this.channelId) {
-      this.messageInput = '';
-      this.firestore
-        .collection('channels')
-        .doc(this.channelId)
-        .valueChanges()
-        .subscribe((changes: any) => {
-          this.chat = changes;
-          this.renderChat();
-        });
-    } else {
-      console.log('no channelId on updateChat()!');
-    }
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .valueChanges()
+      .subscribe((changes: any) => {
+        this.chat = changes;
+        this.renderChat();
+      });
   }
 
   renderChat() {
@@ -283,24 +277,23 @@ export class FirestoreService {
         .collection('channels')
         .doc(this.channelId)
         .update({
-          messages: arrayRemove(element),
+          messages: arrayRemove(element)
         });
     }
   }
 
   /**
-   * 1. saves all messages (incl. the edited message) in the firestore document in the messages array.
-   *
+   * Saves all messages (incl. the edited message) in the firestore document in the messages array.
    */
   saveMessage() {
-    this.newMessages.splice(this.indexOfMessage, 1, this.currentMessage);
+    this.newMessages.splice(this.indexOfMessage, 1, this.currentMessage)
     for (let i = 0; i < this.newMessages.length; i++) {
       const element = this.newMessages[i];
       this.firestore
         .collection('channels')
         .doc(this.channelId)
         .update({
-          messages: arrayUnion(element),
+          messages: arrayUnion(element)
         });
     }
     this.updateChat();
@@ -309,8 +302,8 @@ export class FirestoreService {
 
 
   /**
-   * Gets all users except the current logged in user
-   * Needed for direct messages
+   * 1. Gets the data from the users collection
+   * 2. Updates the local variable allUsers
    */
   getAllOtherUsers() {
     const authService = this.injector.get(AuthService);
