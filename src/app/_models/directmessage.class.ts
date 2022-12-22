@@ -1,4 +1,4 @@
-export class Message {
+export class Directmessage {
   uid: string;
   displayName: string;
   photoURL: string;
@@ -19,7 +19,7 @@ export class Message {
     return {
       uid: this.uid,
       displayName: this.displayName,
-      photoURL: this.photoURL || './../../../assets/img/blank_user.svg',
+      photoURL: this.photoURL,
       message: this.message,
     };
   }

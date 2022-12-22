@@ -43,8 +43,6 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user')!);
       }
     });
-
-    this.firestoreService.getAllUsers();
   }
 
   /**

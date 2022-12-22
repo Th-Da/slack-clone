@@ -20,16 +20,25 @@ export class ChatComponent implements OnInit {
     public dialog: MatDialog
   ) { }
 
-
   ngOnInit(): void {
+    this.firestoreService.getAllOtherUsers();
     this.firestoreService.getAllChannels();
+    this.firestoreService.getDirectMessages();
   }
 
   openChat(url, id) {
-    this.router.navigate([url + id])
-    .then(() => {
+    this.router.navigate([url + id]).then(() => {
       this.firestoreService.updateChat();
     });
+  }
+
+  openDirectMessage(url, uid) {
+    this.router
+      .navigate([url + this.authService.userData.uid + '-' + uid])
+      .then(() => {
+        this.firestoreService.dmId = this.authService.userData.uid + '-' + uid;
+        this.firestoreService.updateDirectChat();
+      });
   }
 
   openDialog() {
