@@ -1,13 +1,12 @@
 <div class="chatroom">
     <h2>{{ this.firestoreService.participantUserName}}</h2>
-
     <div class="massages" id="messageBox">
         <mat-card class="message" *ngFor="let message of this.firestoreService.directChatMessages">
             <div class="post-headline">
                 <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" /> <span>{{ message.displayName }}</span>
 
                 <button mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
-          <mat-icon>more_vert</mat-icon>
+        <mat-icon>more_vert</mat-icon>
         </button>
                 <mat-menu #userMenu="matMenu">
                     <button mat-menu-item>Edit</button>
@@ -17,14 +16,11 @@
             <div>{{ message.message }}</div>
         </mat-card>
     </div>
-
-    <div class="message-container">
+    <form [formGroup]="directMessageForm" (submit)="onSubmit()" class="message-container">
         <mat-form-field appearance="fill">
             <mat-label>Your Message</mat-label>
-            <textarea [(ngModel)]="this.firestoreService.dmInput" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
+            <textarea formControlName="directMessage" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
         </mat-form-field>
-        <button mat-raised-button (click)="this.firestoreService.postDirectMessage()">
-      Post
-    </button>
-    </div>
+        <button type="submit" mat-raised-button>Post</button>
+    </form>
 </div>
