@@ -63,4 +63,8 @@ export class DirectMessageComponent implements OnInit {
       this.messageInput.nativeElement.value = '';
     }
   }
+
+  dialogEditMessage(message) {}
+
+  dialogDeleteMessage(message) {}
 }

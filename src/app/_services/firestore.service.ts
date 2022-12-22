@@ -39,6 +39,9 @@ export class FirestoreService {
   participantUser: any;
   participantUserName: string;
   test$;
+  currentMessageDM: any;
+  newMessagesDM: any = [];
+  indexOfMessageDM: number;
 
   constructor(
     private firestore: AngularFirestore,
@@ -265,6 +268,21 @@ export class FirestoreService {
     this.updateChat();
     console.log('message deleted!', this.currentMessage);
   }
+  
+
+  /**
+   * removes an element from the messages array on the firestore document.
+   */
+  deleteMessageDM() {
+    this.firestore
+      .collection('directmessages')
+      .doc(this.dmId)
+      .update({
+        messages: arrayRemove(this.currentMessageDM),
+      });
+    this.updateChat();
+    console.log('message deleted!', this.currentMessageDM);
+  }
 
   /**
    * removes all elements from the messages array on the firestore document.
@@ -281,6 +299,23 @@ export class FirestoreService {
         });
     }
   }
+  
+
+  /**
+   * removes all elements from the messages array on the firestore document.
+   */
+  deleteAllMessagesOfChatDM() {
+    for (let i = 0; i < this.directChatMessages.length; i++) {
+      const element = this.directChatMessages[i];
+      console.log('deletet message: ', element);
+      this.firestore
+        .collection('directmessages')
+        .doc(this.dmId)
+        .update({
+          messages: arrayRemove(element)
+        });
+    }
+  }
 
   /**
    * Saves all messages (incl. the edited message) in the firestore document in the messages array.
@@ -292,6 +327,24 @@ export class FirestoreService {
       this.firestore
         .collection('channels')
         .doc(this.channelId)
+        .update({
+          messages: arrayUnion(element)
+        });
+    }
+    this.updateChat();
+  }
+  
+
+  /**
+   * Saves all messages (incl. the edited message) in the firestore document in the messages array.
+   */
+  saveMessageDM() {
+    this.newMessagesDM.splice(this.indexOfMessageDM, 1, this.currentMessageDM)
+    for (let i = 0; i < this.newMessagesDM.length; i++) {
+      const element = this.newMessagesDM[i];
+      this.firestore
+        .collection('directmessages')
+        .doc(this.dmId)
         .update({
           messages: arrayUnion(element)
         });

@@ -1,55 +1,27 @@
 <div class="chatroom">
-  <h2>{{ this.firestoreService.participantUserName }}</h2>
-  <div
-    *ngIf="this.firestoreService.directChatMessages"
-    class="massages"
-    id="messageBox"
-  >
-    <mat-card
-      class="message"
-      *ngFor="let message of this.firestoreService.directChatMessages"
-    >
-      <div class="post-headline">
-        <img
-          class="profile"
-          src="{{ message.photoURL }}"
-          alt="{{ message.displayName }}"
-        />
-        <span>{{ message.displayName }}</span>
+    <h2>{{ this.firestoreService.participantUserName }}</h2>
+    <div *ngIf="this.firestoreService.directChatMessages" class="massages" id="messageBox">
+        <mat-card class="message" *ngFor="let message of this.firestoreService.directChatMessages">
+            <div class="post-headline">
+                <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
+                <span>{{ message.displayName }}</span>
 
-        <button
-          mat-icon-button
-          class="pin-right-upper-corner"
-          [matMenuTriggerFor]="userMenu"
-        >
+                <button mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
           <mat-icon>more_vert</mat-icon>
         </button>
-        <mat-menu #userMenu="matMenu">
-          <button mat-menu-item>Edit</button>
-          <button mat-menu-item>Delete</button>
-        </mat-menu>
-      </div>
-      <div>{{ message.message }}</div>
-    </mat-card>
-  </div>
-  <form
-    [formGroup]="directMessageForm"
-    (submit)="onSubmit()"
-    class="message-container"
-  >
-    <mat-form-field appearance="fill">
-      <mat-label>Your Message</mat-label>
-      <textarea
-        formControlName="directMessage"
-        minlength="1"
-        #messageInput
-        matInput
-        cdkTextareaAutosize
-        #autosize="cdkTextareaAutosize"
-        cdkAutosizeMinRows="5"
-        cdkAutosizeMaxRows="10"
-      ></textarea>
-    </mat-form-field>
-    <button type="submit" mat-raised-button>Post</button>
-  </form>
+                <mat-menu #userMenu="matMenu">
+                    <button mat-menu-item (click)="this.dialogEditMessage(message)">Edit</button>
+                    <button mat-menu-item (click)="this.dialogDeleteMessage(message)">Delete</button>
+                </mat-menu>
+            </div>
+            <div>{{ message.message }}</div>
+        </mat-card>
+    </div>
+    <form [formGroup]="directMessageForm" (submit)="onSubmit()" class="message-container">
+        <mat-form-field appearance="fill">
+            <mat-label>Your Message</mat-label>
+            <textarea formControlName="directMessage" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
+        </mat-form-field>
+        <button type="submit" mat-raised-button>Post</button>
+    </form>
 </div>
