@@ -22,12 +22,12 @@
     </div>
 
 
-    <div class="message-container">
+    <form [formGroup]="messageForm" (submit)="onSubmit()" class="message-container">
         <mat-form-field appearance="fill">
             <mat-label>Your Message</mat-label>
-            <textarea [(ngModel)]="this.firestoreService.input" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
+            <textarea formControlName="message" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
         </mat-form-field>
-        <button mat-raised-button (click)="this.firestoreService.postMessage()">Post</button>
-    </div>
+        <button type="submit" mat-raised-button>Post</button>
+    </form>
 
 </div>

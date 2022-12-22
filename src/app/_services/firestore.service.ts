@@ -17,7 +17,7 @@ export class FirestoreService {
   // ################################################# Channels & Messages
   allChannels: any;
   channelId: any = '';
-  input: any;
+  messageInput: any;
   channel: Channel = new Channel();
   user: User;
   newMessage: any;
@@ -65,7 +65,7 @@ export class FirestoreService {
       uid: authService.userData.uid,
       displayName: authService.userData.displayName,
       photoURL: authService.userData.photoURL,
-      message: this.input,
+      message: this.messageInput,
     });
     console.log('Adding message', this.message);
     this.firestore
@@ -89,7 +89,7 @@ export class FirestoreService {
   updateChat() {
     this.getChannel();
     if (this.channelId) {
-      this.input = '';
+      this.messageInput = '';
       this.firestore
         .collection('channels')
         .doc(this.channelId)

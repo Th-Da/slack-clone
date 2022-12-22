@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogDeleteMessageComponent } from '../dialog-delete-message/dialog-delete-message.component';
@@ -13,8 +14,8 @@ import { FirestoreService } from '../_services/firestore.service';
   styleUrls: ['./chatroom.component.scss'],
 })
 export class ChatroomComponent implements OnInit {
-  channelId: any = '';
-  input: any;
+  messageForm: FormGroup;
+  @ViewChild('messageInput') messageInput;
 
   constructor(
     public authService: AuthService,
@@ -22,15 +23,32 @@ export class ChatroomComponent implements OnInit {
     public router: Router,
     public dialogRef: MatDialog,
     public firestoreService: FirestoreService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
       this.firestoreService.channelId = paramMap.get('id');
       console.log('GOT ID:', this.firestoreService.channelId);
     });
+
+    this.messageForm = this.fb.group({
+      message: ['', [Validators.minLength(1)]],
+    });
+
     this.firestoreService.updateChat();
+  }
+
+  /**
+   * Submits the message form
+   */
+  onSubmit() {
+    if (this.messageForm.valid) {
+      this.firestoreService.messageInput = this.messageForm.value.message;
+      this.firestoreService.postMessage();
+      this.messageInput.nativeElement.value = '';
+    }
   }
 
   dialogDeleteMessage(message) {
