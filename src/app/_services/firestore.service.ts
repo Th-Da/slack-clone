@@ -43,8 +43,7 @@ export class FirestoreService {
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
-  ) { }
-
+  ) {}
 
   /**
    * get the correct document from firestore DB and save the content in the chanel variable
@@ -92,6 +91,7 @@ export class FirestoreService {
       .valueChanges({ idField: 'customIdName' })
       .subscribe((changes: any) => {
         this.allChannels = changes;
+        console.log(this.allChannels);
       });
   }
 
@@ -121,7 +121,6 @@ export class FirestoreService {
     this.messages = [];
     this.messages = this.chat.messages;
   }
-
 
   /**
    * Triggered as soon as a message is sent
@@ -305,8 +304,6 @@ export class FirestoreService {
     }
     this.updateChat();
   }
-
-
 
   /**
    * Gets all users except the current logged in user
