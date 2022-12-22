@@ -266,7 +266,6 @@ export class FirestoreService {
         messages: arrayRemove(this.currentMessage),
       });
     this.updateChat();
-    console.log('message deleted!', this.currentMessage);
   }
   
 
@@ -274,14 +273,13 @@ export class FirestoreService {
    * removes an element from the messages array on the firestore document.
    */
   deleteMessageDM() {
-    this.firestore
+      this.firestore
       .collection('directmessages')
       .doc(this.dmId)
       .update({
         messages: arrayRemove(this.currentMessageDM),
       });
-    this.updateChat();
-    console.log('message deleted!', this.currentMessageDM);
+    this.updateDirectChat();
   }
 
   /**
@@ -290,7 +288,6 @@ export class FirestoreService {
   deleteAllMessagesOfChat() {
     for (let i = 0; i < this.messages.length; i++) {
       const element = this.messages[i];
-      console.log('deletet message: ', element);
       this.firestore
         .collection('channels')
         .doc(this.channelId)
@@ -307,7 +304,6 @@ export class FirestoreService {
   deleteAllMessagesOfChatDM() {
     for (let i = 0; i < this.directChatMessages.length; i++) {
       const element = this.directChatMessages[i];
-      console.log('deletet message: ', element);
       this.firestore
         .collection('directmessages')
         .doc(this.dmId)
@@ -349,7 +345,7 @@ export class FirestoreService {
           messages: arrayUnion(element)
         });
     }
-    this.updateChat();
+    this.updateDirectChat();
   }
 
 

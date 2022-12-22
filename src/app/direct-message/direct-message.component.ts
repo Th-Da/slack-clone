@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { DialogDeleteDirectmessageComponent } from '../dialog-delete-directmessage/dialog-delete-directmessage.component';
+import { DialogEditDirectmessageComponent } from '../dialog-edit-directmessage/dialog-edit-directmessage.component';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
 
@@ -20,6 +22,7 @@ export class DirectMessageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialogRef: MatDialog,
+    public dialog: MatDialog,
     public firestoreService: FirestoreService,
     private fb: FormBuilder
   ) {}
@@ -64,7 +67,16 @@ export class DirectMessageComponent implements OnInit {
     }
   }
 
-  dialogEditMessage(message) {}
+  dialogEditMessageDM(message) {
+    this.firestoreService.indexOfMessageDM = this.firestoreService.directChatMessages.indexOf(message);
+    this.firestoreService.currentMessageDM = message;
+    this.firestoreService.newMessagesDM = this.firestoreService.directChatMessages;
+    this.firestoreService.deleteMessageDM();
+    this.dialog.open(DialogEditDirectmessageComponent, { disableClose: true });
+  }
 
-  dialogDeleteMessage(message) {}
+  dialogDeleteMessageDM(message) {
+    this.firestoreService.currentMessageDM = message;
+    this.dialog.open(DialogDeleteDirectmessageComponent);
+  }
 }

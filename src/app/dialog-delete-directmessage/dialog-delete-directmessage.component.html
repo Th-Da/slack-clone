@@ -1,0 +1,5 @@
+<mat-form-field appearance="fill">
+    <mat-label>Delete your message?</mat-label>
+    <textarea readonly [(ngModel)]="this.firestoreService.currentMessageDM.message" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
+</mat-form-field>
+<button mat-raised-button (click)="this.firestoreService.deleteMessageDM(); this.dialogRef.close()">Yes</button>
