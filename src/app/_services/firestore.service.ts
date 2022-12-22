@@ -5,6 +5,7 @@ import { Message } from '../_models/message.class';
 import { Channel } from '../_models/channel.class';
 import { arrayUnion, arrayRemove } from 'firebase/firestore';
 import { AuthService } from './auth.service';
+import { lastValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +29,7 @@ export class FirestoreService {
   currentMessage: any;
   indexOfMessage: number;
 
-  // ################################################# Direct messages 
+  // ################################################# Direct messages
   directMessages: any; // All direct messages from firestore
   directChatMessages: Array<any>; // The messages array from one single chat
   participantUid: string;
@@ -37,11 +38,12 @@ export class FirestoreService {
   dmChatExists: boolean;
   participantUser: any;
   participantUserName: string;
+  test$;
 
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
-  ) { }
+  ) {}
 
   getChannel() {
     if (this.channelId) {
@@ -126,7 +128,7 @@ export class FirestoreService {
   }
 
   /**
-   * Creates a new entry in the Firestore 
+   * Creates a new entry in the Firestore
    * Document id = userId1-userId2
    */
   createDirectMessage() {
@@ -147,26 +149,30 @@ export class FirestoreService {
   checkExistingDmChat() {
     const authService = this.injector.get(AuthService);
 
-    if (this.directMessages.length == 0) {
-      this.dmChatExists = false;
-    } else {
-      for (let i = 0; i < this.directMessages.length; i++) {
-        if (
-          this.directMessages[i].dmId.includes(authService.userData.uid) &&
-          this.directMessages[i].dmId.includes(this.participantUid)
-        ) {
-          this.dmChatExists = true;
-          this.dmId = this.directMessages[i].dmId;
-          break;
-        } else {
-          this.dmChatExists = false;
+    if (this.directMessages) {
+      if (this.directMessages.length == 0) {
+        this.dmChatExists = false;
+        this.directChatMessages = [];
+      } else {
+        for (let i = 0; i < this.directMessages.length; i++) {
+          if (
+            this.directMessages[i].dmId.includes(authService.userData.uid) &&
+            this.directMessages[i].dmId.includes(this.participantUid)
+          ) {
+            this.dmChatExists = true;
+            this.dmId = this.directMessages[i].dmId;
+            break;
+          } else {
+            this.dmChatExists = false;
+            this.directChatMessages = [];
+          }
         }
       }
     }
   }
 
   /**
-   * Updates an already existing chat in the Firestore 
+   * Updates an already existing chat in the Firestore
    * With arrayUnion the new message is added to the end of the existing array
    */
   updateDirectMessage() {
@@ -202,6 +208,8 @@ export class FirestoreService {
    * Updates the current chat when you click on a direct chat or reload it
    */
   updateDirectChat() {
+    this.getDirectMessages(); // FIXME Need to wait for this to finish
+    this.checkExistingDmChat();
     this.getParticipantUser();
     this.getDirectChatMessages();
   }
@@ -210,10 +218,14 @@ export class FirestoreService {
    * Gets the participant user and it's displayName
    */
   getParticipantUser() {
-    this.firestore.collection('users').doc(this.participantUid).valueChanges().subscribe((changes) => {
-      this.participantUser = changes;
-      this.participantUserName = this.participantUser.displayName;
-    })
+    this.firestore
+      .collection('users')
+      .doc(this.participantUid)
+      .valueChanges()
+      .subscribe((changes) => {
+        this.participantUser = changes;
+        this.participantUserName = this.participantUser.displayName;
+      });
   }
 
   /**
@@ -222,10 +234,16 @@ export class FirestoreService {
   getDirectChatMessages() {
     let currentDirectMessage;
 
-    this.firestore.collection('directmessages').doc(this.dmId).valueChanges().subscribe((changes) => {
-      currentDirectMessage = changes;
-      this.directChatMessages = currentDirectMessage.messages;
-    })
+    this.firestore
+      .collection('directmessages')
+      .doc(this.dmId)
+      .valueChanges()
+      .subscribe((changes) => {
+        if (changes) {
+          currentDirectMessage = changes;
+          this.directChatMessages = currentDirectMessage.messages;
+        }
+      });
   }
 
   deleteMessage() {
@@ -279,7 +297,9 @@ export class FirestoreService {
       .collection('users')
       .valueChanges()
       .subscribe((changes: any) => {
-        this.allOtherUsers = changes.filter(user => user.uid !== authService.userData.uid);
+        this.allOtherUsers = changes.filter(
+          (user) => user.uid !== authService.userData.uid
+        );
       });
   }
 
