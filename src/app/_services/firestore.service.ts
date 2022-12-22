@@ -43,12 +43,12 @@ export class FirestoreService {
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
-  ) {}
+  ) { }
 
 
-/**
- * get the correct document from firestore DB and save the content in the chanel variable
- */
+  /**
+   * get the correct document from firestore DB and save the content in the chanel variable
+   */
   getChannel() {
     if (this.channelId) {
       this.firestore
@@ -59,6 +59,7 @@ export class FirestoreService {
           this.channel = channel;
           //console.log('Retrieved channel:', this.channel);
         });
+    }
   }
 
   /**
@@ -99,7 +100,7 @@ export class FirestoreService {
    * 2. get the data from the firestore document
    */
   updateChat() {
-    this.input = '';
+    this.messageInput = '';
     this.getChannel();
     if (this.channelId) {
       this.messageInput = '';
@@ -121,275 +122,6 @@ export class FirestoreService {
     this.messages = this.chat.messages;
   }
 
-  /**
-   * Triggered as soon as a message is sent
-   * If a chat between two users already exists, the existing one will be updated
-   * Otherwise a new chat will be created
-   */
-  postDirectMessage() {
-    this.getDirectMessages();
-    this.checkExistingDmChat();
-
-    if (this.dmChatExists) {
-      this.updateDirectMessage();
-    } else {
-      this.createDirectMessage();
-    }
-  }
-
-  /**
-   * Creates a new entry in the Firestore
-   * Document id = userId1-userId2
-   */
-  createDirectMessage() {
-    this.firestore
-      .collection('directmessages')
-      .doc(this.dmId)
-      .set({
-        messages: [],
-      })
-      .then(() => {
-        this.updateDirectMessage();
-      });
-  }
-
-  /**
-   * Checks if a dm chat already exists in the Firestore with a specific id
-   */
-  checkExistingDmChat() {
-    const authService = this.injector.get(AuthService);
-
-    if (this.directMessages) {
-      if (this.directMessages.length == 0) {
-        this.dmChatExists = false;
-        this.directChatMessages = [];
-      } else {
-        for (let i = 0; i < this.directMessages.length; i++) {
-          if (
-            this.directMessages[i].dmId.includes(authService.userData.uid) &&
-            this.directMessages[i].dmId.includes(this.participantUid)
-          ) {
-            this.dmChatExists = true;
-            this.dmId = this.directMessages[i].dmId;
-            break;
-          } else {
-            this.dmChatExists = false;
-            this.directChatMessages = [];
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * Updates an already existing chat in the Firestore
-   * With arrayUnion the new message is added to the end of the existing array
-   */
-  updateDirectMessage() {
-    const authService = this.injector.get(AuthService);
-
-    this.message = new Message({
-      uid: authService.userData.uid,
-      displayName: authService.userData.displayName,
-      photoURL: authService.userData.photoURL,
-      message: this.dmInput,
-    });
-    this.firestore
-      .collection('directmessages')
-      .doc(this.dmId)
-      .update({
-        messages: arrayUnion(this.message.toJSON()),
-      });
-  }
-
-  /**
-   * Fetches all direct messages from the Firestore and saves it locally
-   */
-  getDirectMessages() {
-    this.firestore
-      .collection('directmessages')
-      .valueChanges({ idField: 'dmId' })
-      .subscribe((changes: any) => {
-        this.directMessages = changes;
-      });
-  }
-
-  /**
-   * Updates the current chat when you click on a direct chat or reload it
-   */
-  updateDirectChat() {
-    this.getDirectMessages(); // FIXME Need to wait for this to finish
-    this.checkExistingDmChat();
-    this.getParticipantUser();
-    this.getDirectChatMessages();
-  }
-
-  /**
-   * Gets the participant user and it's displayName
-   */
-  getParticipantUser() {
-    this.firestore
-      .collection('users')
-      .doc(this.participantUid)
-      .valueChanges()
-      .subscribe((changes) => {
-        this.participantUser = changes;
-        this.participantUserName = this.participantUser.displayName;
-      });
-  }
-
-  /**
-   * Fetches the current document of the chat from the Firestore and stores the messages array local
-   */
-  getDirectChatMessages() {
-    let currentDirectMessage;
-
-    this.firestore
-      .collection('directmessages')
-      .doc(this.dmId)
-      .valueChanges()
-      .subscribe((changes) => {
-        if (changes) {
-          currentDirectMessage = changes;
-          this.directChatMessages = currentDirectMessage.messages;
-        }
-      });
-  }
-
-  /**
-   * Triggered as soon as a message is sent
-   * If a chat between two users already exists, the existing one will be updated
-   * Otherwise a new chat will be created
-   */
-  postDirectMessage() {
-    this.getDirectMessages();
-    this.checkExistingDmChat();
-
-    if (this.dmChatExists) {
-      this.updateDirectMessage();
-    } else {
-      this.createDirectMessage();
-    }
-  }
-
-  /**
-   * Creates a new entry in the Firestore
-   * Document id = userId1-userId2
-   */
-  createDirectMessage() {
-    this.firestore
-      .collection('directmessages')
-      .doc(this.dmId)
-      .set({
-        messages: [],
-      })
-      .then(() => {
-        this.updateDirectMessage();
-      });
-  }
-
-  /**
-   * Checks if a dm chat already exists in the Firestore with a specific id
-   */
-  checkExistingDmChat() {
-    const authService = this.injector.get(AuthService);
-
-    if (this.directMessages) {
-      if (this.directMessages.length == 0) {
-        this.dmChatExists = false;
-        this.directChatMessages = [];
-      } else {
-        for (let i = 0; i < this.directMessages.length; i++) {
-          if (
-            this.directMessages[i].dmId.includes(authService.userData.uid) &&
-            this.directMessages[i].dmId.includes(this.participantUid)
-          ) {
-            this.dmChatExists = true;
-            this.dmId = this.directMessages[i].dmId;
-            break;
-          } else {
-            this.dmChatExists = false;
-            this.directChatMessages = [];
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * Updates an already existing chat in the Firestore
-   * With arrayUnion the new message is added to the end of the existing array
-   */
-  updateDirectMessage() {
-    const authService = this.injector.get(AuthService);
-
-    this.message = new Message({
-      uid: authService.userData.uid,
-      displayName: authService.userData.displayName,
-      photoURL: authService.userData.photoURL,
-      message: this.dmInput,
-    });
-    this.firestore
-      .collection('directmessages')
-      .doc(this.dmId)
-      .update({
-        messages: arrayUnion(this.message.toJSON()),
-      });
-  }
-
-  /**
-   * Fetches all direct messages from the Firestore and saves it locally
-   */
-  getDirectMessages() {
-    this.firestore
-      .collection('directmessages')
-      .valueChanges({ idField: 'dmId' })
-      .subscribe((changes: any) => {
-        this.directMessages = changes;
-      });
-  }
-
-  /**
-   * Updates the current chat when you click on a direct chat or reload it
-   */
-  updateDirectChat() {
-    this.getDirectMessages(); // FIXME Need to wait for this to finish
-    this.checkExistingDmChat();
-    this.getParticipantUser();
-    this.getDirectChatMessages();
-  }
-
-  /**
-   * Gets the participant user and it's displayName
-   */
-  getParticipantUser() {
-    this.firestore
-      .collection('users')
-      .doc(this.participantUid)
-      .valueChanges()
-      .subscribe((changes) => {
-        this.participantUser = changes;
-        this.participantUserName = this.participantUser.displayName;
-      });
-  }
-
-  /**
-   * Fetches the current document of the chat from the Firestore and stores the messages array local
-   */
-  getDirectChatMessages() {
-    let currentDirectMessage;
-
-    this.firestore
-      .collection('directmessages')
-      .doc(this.dmId)
-      .valueChanges()
-      .subscribe((changes) => {
-        if (changes) {
-          currentDirectMessage = changes;
-          this.directChatMessages = currentDirectMessage.messages;
-        }
-      });
-  }
 
   /**
    * Triggered as soon as a message is sent
