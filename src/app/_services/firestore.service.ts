@@ -32,18 +32,18 @@ export class FirestoreService {
   ) { }
 
 
-/**
- * get the correct document from firestore DB and save the content in the chanel variable
- */
+  /**
+   * get the correct document from firestore DB and save the content in the chanel variable
+   */
   getChannel() {
-      this.firestore
-        .collection('channels')
-        .doc(this.channelId)
-        .valueChanges()
-        .subscribe((channel: any) => {
-          this.channel = channel;
-          //console.log('Retrieved channel:', this.channel);
-        });
+    this.firestore
+      .collection('channels')
+      .doc(this.channelId)
+      .valueChanges()
+      .subscribe((channel: any) => {
+        this.channel = channel;
+        //console.log('Retrieved channel:', this.channel);
+      });
   }
 
 
@@ -89,7 +89,7 @@ export class FirestoreService {
   updateChat() {
     this.input = '';
     this.getChannel();
-      this.firestore
+    this.firestore
       .collection('channels')
       .doc(this.channelId)
       .valueChanges()
@@ -128,36 +128,34 @@ export class FirestoreService {
       const element = this.messages[i];
       console.log('deletet message: ', element);
       this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .update({
-        messages: arrayRemove(element) 
-      });
+        .collection('channels')
+        .doc(this.channelId)
+        .update({
+          messages: arrayRemove(element)
+        });
     }
   }
 
 
   /**
-   * 1. saves all messages (incl. the edited message) in the firestore document in the messages array.
-   * 
+   * Saves all messages (incl. the edited message) in the firestore document in the messages array.
    */
   saveMessage() {
-      this.newMessages.splice(this.indexOfMessage, 1, this.currentMessage)
-      for (let i = 0; i < this.newMessages.length; i++) {
-        const element = this.newMessages[i];
-        this.firestore
+    this.newMessages.splice(this.indexOfMessage, 1, this.currentMessage)
+    for (let i = 0; i < this.newMessages.length; i++) {
+      const element = this.newMessages[i];
+      this.firestore
         .collection('channels')
         .doc(this.channelId)
         .update({
-          messages: arrayUnion(element) 
-        });      
-      }
-      this.updateChat();
+          messages: arrayUnion(element)
+        });
+    }
+    this.updateChat();
   }
 
 
   /**
-   * CRUD => READ
    * 1. Gets the data from the users collection
    * 2. Updates the local variable allUsers
    */
