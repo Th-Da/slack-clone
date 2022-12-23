@@ -72,7 +72,9 @@ export class ChatroomComponent implements OnInit {
         let element = this.scrollContainer.nativeElement;
         let scrollHeight = this.scrollContainer.nativeElement.scrollHeight;
 
-        element.scrollTo(0, scrollHeight);
+        setTimeout(() => {
+          element.scrollTo(0, scrollHeight);
+        }, 20);
       }
     }, 1000 / 60);
   }
