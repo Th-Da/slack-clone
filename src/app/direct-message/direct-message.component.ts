@@ -65,8 +65,10 @@ export class DirectMessageComponent implements OnInit {
       .valueChanges({ idField: 'dmId' })
       .subscribe((changes) => {
         this.firestoreService.directMessages = changes;
-        let cache = this.firestoreService.directMessages.find(chat => chat.dmId == this.firestoreService.dmId);
-        this.firestoreService.directChatMessages = cache.messages;
+        if (this.firestoreService.directChatMessages != undefined) {
+          let cache = this.firestoreService.directMessages.find(chat => chat.dmId == this.firestoreService.dmId);
+          this.firestoreService.directChatMessages = cache.messages;
+        }
       });
   }
 
