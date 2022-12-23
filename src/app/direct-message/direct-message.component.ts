@@ -25,13 +25,11 @@ export class DirectMessageComponent implements OnInit {
     public dialog: MatDialog,
     public firestoreService: FirestoreService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.setDmChatId();
     this.firestoreService.updateDirectChat();
-
-    // FIXME Need to wait on getDirectMessages() to finish otherwise after a page reload the directChatMessages Array is undefined
 
     // Subscribe router param to update chat when changing direct message participant
     this.router.events

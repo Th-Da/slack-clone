@@ -5,7 +5,6 @@ import { Message } from '../_models/message.class';
 import { Channel } from '../_models/channel.class';
 import { arrayUnion, arrayRemove } from 'firebase/firestore';
 import { AuthService } from './auth.service';
-import { lastValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +37,6 @@ export class FirestoreService {
   dmChatExists: boolean;
   participantUser: any;
   participantUserName: string;
-  test$;
   currentMessageDM: any;
   newMessagesDM: any = [];
   indexOfMessageDM: number;
@@ -47,7 +45,6 @@ export class FirestoreService {
     private firestore: AngularFirestore,
     private injector: Injector
   ) { }
-
 
   /**
    * get the correct document from firestore DB and save the content in the chanel variable
@@ -59,10 +56,8 @@ export class FirestoreService {
       .valueChanges()
       .subscribe((channel: any) => {
         this.channel = channel;
-        //console.log('Retrieved channel:', this.channel);
       });
   }
-
 
   /**
    * 1. saves a new message in the firestore document in the messages array.
@@ -119,7 +114,6 @@ export class FirestoreService {
     this.messages = this.chat.messages;
   }
 
-
   /**
    * Triggered as soon as a message is sent
    * If a chat between two users already exists, the existing one will be updated
@@ -158,26 +152,30 @@ export class FirestoreService {
   checkExistingDmChat() {
     const authService = this.injector.get(AuthService);
 
-    if (this.directMessages) {
-      if (this.directMessages.length == 0) {
-        this.dmChatExists = false;
-        this.directChatMessages = [];
-      } else {
-        for (let i = 0; i < this.directMessages.length; i++) {
-          if (
-            this.directMessages[i].dmId.includes(authService.userData.uid) &&
-            this.directMessages[i].dmId.includes(this.participantUid)
-          ) {
-            this.dmChatExists = true;
-            this.dmId = this.directMessages[i].dmId;
-            break;
-          } else {
-            this.dmChatExists = false;
-            this.directChatMessages = [];
+    let update = setInterval(() => {
+      if (this.directMessages != undefined) {
+        clearInterval(update);
+
+        if (this.directMessages.length == 0) {
+          this.dmChatExists = false;
+          this.directChatMessages = [];
+        } else {
+          for (let i = 0; i < this.directMessages.length; i++) {
+            if (
+              this.directMessages[i].dmId.includes(authService.userData.uid) &&
+              this.directMessages[i].dmId.includes(this.participantUid)
+            ) {
+              this.dmChatExists = true;
+              this.dmId = this.directMessages[i].dmId;
+              break;
+            } else {
+              this.dmChatExists = false;
+              this.directChatMessages = [];
+            }
           }
         }
       }
-    }
+    }, 1000 / 60);
   }
 
   /**
@@ -217,7 +215,7 @@ export class FirestoreService {
    * Updates the current chat when you click on a direct chat or reload it
    */
   updateDirectChat() {
-    this.getDirectMessages(); // FIXME Need to wait for this to finish
+    this.getDirectMessages();
     this.checkExistingDmChat();
     this.getParticipantUser();
     this.getDirectChatMessages();
@@ -241,18 +239,13 @@ export class FirestoreService {
    * Fetches the current document of the chat from the Firestore and stores the messages array local
    */
   getDirectChatMessages() {
-    let currentDirectMessage;
-
-    this.firestore
-      .collection('directmessages')
-      .doc(this.dmId)
-      .valueChanges()
-      .subscribe((changes) => {
-        if (changes) {
-          currentDirectMessage = changes;
-          this.directChatMessages = currentDirectMessage.messages;
-        }
-      });
+    let update = setInterval(() => {
+      if (this.directMessages != undefined) {
+        clearInterval(update);
+        let filteredDms = this.directMessages.find(chat => chat.dmId == this.dmId);
+        this.directChatMessages = filteredDms.messages;
+      }
+    }, 1000 / 60);
   }
 
   /**
@@ -267,13 +260,12 @@ export class FirestoreService {
       });
     this.updateChat();
   }
-  
 
   /**
    * removes an element from the messages array on the firestore document.
    */
   deleteMessageDM() {
-      this.firestore
+    this.firestore
       .collection('directmessages')
       .doc(this.dmId)
       .update({
@@ -296,7 +288,6 @@ export class FirestoreService {
         });
     }
   }
-  
 
   /**
    * removes all elements from the messages array on the firestore document.
@@ -329,7 +320,6 @@ export class FirestoreService {
     }
     this.updateChat();
   }
-  
 
   /**
    * Saves all messages (incl. the edited message) in the firestore document in the messages array.
@@ -347,8 +337,6 @@ export class FirestoreService {
     }
     this.updateDirectChat();
   }
-
-
 
   /**
    * 1. Gets the data from the users collection
