@@ -36,8 +36,6 @@ export class DirectMessageComponent implements OnInit {
     this.scrollToNewestMessage();
     this.firestoreService.updateDirectChat();
 
-    console.warn('update');
-
     // Subscribe router param to update chat when changing direct message participant
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))

@@ -8,7 +8,7 @@
             <li [routerLink]="['/chat/welcome']" routerLinkActive="router-link-active" (click)="drawer.toggle()">
                 # welcome
             </li>
-            <li *ngFor="let channel of this.firestoreService.allChannels" (click)="openChat('/chat/', channel.customIdName); ">
+            <li *ngFor="let channel of this.firestoreService.allChannels" (click)="openChat('/chat/', channel.customIdName); drawer.toggle()">
                 #{{ channel.channelName }}
             </li>
             <li (click)="openDialog()">

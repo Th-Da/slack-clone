@@ -2,11 +2,12 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DialogDeleteMessageComponent } from '../dialog-delete-message/dialog-delete-message.component';
 import { DialogEditMessageComponent } from '../dialog-edit-message/dialog-edit-message.component';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-chatroom',
@@ -34,6 +35,14 @@ export class ChatroomComponent implements OnInit {
       this.firestoreService.channelId = paramMap.get('id');
       console.log('GOT ID:', this.firestoreService.channelId);
     });
+
+    // Subscribe router param to update chat when changing channel
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.firestoreService.updateChat();
+        this.scrollToNewestMessage();
+      });
 
     this.messageForm = this.fb.group({
       message: ['', [Validators.minLength(1)]],
