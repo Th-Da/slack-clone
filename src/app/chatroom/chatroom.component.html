@@ -1,7 +1,7 @@
 <div class="chatroom">
     <h2> {{ this.firestoreService.channel.channelName }} </h2>
 
-    <div class="massages" id="messageBox">
+    <div #scrollContainer class="massages" id="messageBox">
         <mat-card class="message" *ngFor="let message of this.firestoreService.messages">
             <div class="post-headline">
 

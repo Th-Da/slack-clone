@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,8 +14,9 @@ import { FirestoreService } from '../_services/firestore.service';
   styleUrls: ['./chatroom.component.scss'],
 })
 export class ChatroomComponent implements OnInit {
+  @ViewChild('messageInput') messageInput: ElementRef;
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
   messageForm: FormGroup;
-  @ViewChild('messageInput') messageInput;
 
   constructor(
     public authService: AuthService,
@@ -24,8 +25,9 @@ export class ChatroomComponent implements OnInit {
     public dialogRef: MatDialog,
     public firestoreService: FirestoreService,
     public dialog: MatDialog,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private firestore: AngularFirestore
+  ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
@@ -38,6 +40,41 @@ export class ChatroomComponent implements OnInit {
     });
 
     this.firestoreService.updateChat();
+    this.liveChatUpdate();
+    this.scrollToNewestMessage();
+  }
+
+  /**
+   * Subscribes the observable from firstore tu update every change from backend
+   */
+  liveChatUpdate() {
+    this.firestore
+      .collection('channels')
+      .valueChanges({ idField: 'channelId' })
+      .subscribe((changes: any) => {
+        this.firestoreService.chat = changes;
+
+        if (this.firestoreService.chat != undefined) {
+          let cache = this.firestoreService.chat.find(chat => chat.channelId == this.firestoreService.channelId);
+          this.firestoreService.messages = cache.messages;
+          this.scrollToNewestMessage();
+        }
+      });
+  }
+
+  /**
+   * Scrolls to the newest message in chatroom
+   */
+  scrollToNewestMessage() {
+    let checkContainer = setInterval(() => {
+      if (this.scrollContainer) {
+        clearInterval(checkContainer);
+        let element = this.scrollContainer.nativeElement;
+        let scrollHeight = this.scrollContainer.nativeElement.scrollHeight;
+
+        element.scrollTo(0, scrollHeight);
+      }
+    }, 1000 / 60);
   }
 
   /**
