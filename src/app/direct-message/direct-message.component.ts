@@ -7,6 +7,7 @@ import { DialogDeleteDirectmessageComponent } from '../dialog-delete-directmessa
 import { DialogEditDirectmessageComponent } from '../dialog-edit-directmessage/dialog-edit-directmessage.component';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-direct-message',
@@ -24,12 +25,20 @@ export class DirectMessageComponent implements OnInit {
     public dialogRef: MatDialog,
     public dialog: MatDialog,
     public firestoreService: FirestoreService,
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+    private firestore: AngularFirestore
+  ) {}
 
   ngOnInit(): void {
     this.setDmChatId();
     this.firestoreService.updateDirectChat();
+
+    this.firestore
+      .collection('directmessages')
+      .valueChanges({ idField: 'dmId' })
+      .subscribe((changes) => {
+        this.firestoreService.directMessages = changes;
+      });
 
     // Subscribe router param to update chat when changing direct message participant
     this.router.events
@@ -66,9 +75,11 @@ export class DirectMessageComponent implements OnInit {
   }
 
   dialogEditMessageDM(message) {
-    this.firestoreService.indexOfMessageDM = this.firestoreService.directChatMessages.indexOf(message);
+    this.firestoreService.indexOfMessageDM =
+      this.firestoreService.directChatMessages.indexOf(message);
     this.firestoreService.currentMessageDM = message;
-    this.firestoreService.newMessagesDM = this.firestoreService.directChatMessages;
+    this.firestoreService.newMessagesDM =
+      this.firestoreService.directChatMessages;
     this.firestoreService.deleteMessageDM();
     this.dialog.open(DialogEditDirectmessageComponent, { disableClose: true });
   }
