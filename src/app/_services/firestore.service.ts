@@ -196,7 +196,9 @@ export class FirestoreService {
       .doc(this.dmId)
       .update({
         messages: arrayUnion(this.message.toJSON()),
-      });
+      }).then(() => {
+        this.updateDirectChat();
+      })
   }
 
   /**
