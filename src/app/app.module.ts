@@ -44,6 +44,8 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { DialogEditMessageComponent } from './dialog-edit-message/dialog-edit-message.component';
 import { DialogDeleteMessageComponent } from './dialog-delete-message/dialog-delete-message.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
+import { DialogDeleteDirectmessageComponent } from './dialog-delete-directmessage/dialog-delete-directmessage.component';
+import { DialogEditDirectmessageComponent } from './dialog-edit-directmessage/dialog-edit-directmessage.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { DirectMessageComponent } from './direct-message/direct-message.componen
     DialogEditMessageComponent,
     DialogDeleteMessageComponent,
     DirectMessageComponent,
+    DialogDeleteDirectmessageComponent,
+    DialogEditDirectmessageComponent,
   ],
   imports: [
     BrowserModule,

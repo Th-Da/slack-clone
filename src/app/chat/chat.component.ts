@@ -17,7 +17,7 @@ import { FirestoreService } from '../_services/firestore.service';
 })
 export class ChatComponent implements OnInit {
   searchFormControl = new FormControl();
-  options: string[] = this.firestoreService.allChannels;
+  options: string[];
   filteredOptions: Observable<any[]>;
   filterValue;
 
@@ -32,10 +32,14 @@ export class ChatComponent implements OnInit {
     this.firestoreService.getAllOtherUsers();
     this.firestoreService.getAllChannels();
     this.firestoreService.getDirectMessages();
+    this.firestoreService.updateChat();
+    this.firestoreService.updateDirectChat();
     this.filteredOptions = this.searchFormControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))
     );
+    console.log(this.firestoreService.chat);
+    console.log(this.firestoreService.directMessages);
   }
   _filter(value: string): any {
     if (value) {
