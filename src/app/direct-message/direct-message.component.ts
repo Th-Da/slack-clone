@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -16,7 +16,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class DirectMessageComponent implements OnInit {
   directMessageForm: FormGroup;
-  @ViewChild('messageInput') messageInput;
+  @ViewChild('messageInput') messageInput: ElementRef;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
 
   constructor(
