@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -17,6 +17,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class DirectMessageComponent implements OnInit {
   directMessageForm: FormGroup;
   @ViewChild('messageInput') messageInput;
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
 
   constructor(
     public authService: AuthService,
@@ -26,12 +27,13 @@ export class DirectMessageComponent implements OnInit {
     public dialog: MatDialog,
     public firestoreService: FirestoreService,
     private fb: FormBuilder,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
   ) { }
 
   ngOnInit(): void {
     this.setDmChatId();
     this.liveChatUpdate();
+    this.scrollToNewestMessage();
     this.firestoreService.updateDirectChat();
 
     // Subscribe router param to update chat when changing direct message participant
@@ -44,6 +46,21 @@ export class DirectMessageComponent implements OnInit {
     this.directMessageForm = this.fb.group({
       directMessage: ['', [Validators.minLength(1)]],
     });
+  }
+
+  /**
+   * Scrolls to the newest message in chatroom
+   */
+  scrollToNewestMessage() {
+    let checkContainer = setInterval(() => {
+      if (this.scrollContainer) {
+        clearInterval(checkContainer);
+        let element = this.scrollContainer.nativeElement;
+        let scrollHeight = this.scrollContainer.nativeElement.scrollHeight;
+
+        element.scrollTo(0, scrollHeight);
+      }
+    }, 1000 / 60);
   }
 
   /**
@@ -68,6 +85,7 @@ export class DirectMessageComponent implements OnInit {
         if (this.firestoreService.directChatMessages != undefined) {
           let cache = this.firestoreService.directMessages.find(chat => chat.dmId == this.firestoreService.dmId);
           this.firestoreService.directChatMessages = cache.messages;
+          this.scrollToNewestMessage();
         }
       });
   }

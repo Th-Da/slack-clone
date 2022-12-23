@@ -1,6 +1,6 @@
 <div class="chatroom">
     <h2>{{ this.firestoreService.participantUserName }}</h2>
-    <div *ngIf="this.firestoreService.directChatMessages" class="massages" id="messageBox">
+    <div #scrollContainer *ngIf="this.firestoreService.directChatMessages" class="massages" id="messageBox">
         <mat-card class="message" *ngFor="let message of this.firestoreService.directChatMessages">
             <div class="post-headline">
                 <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
