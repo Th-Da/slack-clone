@@ -27,18 +27,12 @@ export class DirectMessageComponent implements OnInit {
     public firestoreService: FirestoreService,
     private fb: FormBuilder,
     private firestore: AngularFirestore
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.setDmChatId();
+    this.liveChatUpdate();
     this.firestoreService.updateDirectChat();
-
-    this.firestore
-      .collection('directmessages')
-      .valueChanges({ idField: 'dmId' })
-      .subscribe((changes) => {
-        this.firestoreService.directMessages = changes;
-      });
 
     // Subscribe router param to update chat when changing direct message participant
     this.router.events
@@ -60,6 +54,20 @@ export class DirectMessageComponent implements OnInit {
       this.firestoreService.dmId = paramMap.get('uid');
       this.firestoreService.participantUid = paramMap.get('uid').split('-')[1];
     });
+  }
+
+  /**
+   * Subscribes the observable from firstore tu update every change from backend
+   */
+  liveChatUpdate() {
+    this.firestore
+      .collection('directmessages')
+      .valueChanges({ idField: 'dmId' })
+      .subscribe((changes) => {
+        this.firestoreService.directMessages = changes;
+        let cache = this.firestoreService.directMessages.find(chat => chat.dmId == this.firestoreService.dmId);
+        this.firestoreService.directChatMessages = cache.messages;
+      });
   }
 
   /**
