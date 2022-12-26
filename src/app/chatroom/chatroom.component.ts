@@ -45,6 +45,7 @@ export class ChatroomComponent implements OnInit {
    */
   onSubmit() {
     if (this.messageForm.valid) {
+      debugger;
       this.firestoreService.messageInput = this.messageForm.value.message;
       this.firestoreService.postMessage();
       this.messageInput.nativeElement.value = '';
@@ -57,7 +58,8 @@ export class ChatroomComponent implements OnInit {
   }
 
   dialogEditMessage(message) {
-    this.firestoreService.indexOfMessage = this.firestoreService.messages.indexOf(message);
+    this.firestoreService.indexOfMessage =
+      this.firestoreService.messages.indexOf(message);
     this.firestoreService.currentMessage = message;
     this.firestoreService.newMessages = this.firestoreService.messages;
     this.firestoreService.deleteMessage();
