@@ -28,7 +28,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { DialogForgotPasswordComponent } from './dialog-forgot-password/dialog-forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AuthService } from './_services/auth.service';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -53,7 +53,7 @@ import { DialogAccountComponent } from './dialog-account/dialog-account.componen
     SignUpComponent,
     LoginComponent,
     ChatComponent,
-    ForgotPasswordComponent,
+    DialogForgotPasswordComponent,
     VerifyEmailComponent,
     WelcomeComponent,
     DialogAuthErrorsComponent,
