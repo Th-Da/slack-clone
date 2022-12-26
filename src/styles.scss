@@ -24,3 +24,11 @@ body {
     --primary-col: #541554;
     --secondary-col: #007A5A;
 }
+
+.primary-btn {
+    background-color: #4a154b;
+    color: white;
+    &:hover {
+        background-color: #611f69e6;
+    }
+}

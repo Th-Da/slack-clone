@@ -11,7 +11,6 @@
     <input (change)="this.firestorage.uploadImage($event)" #fileUpload type="file" accept=".jpg,.png" hidden>
 </div>
 <div mat-dialog-actions>
-    <button (click)="this.dialogRef.close()" mat-button>Cancel</button>
-    <button (click)="this.openDeleteUserDialog(); this.dialogRef.close()" mat-button color="warn">Delete User</button>
-    <button (click)="this.authService.changeDisplayName(this.authService.newDisplayName);this.dialogRef.close()" color="primary" mat-button cdkFocusInitial>Ok</button>
+    <button (click)="this.openDeleteUserDialog(); this.dialogRef.close()" mat-raised-button color="warn">Delete user</button>
+    <button (click)="this.authService.changeDisplayName(this.authService.newDisplayName);this.dialogRef.close()" class="primary-btn" mat-button>Save</button>
 </div>

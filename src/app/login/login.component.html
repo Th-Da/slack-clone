@@ -2,14 +2,11 @@
     <div class="sign-in-container">
         <h1>
             Sign in to Slack
-            <img class="logo" src="./../../assets/images/logo.svg" alt="" />
+            <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
         </h1>
 
         <span> We suggest using the email address that you use at work.</span>
-        <button (click)="this.authService.googleAuth()" class="width-25vw google-login" mat-stroked-button id="googleLogin">
-      <img class="google-icon" src="assets/images/googleicon.png" alt="" />Login
-      with google account
-    </button>
+        <button (click)="this.authService.googleAuth()" class="width-25vw google-login" mat-stroked-button id="googleLogin"><img class="google-icon" src="assets/images/googleicon.png" alt="Google Icon" />Login with google account</button>
         <p>OR</p>
 
         <form type="" [formGroup]="contactForm" (submit)="onSubmit(this.userEmail.value, this.userPassword.value)" ngNativeValidate>
@@ -26,21 +23,16 @@
                 </mat-form-field>
             </p>
 
-            <button class="width-25vw" mat-raised-button color="login-button">
-        Login
-      </button>
+            <button class="width-25vw primary-btn" mat-raised-button>Login</button>
             <p>
                 <a (click)="this.openForgotPasswordDialog()">Forgot Password?</a>
             </p>
         </form>
-        <button mat-raised-button (click)="this.openGuestUserDialog()">
-      Login as guest
-    </button>
+        <button mat-raised-button (click)="this.openGuestUserDialog()">Login as guest</button>
         <div class="to-sign-up">
             <p>New to Slack-Clone?</p>
-            <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign up</a
-      >
+            <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign up</a>
+        </div>
     </div>
-  </div>
 </div>
 <a class="legal-notice-link" routerLink="/legal-notice">Imprint <span>|</span> Privacy Policy</a>
