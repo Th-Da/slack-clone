@@ -22,6 +22,6 @@
             <mat-label>Your Message</mat-label>
             <textarea formControlName="directMessage" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
         </mat-form-field>
-        <button type="submit" mat-raised-button>Post</button>
+        <button *ngIf="messageInput.value != ''" type="submit" mat-raised-button>Post</button>
     </form>
 </div>
