@@ -52,21 +52,24 @@
         </div>
         <div *ngIf="authService.userData as user" class="user-container">
           <span class="user-name">{{ user.displayName }}</span>
-          <a
-            [routerLink]="['/chat/account']"
-            routerLinkActive="router-link-active"
-          >
-            <img
-              class="profile-picture"
-              src="{{
-                user.photoURL
-                  ? user.photoURL
-                  : './../../../assets/img/blank_user.svg'
-              }}"
-              alt="{{ user.displayName }}"
-            />
-          </a>
+          <button mat-button [matMenuTriggerFor]="menu">
+            <img class="profile-picture" src="{{user.photoURL ? user.photoURL : './../../../assets/img/blank_user.svg'}}" alt="{{ user.displayName }}"/>
+          </button>
         </div>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="this.openAccountDialog()">
+              <mat-icon>person</mat-icon>
+              <span>Show user details</span>
+              </button>
+            <button mat-menu-item (click)="this.openEditUserDialog()">
+              <mat-icon>edit</mat-icon>
+            <span>Edit user</span>
+            </button>
+            <button mat-menu-item (click)="this.authService.logOut()">
+              <mat-icon>logout</mat-icon>
+              <span>Log Out</span>
+            </button>
+        </mat-menu>
         </mat-toolbar-row>
         </mat-toolbar>
 
