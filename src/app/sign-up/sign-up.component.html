@@ -25,8 +25,8 @@
         </div>
         <div class="to-sign-in">
             <p>Already using Slack-Clone?</p>
-            <a (click)="this.utils.redirectToLogin()" [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign in to an existing worksapce</a>
+            <a class="auth-link" (click)="this.utils.redirectToLogin()" [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign in to an existing worksapce</a>
         </div>
     </div>
-    <a class="legal-notice-link" routerLink="/legal-notice">Imprint <span>|</span> Privacy Policy</a>
+    <a class="legal-notice-link auth-link" routerLink="/legal-notice">Imprint <span>|</span> Privacy Policy</a>
 </div>

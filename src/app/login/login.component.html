@@ -25,14 +25,14 @@
 
             <button class="width-25vw primary-btn" mat-raised-button>Login</button>
             <p>
-                <a (click)="this.openForgotPasswordDialog()">Forgot Password?</a>
+                <a (click)="this.openForgotPasswordDialog()" class="auth-link">Forgot Password?</a>
             </p>
         </form>
         <button mat-raised-button (click)="this.openGuestUserDialog()">Login as guest</button>
         <div class="to-sign-up">
             <p>New to Slack-Clone?</p>
-            <a [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign up</a>
+            <a class="auth-link" [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign up</a>
         </div>
     </div>
 </div>
-<a class="legal-notice-link" routerLink="/legal-notice">Imprint <span>|</span> Privacy Policy</a>
+<a class="legal-notice-link auth-link" routerLink="/legal-notice">Imprint <span>|</span> Privacy Policy</a>

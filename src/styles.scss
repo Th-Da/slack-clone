@@ -32,3 +32,25 @@ body {
         background-color: #611f69e6;
     }
 }
+
+.secondary-btn {
+    background-color: #007a5a;
+    color: white;
+    &:hover {
+        background-color: #009b71;
+    }
+}
+
+.auth-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: #1264a3;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.width-25vw {
+    width: 25vw;
+    min-width: 230px;
+}

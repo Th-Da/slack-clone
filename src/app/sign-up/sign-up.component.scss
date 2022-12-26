@@ -11,11 +11,6 @@ h1 {
     height: 100vh;
 }
 
-a {
-    text-decoration: none;
-    color: #1264a3;
-}
-
 .sign-up-container {
     height: 100vh;
     display: flex;
@@ -25,20 +20,9 @@ a {
     gap: 32px;
 }
 
-.width-25vw {
-    width: 25vw;
-    min-width: 230px;
-}
-
 .google-icon {
     height: 24px;
     padding-right: 8px;
-}
-
-.sign-up-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
 }
 
 .google-login {
