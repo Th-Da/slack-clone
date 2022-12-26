@@ -32,7 +32,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AuthService } from './_services/auth.service';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { AccountComponent } from './account/account.component';
 import { DialogAuthErrorsComponent } from './dialog-auth-errors/dialog-auth-errors.component';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
@@ -57,7 +56,6 @@ import { DialogAccountComponent } from './dialog-account/dialog-account.componen
     ForgotPasswordComponent,
     VerifyEmailComponent,
     WelcomeComponent,
-    AccountComponent,
     DialogAuthErrorsComponent,
     DialogAddChannelComponent,
     DialogDeleteUserComponent,
@@ -101,4 +99,4 @@ import { DialogAccountComponent } from './dialog-account/dialog-account.componen
   providers: [AuthService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
