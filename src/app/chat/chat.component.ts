@@ -1,18 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
-import { MatAutocomplete } from '@angular/material/autocomplete';
-import {
-  MatDialog,
-  matDialogAnimations,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { DialogAddChannelComponent } from '../dialog-add-channel/dialog-add-channel.component';
-import { Channel } from '../_models/channel.class';
-import { Message } from '../_models/message.class';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
 
@@ -32,7 +25,7 @@ export class ChatComponent implements OnInit {
     public router: Router,
     public dialog: MatDialog,
     private firestore: AngularFirestore
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.firestoreService.getAllOtherUsers();
