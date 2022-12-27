@@ -45,7 +45,6 @@ export class ChatComponent implements OnInit {
     let update = setInterval(() => {
       if (this.firestoreService.directMessages !== undefined) {
         clearInterval(update);
-
         for (
           let index = 0;
           index < this.firestoreService.directMessages.length;
@@ -54,22 +53,10 @@ export class ChatComponent implements OnInit {
           const element = this.firestoreService.directMessages[index];
           for (let index = 0; index < element['messages'].length; index++) {
             const messages = element['messages'][index];
-
             let singleMessage: any = Object.values(messages);
             singleMessage.forEach((element) => {
               this.options.push(element);
             });
-            console.log(this.options);
-
-            // this.options = singleMessage.filter(
-            //   (message) => message !== message.photoUR && message.uid
-            // );
-
-            // let message = messages['message'];
-            // let displayName = messages['displayName'];
-
-            // this.options.push(message, displayName);
-            // this.options.push(displayName);
           }
         }
         this.filteredOptions = this.searchFormControl.valueChanges.pipe(
@@ -78,10 +65,6 @@ export class ChatComponent implements OnInit {
         );
       }
     });
-
-    // this.firestoreService.dmId.forEach((dm) => {
-    //   console.log(dm);
-    // });
   }
 
   _filter(value: string): string[] {
@@ -100,17 +83,6 @@ export class ChatComponent implements OnInit {
   _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
   }
-
-  // displayFn(object: Message): string {
-  //   return object && object.message ? object.message : ;
-  // }
-
-  // NUR MIT LIBARY MÖGLICH: https://www.npmjs.com/package/angular-ng-autocomplete?activeTab=readme
-  // customFilter = function (countries: any[], query: string): any[] {
-  //   return countries.filter((x) =>
-  //     x.toLowerCase().startsWith(query.toLowerCase())
-  //   );
-  // };
 
   openChat(url, id) {
     this.router.navigate([url + id]).then(() => {
