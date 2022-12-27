@@ -45,7 +45,6 @@ export class ChatComponent implements OnInit {
     let update = setInterval(() => {
       if (this.firestoreService.directMessages !== undefined) {
         clearInterval(update);
-        console.log(this.firestoreService.directMessages.messages);
 
         for (
           let index = 0;
@@ -65,7 +64,7 @@ export class ChatComponent implements OnInit {
             // this.options = singleMessage.filter(
             //   (message) => message !== message.photoUR && message.uid
             // );
-            console.log(this.options);
+
             // let message = messages['message'];
             // let displayName = messages['displayName'];
 
@@ -73,7 +72,6 @@ export class ChatComponent implements OnInit {
             // this.options.push(displayName);
           }
         }
-        debugger;
         this.filteredOptions = this.searchFormControl.valueChanges.pipe(
           startWith(''),
           map((value) => this._filter(value))
@@ -89,9 +87,11 @@ export class ChatComponent implements OnInit {
   _filter(value: string): string[] {
     if (value) {
       const filterValue = this._normalizeValue(value);
-      return this.options.filter((option) =>
+      let allOptions = this.options.filter((option) =>
         this._normalizeValue(option).includes(filterValue)
       );
+      let filteredTest: any = [...new Set(allOptions)];
+      return filteredTest;
     } else {
       return [];
     }
