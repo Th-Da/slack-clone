@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -23,8 +22,7 @@ export class ChatComponent implements OnInit {
     public authService: AuthService,
     public firestoreService: FirestoreService,
     public router: Router,
-    public dialog: MatDialog,
-    private firestore: AngularFirestore
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
