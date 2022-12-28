@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogDeleteUserComponent } from '../dialog-delete-user/dialog-delete-user.component';
-import { AuthService } from 'src/app/_services/auth.service';
-import { FirestorageService } from 'src/app/_services/firestorage.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { FirestorageService } from 'src/app/services/firestorage.service';
 
 @Component({
   selector: 'app-dialog-edit-user',

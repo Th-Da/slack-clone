@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Channel } from 'src/app/_models/channel.class';
+import { Channel } from 'src/app/models/channel.class';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef } from '@angular/material/dialog';
 

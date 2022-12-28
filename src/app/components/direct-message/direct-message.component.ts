@@ -5,10 +5,10 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { DialogDeleteDirectmessageComponent } from '../dialog-delete-directmessage/dialog-delete-directmessage.component';
 import { DialogEditDirectmessageComponent } from '../dialog-edit-directmessage/dialog-edit-directmessage.component';
-import { AuthService } from 'src/app/_services/auth.service';
-import { FirestoreService } from 'src/app/_services/firestore.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { UtilsService } from 'src/app/_services/utils.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-direct-message',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FirestoreService } from 'src/app/_services/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
   selector: 'app-dialog-delete-directmessage',

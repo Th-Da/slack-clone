@@ -1,8 +1,8 @@
 import { Injectable, Injector } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { User } from '../_models/user.class';
-import { Message } from '../_models/message.class';
-import { Channel } from '../_models/channel.class';
+import { User } from '../models/user.class';
+import { Message } from '../models/message.class';
+import { Channel } from '../models/channel.class';
 import { arrayUnion, arrayRemove } from 'firebase/firestore';
 import { AuthService } from './auth.service';
 
@@ -46,7 +46,7 @@ export class FirestoreService {
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
-  ) {}
+  ) { }
 
   /**
    * get the correct document from firestore DB and save the content in the chanel variable

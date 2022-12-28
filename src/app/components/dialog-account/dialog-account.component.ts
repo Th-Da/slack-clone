@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
-import { AuthService } from '../../_services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dialog-account',

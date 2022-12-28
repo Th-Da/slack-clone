@@ -4,7 +4,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { GetStartedComponent } from './components/get-started/get-started.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { AuthGuard } from './_guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { DialogForgotPasswordComponent } from './components/dialog-forgot-password/dialog-forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';

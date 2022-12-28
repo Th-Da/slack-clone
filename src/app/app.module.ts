@@ -31,7 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogForgotPasswordComponent } from './components/dialog-forgot-password/dialog-forgot-password.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
-import { AuthService } from './_services/auth.service';
+import { AuthService } from './services/auth.service';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { DialogAuthErrorsComponent } from './components/dialog-auth-errors/dialog-auth-errors.component';
 import { DialogAddChannelComponent } from './components/dialog-add-channel/dialog-add-channel.component';

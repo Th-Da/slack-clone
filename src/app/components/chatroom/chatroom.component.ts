@@ -5,10 +5,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DialogDeleteMessageComponent } from '../dialog-delete-message/dialog-delete-message.component';
 import { DialogEditMessageComponent } from '../dialog-edit-message/dialog-edit-message.component';
-import { AuthService } from 'src/app/_services/auth.service';
-import { FirestoreService } from 'src/app/_services/firestore.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
 import { filter } from 'rxjs';
-import { UtilsService } from 'src/app/_services/utils.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-chatroom',
