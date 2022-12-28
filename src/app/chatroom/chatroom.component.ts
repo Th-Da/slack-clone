@@ -28,28 +28,27 @@ export class ChatroomComponent implements OnInit {
     public dialog: MatDialog,
     private fb: FormBuilder,
     private firestore: AngularFirestore
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
       this.firestoreService.channelId = paramMap.get('id');
     });
-
     // Subscribe router param to update chat when changing channel
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.firestoreService.updateChat();
         this.scrollToNewestMessage();
+        this.firestoreService.filteredMessages = [];
       });
-
     this.messageForm = this.fb.group({
       message: ['', [Validators.minLength(1)]],
     });
-
     this.firestoreService.updateChat();
     this.liveChatUpdate();
     this.scrollToNewestMessage();
+    this.firestoreService.filteredMessages = [];
   }
 
   /**
@@ -63,7 +62,9 @@ export class ChatroomComponent implements OnInit {
         this.firestoreService.chat = changes;
 
         if (this.firestoreService.chat != undefined) {
-          let cache = this.firestoreService.chat.find(chat => chat.channelId == this.firestoreService.channelId);
+          let cache = this.firestoreService.chat.find(
+            (chat) => chat.channelId == this.firestoreService.channelId
+          );
           this.firestoreService.messages = cache.messages;
           this.scrollToNewestMessage();
         }
