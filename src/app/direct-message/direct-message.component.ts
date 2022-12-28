@@ -19,7 +19,6 @@ export class DirectMessageComponent implements OnInit {
   directMessageForm: FormGroup;
   @ViewChild('messageInput') messageInput: ElementRef;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
-  messagesExist: boolean = false;
 
   constructor(
     public authService: AuthService,
@@ -31,7 +30,7 @@ export class DirectMessageComponent implements OnInit {
     private fb: FormBuilder,
     private firestore: AngularFirestore,
     public utilService: UtilsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.utilService.isFiltered = false;
@@ -96,7 +95,6 @@ export class DirectMessageComponent implements OnInit {
           );
           this.firestoreService.directChatMessages = cache.messages;
           this.scrollToNewestMessage();
-          this.messagesExist = true;
         }
       });
   }

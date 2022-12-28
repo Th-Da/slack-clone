@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 export class UtilsService {
   currentUrl;
   isFiltered: boolean = false;
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   /**
    * Redirects to the login page and reloads the page once

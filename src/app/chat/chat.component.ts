@@ -38,7 +38,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     public router: Router,
     public dialog: MatDialog,
     private utilService: UtilsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.firestoreService.getAllOtherUsers();
@@ -75,24 +75,32 @@ export class ChatComponent implements OnInit, AfterViewInit {
     }
   }
 
-  _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
+  filter(value: string) {
+    if (value != '') {
+      this.utilService.isFiltered = true;
+    } else {
+      this.utilService.isFiltered = false;
+    }
+
+    if (this.utilService.currentUrl.includes('chat/ch')) {
+      this.filterChannels(value);
+    } else {
+      this.filterDms(value);
+    }
   }
 
-  onKey(value: string) {
-    if (this.utilService.currentUrl.includes('chat/ch')) {
-      this.firestoreService.filteredMessages =
-        this.firestoreService.messages.filter((option) =>
-          option.message.toLowerCase().includes(value.toLowerCase())
-        );
-      console.log(this.firestoreService.filteredMessages);
-    } else {
-      this.firestoreService.filteredDirectMessages =
-        this.firestoreService.directChatMessages.filter((option) =>
-          option.message.toLowerCase().includes(value.toLowerCase())
-        );
-      this.utilService.isFiltered = true;
-    }
+  filterChannels(value: string) {
+    this.firestoreService.filteredMessages =
+      this.firestoreService.messages.filter((option) =>
+        option.message.toLowerCase().includes(value.toLowerCase())
+      );
+  }
+
+  filterDms(value: string) {
+    this.firestoreService.filteredDirectMessages =
+      this.firestoreService.directChatMessages.filter((option) =>
+        option.message.toLowerCase().includes(value.toLowerCase())
+      );
   }
 
   openChat(url, id) {
