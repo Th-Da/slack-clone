@@ -4,12 +4,30 @@
 }
 
 .massages {
+    position: relative;
     height: 55vh !important;
     overflow-y: scroll;
     -ms-overflow-style: none;
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
+}
+
+.no-messages-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    i {
+        font-size: 36px;
+    }
+    h2 {
+        margin: 0;
+    }
 }
 
 .massages::-webkit-scrollbar {
