@@ -8,6 +8,7 @@ import { DialogEditDirectmessageComponent } from '../dialog-edit-directmessage/d
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { UtilsService } from '../_services/utils.service';
 
 @Component({
   selector: 'app-direct-message',
@@ -18,6 +19,7 @@ export class DirectMessageComponent implements OnInit {
   directMessageForm: FormGroup;
   @ViewChild('messageInput') messageInput: ElementRef;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
+  messagesExist: boolean = false;
 
   constructor(
     public authService: AuthService,
@@ -28,9 +30,11 @@ export class DirectMessageComponent implements OnInit {
     public firestoreService: FirestoreService,
     private fb: FormBuilder,
     private firestore: AngularFirestore,
-  ) { }
+    public utilService: UtilsService
+  ) {}
 
   ngOnInit(): void {
+    this.utilService.isFiltered = false;
     this.setDmChatId();
     this.liveChatUpdate();
     this.scrollToNewestMessage();
@@ -42,11 +46,13 @@ export class DirectMessageComponent implements OnInit {
       .subscribe((event: NavigationEnd) => {
         this.firestoreService.updateDirectChat();
         this.scrollToNewestMessage();
+        this.utilService.isFiltered = false;
       });
 
     this.directMessageForm = this.fb.group({
       directMessage: ['', [Validators.minLength(1)]],
     });
+    this.utilService.currentUrl = this.router.url;
   }
 
   /**
@@ -58,11 +64,9 @@ export class DirectMessageComponent implements OnInit {
         clearInterval(checkContainer);
         let element = this.scrollContainer.nativeElement;
         let scrollHeight = this.scrollContainer.nativeElement.scrollHeight;
-
         setTimeout(() => {
           element.scrollTo(0, scrollHeight);
         }, 20);
-
       }
     }, 1000 / 60);
   }
@@ -87,9 +91,12 @@ export class DirectMessageComponent implements OnInit {
       .subscribe((changes) => {
         this.firestoreService.directMessages = changes;
         if (this.firestoreService.directChatMessages != undefined) {
-          let cache = this.firestoreService.directMessages.find(chat => chat.dmId == this.firestoreService.dmId);
+          let cache = this.firestoreService.directMessages.find(
+            (chat) => chat.dmId == this.firestoreService.dmId
+          );
           this.firestoreService.directChatMessages = cache.messages;
           this.scrollToNewestMessage();
+          this.messagesExist = true;
         }
       });
   }

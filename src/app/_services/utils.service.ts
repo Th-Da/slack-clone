@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UtilsService {
-
-  constructor(private router: Router) { }
+  currentUrl;
+  isFiltered: boolean = false;
+  constructor(private router: Router) {}
 
   /**
    * Redirects to the login page and reloads the page once

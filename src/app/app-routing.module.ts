@@ -24,7 +24,7 @@ const routes: Routes = [
     path: 'chat',
     children: [
       { path: 'welcome', component: WelcomeComponent },
-      { path: ':id', component: ChatroomComponent },
+      { path: 'ch/:id', component: ChatroomComponent },
       { path: 'dm/:uid', component: DirectMessageComponent },
     ],
     component: ChatComponent,
@@ -43,4 +43,4 @@ const routerOptions: ExtraOptions = {
   imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

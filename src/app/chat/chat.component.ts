@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -10,6 +16,7 @@ import { DialogAddChannelComponent } from '../dialog-add-channel/dialog-add-chan
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
+import { UtilsService } from '../_services/utils.service';
 
 @Component({
   selector: 'app-chat',
@@ -22,15 +29,16 @@ export class ChatComponent implements OnInit, AfterViewInit {
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.applyResponsiveNav();
-  };
+  }
 
   mobileNav: boolean = false;
   constructor(
     public authService: AuthService,
     public firestoreService: FirestoreService,
     public router: Router,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private utilService: UtilsService
+  ) {}
 
   ngOnInit(): void {
     this.firestoreService.getAllOtherUsers();
@@ -43,8 +51,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   /**
-    * Toggle the MatDrawer in Mobile View
-    */
+   * Toggle the MatDrawer in Mobile View
+   */
   toggleNav() {
     if (this.mobileNav) {
       this.drawer.toggle();
@@ -53,7 +61,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Checks the window.innerheight and enables/disables the responsive view accordingly 
+   * Checks the window.innerheight and enables/disables the responsive view accordingly
    */
   applyResponsiveNav() {
     if (window.innerWidth < 768) {
@@ -72,13 +80,18 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   onKey(value: string) {
-    debugger;
-    if (this.firestoreService.messages) {
+    if (this.utilService.currentUrl.includes('chat/ch')) {
       this.firestoreService.filteredMessages =
         this.firestoreService.messages.filter((option) =>
-          option.message.includes(value.toLowerCase())
+          option.message.toLowerCase().includes(value.toLowerCase())
         );
       console.log(this.firestoreService.filteredMessages);
+    } else {
+      this.firestoreService.filteredDirectMessages =
+        this.firestoreService.directChatMessages.filter((option) =>
+          option.message.toLowerCase().includes(value.toLowerCase())
+        );
+      this.utilService.isFiltered = true;
     }
   }
 

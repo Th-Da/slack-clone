@@ -8,6 +8,7 @@ import { DialogEditMessageComponent } from '../dialog-edit-message/dialog-edit-m
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
 import { filter } from 'rxjs';
+import { UtilsService } from '../_services/utils.service';
 
 @Component({
   selector: 'app-chatroom',
@@ -27,7 +28,8 @@ export class ChatroomComponent implements OnInit {
     public firestoreService: FirestoreService,
     public dialog: MatDialog,
     private fb: FormBuilder,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    public utilService: UtilsService
   ) {}
 
   ngOnInit() {
@@ -42,6 +44,7 @@ export class ChatroomComponent implements OnInit {
         this.scrollToNewestMessage();
         this.firestoreService.filteredMessages = [];
       });
+
     this.messageForm = this.fb.group({
       message: ['', [Validators.minLength(1)]],
     });
@@ -49,6 +52,7 @@ export class ChatroomComponent implements OnInit {
     this.liveChatUpdate();
     this.scrollToNewestMessage();
     this.firestoreService.filteredMessages = [];
+    this.utilService.currentUrl = this.router.url;
   }
 
   /**

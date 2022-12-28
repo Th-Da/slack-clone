@@ -41,6 +41,7 @@ export class FirestoreService {
   currentMessageDM: any;
   newMessagesDM: any = [];
   indexOfMessageDM: number;
+  filteredDirectMessages: Array<any>;
 
   constructor(
     private firestore: AngularFirestore,
@@ -256,7 +257,9 @@ export class FirestoreService {
         let filteredDms = this.directMessages.find(
           (chat) => chat.dmId == this.dmId
         );
-        this.directChatMessages = filteredDms.messages;
+        if (filteredDms) {
+          this.directChatMessages = filteredDms.messages;
+        }
       }
     }, 1000 / 60);
   }
