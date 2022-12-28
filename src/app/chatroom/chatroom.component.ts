@@ -33,7 +33,6 @@ export class ChatroomComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
       this.firestoreService.channelId = paramMap.get('id');
-      console.log('GOT ID:', this.firestoreService.channelId);
     });
 
     // Subscribe router param to update chat when changing channel

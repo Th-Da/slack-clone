@@ -50,13 +50,15 @@ export class FirestoreService {
    * get the correct document from firestore DB and save the content in the chanel variable
    */
   getChannel() {
-    this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .valueChanges()
-      .subscribe((channel: any) => {
-        this.channel = channel;
-      });
+    if (this.channelId) {
+      this.firestore
+        .collection('channels')
+        .doc(this.channelId)
+        .valueChanges()
+        .subscribe((channel: any) => {
+          this.channel = channel;
+        });
+    }
   }
 
   /**
@@ -99,14 +101,17 @@ export class FirestoreService {
   updateChat() {
     this.messageInput = '';
     this.getChannel();
-    this.firestore
-      .collection('channels')
-      .doc(this.channelId)
-      .valueChanges()
-      .subscribe((changes: any) => {
-        this.chat = changes;
-        this.renderChat();
-      });
+
+    if (this.channelId) {
+      this.firestore
+        .collection('channels')
+        .doc(this.channelId)
+        .valueChanges()
+        .subscribe((changes: any) => {
+          this.chat = changes;
+          this.renderChat();
+        });
+    }
   }
 
   renderChat() {
