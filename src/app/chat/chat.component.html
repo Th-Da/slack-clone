@@ -13,7 +13,7 @@
                         <span># welcome</span>
                     </li>
                     <li *ngFor="let channel of this.firestoreService.allChannels" (click)="openChat('/chat/', channel.customIdName); this.toggleNav()">
-                        <span>#{{ channel.channelName }}</span>
+                        <span># {{ channel.channelName }}</span>
                     </li>
                     <li (click)="openDialog()">
                         <mat-icon>add</mat-icon>
