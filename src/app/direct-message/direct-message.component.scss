@@ -1,65 +1,79 @@
 .chatroom {
-  position: relative;
-  min-height: 90vh;
+    position: relative;
+    min-height: 90vh;
 }
 
 .massages {
-  height: 55vh !important;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+    position: relative;
+    height: 55vh !important;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.no-messages-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    i {
+        font-size: 36px;
+    }
+    h2 {
+        margin: 0;
+    }
 }
 
 .massages::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 .post-headline {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
-  font-weight: bold;
-  border-bottom: 1px solid black;
-  .profile {
-    width: 24px;
-    height: 24px;
-    border-radius: 100%;
-    margin-right: 15px;
-    &:hover {
-      cursor: pointer;
-      opacity: 0.8;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    .profile {
+        width: 24px;
+        height: 24px;
+        border-radius: 100%;
+        margin-right: 15px;
+        &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
     }
-  }
 }
 
 .message {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .message-container {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  width: 100%;
-  mat-form-field {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
     width: 100%;
-  }
-  button {
-    background-color: rgb(64, 18, 64);
-    color: white;
-  }
+    mat-form-field {
+        width: 100%;
+    }
 }
 
 .d-none {
-  display: none;
+    display: none;
 }
 
 .pin-right-upper-corner {
-  position: absolute;
-  right: 0;
-  top: -10px;
+    position: absolute;
+    right: 0;
+    top: -10px;
 }

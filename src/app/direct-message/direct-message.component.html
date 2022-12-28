@@ -1,6 +1,10 @@
 <div class="chatroom">
     <h2>{{ this.firestoreService.participantUserName }}</h2>
     <div #scrollContainer *ngIf="this.firestoreService.directChatMessages" class="massages" id="messageBox">
+        <div *ngIf="this.firestoreService.directChatMessages.length == 0" class="no-messages-container">
+            <i style="color: var(--primary-col)" class="material-icons">error</i>
+            <h2>Here are no messages yet.</h2>
+        </div>
         <mat-card class="message" *ngFor="let message of this.firestoreService.directChatMessages">
             <div class="post-headline">
                 <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
@@ -21,6 +25,6 @@
             <mat-label>Your Message</mat-label>
             <textarea formControlName="directMessage" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
         </mat-form-field>
-        <button *ngIf="messageInput.value != ''" type="submit" mat-raised-button>Post</button>
+        <button [disabled]="messageInput.value == ''" [ngClass]="{'primary-btn' : messageInput.value != ''}" type="submit" mat-raised-button>Post</button>
     </form>
 </div>
