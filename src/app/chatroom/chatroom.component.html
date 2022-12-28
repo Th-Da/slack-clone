@@ -2,6 +2,10 @@
     <h2>{{ this.firestoreService.channel.channelName }}</h2>
 
     <div #scrollContainer class="massages" id="messageBox">
+        <div *ngIf="this.firestoreService.messages.length == 0 && this.firestoreService.filteredMessages.length == 0" class="no-messages-container">
+            <i style="color: var(--primary-col)" class="material-icons">error</i>
+            <h2>Here are no messages yet.</h2>
+        </div>
         <ng-container *ngIf="this.firestoreService.filteredMessages.length == 0">
             <mat-card class="message" *ngFor="let message of this.firestoreService.messages">
                 <div class="post-headline">

@@ -19,6 +19,7 @@
     top: 50%;
     left: 50%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 8px;
@@ -27,6 +28,7 @@
     }
     h2 {
         margin: 0;
+        text-align: center;
     }
 }
 
