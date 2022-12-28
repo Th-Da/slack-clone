@@ -1,33 +1,65 @@
 <div class="chatroom">
-    <h2> {{ this.firestoreService.channel.channelName }} </h2>
+  <h2>{{ this.firestoreService.channel.channelName }}</h2>
 
-    <div #scrollContainer class="massages" id="messageBox">
-        <mat-card class="message" *ngFor="let message of this.firestoreService.messages">
-            <div class="post-headline">
+  <div #scrollContainer class="massages" id="messageBox">
+    <mat-card
+      class="message"
+      *ngFor="
+        let message of this.firestoreService.filteredMessages ||
+          this.firestoreService.messages
+      "
+    >
+      <div class="post-headline">
+        <img
+          class="profile"
+          src="{{ message.photoURL }}"
+          alt="{{ message.displayName }}"
+        />
+        <span>{{ message.displayName }}</span>
 
-                <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}"> <span>{{ message.displayName }}</span>
+        <button
+          *ngIf="message.uid == this.authService.userData.uid"
+          mat-icon-button
+          class="pin-right-upper-corner"
+          [matMenuTriggerFor]="userMenu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item (click)="this.dialogEditMessage(message)">
+            Edit
+          </button>
+          <button mat-menu-item (click)="this.dialogDeleteMessage(message)">
+            Delete
+          </button>
+        </mat-menu>
+      </div>
+      <div>
+        {{ message.message }}
+      </div>
+    </mat-card>
+  </div>
 
-                <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #userMenu="matMenu">
-                    <button mat-menu-item (click)="this.dialogEditMessage(message)">Edit</button>
-                    <button mat-menu-item (click)="this.dialogDeleteMessage(message)">Delete</button>
-                </mat-menu>
-            </div>
-            <div>
-                {{ message.message }}
-            </div>
-        </mat-card>
-    </div>
-
-
-    <form [formGroup]="messageForm" (submit)="onSubmit()" class="message-container">
-        <mat-form-field appearance="fill">
-            <mat-label>Your Message</mat-label>
-            <textarea formControlName="message" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
-        </mat-form-field>
-        <button *ngIf="messageInput.value != ''" type="submit" mat-raised-button>Post</button>
-    </form>
-
+  <form
+    [formGroup]="messageForm"
+    (submit)="onSubmit()"
+    class="message-container"
+  >
+    <mat-form-field appearance="fill">
+      <mat-label>Your Message</mat-label>
+      <textarea
+        formControlName="message"
+        minlength="1"
+        #messageInput
+        matInput
+        cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize"
+        cdkAutosizeMinRows="5"
+        cdkAutosizeMaxRows="10"
+      ></textarea>
+    </mat-form-field>
+    <button *ngIf="messageInput.value != ''" type="submit" mat-raised-button>
+      Post
+    </button>
+  </form>
 </div>

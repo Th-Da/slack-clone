@@ -27,6 +27,7 @@ export class FirestoreService {
   newMessages: any = [];
   currentMessage: any;
   indexOfMessage: number;
+  filteredMessages: Array<any>;
 
   // ################################################# Direct messages
   directMessages: any; // All direct messages from firestore

@@ -1,41 +1,52 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
-    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
-        <div class="logo-container" (click)="drawer.toggle()">
-            <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
-            <span class="headline">Slack Clone</span>
-        </div>
+  <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+    <div class="logo-container" (click)="drawer.toggle()">
+      <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
+      <span class="headline">Slack Clone</span>
+    </div>
 
-        <ul class="menu-items">
-            <details open>
-                <summary>Channels</summary>
-                <ul>
-                    <li [routerLink]="['/chat/welcome']" routerLinkActive="router-link-active" (click)="drawer.toggle()">
-                        <span># welcome</span>
-                    </li>
-                    <li *ngFor="let channel of this.firestoreService.allChannels" (click)="openChat('/chat/', channel.customIdName); drawer.toggle()">
-                        <span>#{{ channel.channelName }}</span>
-                    </li>
-                    <li (click)="openDialog()">
-                        <mat-icon>add</mat-icon>
-                        <span>Create new channel</span>
-                    </li>
-                </ul>
-            </details>
-
-            <details open>
-                <summary>Users</summary>
-                <ul class="menu-items">
-                    <li *ngFor="let user of this.firestoreService.allOtherUsers" (click)="openDirectMessage('/chat/dm/', user.uid)">
-                        <span>{{ user.displayName }}</span>
-                    </li>
-                </ul>
-            </details>
-
-            <li (click)="this.authService.logOut()">
-                <mat-icon>logout</mat-icon>Log Out
-            </li>
+    <ul class="menu-items">
+      <details open>
+        <summary>Channels</summary>
+        <ul>
+          <li
+            [routerLink]="['/chat/welcome']"
+            routerLinkActive="router-link-active"
+            (click)="drawer.toggle()"
+          >
+            <span># welcome</span>
+          </li>
+          <li
+            *ngFor="let channel of this.firestoreService.allChannels"
+            (click)="openChat('/chat/', channel.customIdName); drawer.toggle()"
+          >
+            <span>#{{ channel.channelName }}</span>
+          </li>
+          <li (click)="openDialog()">
+            <mat-icon>add</mat-icon>
+            <span>Create new channel</span>
+          </li>
         </ul>
-        <a class="legal-notice-link" routerLink="/legal-notice">Imprint <span>|</span> Privacy Policy</a
+      </details>
+
+      <details open>
+        <summary>Users</summary>
+        <ul class="menu-items">
+          <li
+            *ngFor="let user of this.firestoreService.allOtherUsers"
+            (click)="openDirectMessage('/chat/dm/', user.uid)"
+          >
+            <span>{{ user.displayName }}</span>
+          </li>
+        </ul>
+      </details>
+
+      <li (click)="this.authService.logOut()">
+        <mat-icon>logout</mat-icon>Log Out
+      </li>
+    </ul>
+    <a class="legal-notice-link" routerLink="/legal-notice"
+      >Imprint <span>|</span> Privacy Policy</a
     >
   </mat-drawer>
 
@@ -50,44 +61,43 @@
               type="text"
               placeholder="search"
               matInput
-              [formControl]="searchFormControl"
-              [matAutocomplete]="auto"
               autocomplete="on"
               class="search_field hide_mobile"
+              (keyup)="onKey(searchValue.value)"
+              #searchValue
             />
-
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option
-                *ngFor="let option of filteredOptions | async"
-                [value]="option"
-              >
-                {{ option }}
-              </mat-option>
-            </mat-autocomplete>
           </mat-form-field>
         </div>
         <div *ngIf="authService.userData as user" class="user-container">
           <span class="user-name">{{ user.displayName }}</span>
           <button mat-button [matMenuTriggerFor]="menu">
-            <img class="profile-picture" src="{{user.photoURL ? user.photoURL : './../../../assets/img/blank_user.svg'}}" alt="{{ user.displayName }}"/>
+            <img
+              class="profile-picture"
+              src="{{
+                user.photoURL
+                  ? user.photoURL
+                  : './../../../assets/img/blank_user.svg'
+              }}"
+              alt="{{ user.displayName }}"
+            />
           </button>
         </div>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="this.openAccountDialog()">
-              <mat-icon>person</mat-icon>
-              <span>Show user details</span>
-              </button>
-            <button mat-menu-item (click)="this.openEditUserDialog()">
-              <mat-icon>edit</mat-icon>
+          <button mat-menu-item (click)="this.openAccountDialog()">
+            <mat-icon>person</mat-icon>
+            <span>Show user details</span>
+          </button>
+          <button mat-menu-item (click)="this.openEditUserDialog()">
+            <mat-icon>edit</mat-icon>
             <span>Edit user</span>
-            </button>
-            <button mat-menu-item (click)="this.authService.logOut()">
-              <mat-icon>logout</mat-icon>
-              <span>Log Out</span>
-            </button>
+          </button>
+          <button mat-menu-item (click)="this.authService.logOut()">
+            <mat-icon>logout</mat-icon>
+            <span>Log Out</span>
+          </button>
         </mat-menu>
-        </mat-toolbar-row>
-        </mat-toolbar>
+      </mat-toolbar-row>
+    </mat-toolbar>
 
     <div class="router-container">
       <router-outlet></router-outlet>

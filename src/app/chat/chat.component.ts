@@ -16,65 +16,32 @@ import { FirestoreService } from '../_services/firestore.service';
   styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit {
-  searchFormControl = new FormControl('');
-  options: any = [];
-  filteredOptions: Observable<string[]>;
-
   constructor(
     public authService: AuthService,
     public firestoreService: FirestoreService,
     public router: Router,
     public dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.firestoreService.getAllOtherUsers();
     this.firestoreService.getAllChannels();
     this.firestoreService.getDirectMessages();
-    this.filterMessages();
-  }
-
-  filterMessages() {
-    let update = setInterval(() => {
-      if (this.firestoreService.directMessages !== undefined) {
-        clearInterval(update);
-        for (
-          let index = 0;
-          index < this.firestoreService.directMessages.length;
-          index++
-        ) {
-          const element = this.firestoreService.directMessages[index];
-          for (let index = 0; index < element['messages'].length; index++) {
-            const messages = element['messages'][index];
-            let singleMessage: any = Object.values(messages);
-            singleMessage.forEach((element) => {
-              this.options.push(element);
-            });
-          }
-        }
-        this.filteredOptions = this.searchFormControl.valueChanges.pipe(
-          startWith(''),
-          map((value) => this._filter(value))
-        );
-      }
-    });
-  }
-
-  _filter(value: string): string[] {
-    if (value) {
-      const filterValue = this._normalizeValue(value);
-      let allOptions = this.options.filter((option) =>
-        this._normalizeValue(option).includes(filterValue)
-      );
-      let filteredTest: any = [...new Set(allOptions)];
-      return filteredTest;
-    } else {
-      return [];
-    }
   }
 
   _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
+  }
+
+  onKey(value: string) {
+    debugger;
+    if (this.firestoreService.messages) {
+      this.firestoreService.filteredMessages =
+        this.firestoreService.messages.filter((option) =>
+          option.message.includes(value.toLowerCase())
+        );
+      console.log(this.firestoreService.filteredMessages);
+    }
   }
 
   openChat(url, id) {
