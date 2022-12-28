@@ -1,5 +1,10 @@
-<mat-form-field appearance="fill">
-    <mat-label>Create a name for the channel</mat-label>
-    <input matInput required #name="ngModel" [(ngModel)]="channel.channelName" />
-</mat-form-field>
-<button *ngIf="name.value != ''" mat-raised-button (click)="createChannel()">Create</button>
+<h1 mat-dialog-title>Create new channel</h1>
+<div mat-dialog-content>
+    <mat-form-field appearance="fill">
+        <mat-label>Enter a name for the channel</mat-label>
+        <input matInput required #name="ngModel" [(ngModel)]="channel.channelName" />
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button class="primary-btn" [disabled]="name.value == ''" mat-raised-button (click)="createChannel()">Create</button>
+</div>
