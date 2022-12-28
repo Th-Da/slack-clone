@@ -1,14 +1,27 @@
 <div class="component-wrapper">
-    <div class="verify-email-container">
-        <h1>Thank You for Registering</h1>
-        <div class="formGroup" *ngIf="this.authService.userData as user">
-            <p class="text-center">
-                We have sent a confirmation email to <strong>{{ user.email }}</strong>.
-            </p>
-            <p class="text-center">Please check your email and click on the link to verify your email address.</p>
-        </div>
-        <button class="width-25vw" mat-raised-button color="loginbutton" (click)="authService.sendVerificationMail()">Resend Verification Email</button><br />
-        <br />
-        <a class="auth-link" (click)="this.utils.redirectToLogin()">Go back to Login</a>
+  <div class="verify-email-container">
+    <h1>Thank you for registering</h1>
+    <div class="formGroup" *ngIf="this.authService.userData as user">
+      <p class="text-center">
+        We have sent a confirmation email to <strong>{{ user.email }}</strong
+        >.
+      </p>
+      <p class="text-center">
+        Please check your email and click on the link to verify your email
+        address.
+      </p>
     </div>
+    <button
+      class="width-25vw"
+      mat-raised-button
+      color="loginbutton"
+      (click)="authService.sendVerificationMail()"
+    >
+      Resend verification email</button
+    ><br />
+    <br />
+    <a class="auth-link" (click)="this.utils.redirectToLogin()"
+      >Go back to Login</a
+    >
+  </div>
 </div>
