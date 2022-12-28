@@ -8,6 +8,7 @@ export class UtilsService {
   currentUrl: string;
   isFiltered: boolean = false;
   searchInput: string;
+  searchBarActivated: boolean = false;
 
   constructor(private router: Router) { }
 
