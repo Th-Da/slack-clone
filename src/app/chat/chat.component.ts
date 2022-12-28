@@ -4,7 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { DialogAccountComponent } from '../dialog-account/dialog-account.component';
 import { DialogAddChannelComponent } from '../dialog-add-channel/dialog-add-channel.component';
+import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
 
