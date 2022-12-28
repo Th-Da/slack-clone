@@ -99,7 +99,6 @@ export class ChatroomComponent implements OnInit {
    */
   onSubmit() {
     if (this.messageForm.valid) {
-      debugger;
       this.firestoreService.messageInput = this.messageForm.value.message;
       this.firestoreService.postMessage();
       this.messageInput.nativeElement.value = '';
