@@ -5,8 +5,10 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class UtilsService {
-  currentUrl;
+  currentUrl: string;
   isFiltered: boolean = false;
+  searchInput: string;
+
   constructor(private router: Router) { }
 
   /**

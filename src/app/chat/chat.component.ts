@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     public firestoreService: FirestoreService,
     public router: Router,
     public dialog: MatDialog,
-    private utilService: UtilsService
+    public utilService: UtilsService
   ) { }
 
   ngOnInit(): void {

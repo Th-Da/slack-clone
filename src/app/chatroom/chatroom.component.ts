@@ -30,7 +30,7 @@ export class ChatroomComponent implements OnInit {
     private fb: FormBuilder,
     private firestore: AngularFirestore,
     public utilService: UtilsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
@@ -43,6 +43,8 @@ export class ChatroomComponent implements OnInit {
         this.firestoreService.updateChat();
         this.scrollToNewestMessage();
         this.firestoreService.filteredMessages = [];
+        this.utilService.searchInput = '';
+        this.utilService.isFiltered = false;
       });
 
     this.messageForm = this.fb.group({

@@ -46,6 +46,7 @@ export class DirectMessageComponent implements OnInit {
         this.firestoreService.updateDirectChat();
         this.scrollToNewestMessage();
         this.utilService.isFiltered = false;
+        this.utilService.searchInput = '';
       });
 
     this.directMessageForm = this.fb.group({
