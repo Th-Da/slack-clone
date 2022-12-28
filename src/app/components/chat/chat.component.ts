@@ -1,16 +1,7 @@
-import {
-  AfterViewInit,
-  Component,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild, } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { DialogAccountComponent } from '../dialog-account/dialog-account.component';
 import { DialogAddChannelComponent } from '../dialog-add-channel/dialog-add-channel.component';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
