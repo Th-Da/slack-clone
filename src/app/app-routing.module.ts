@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { ChatComponent } from './chat/chat.component';
-import { GetStartedComponent } from './get-started/get-started.component';
-import { LoginComponent } from './login/login.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { GetStartedComponent } from './components/get-started/get-started.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { DialogForgotPasswordComponent } from './dialog-forgot-password/dialog-forgot-password.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
-import { ChatroomComponent } from './chatroom/chatroom.component';
-import { DirectMessageComponent } from './direct-message/direct-message.component';
+import { DialogForgotPasswordComponent } from './components/dialog-forgot-password/dialog-forgot-password.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { LegalNoticeComponent } from './components/legal-notice/legal-notice.component';
+import { ChatroomComponent } from './components/chatroom/chatroom.component';
+import { DirectMessageComponent } from './components/direct-message/direct-message.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'get-started', pathMatch: 'full' },
@@ -43,4 +43,4 @@ const routerOptions: ExtraOptions = {
   imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
