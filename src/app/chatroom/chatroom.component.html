@@ -1,119 +1,78 @@
 <div class="chatroom">
-  <h2>{{ this.firestoreService.channel.channelName }}</h2>
+    <h2>{{ this.firestoreService.channel.channelName }}</h2>
 
-  <div #scrollContainer class="massages" id="messageBox">
-    <div
-      *ngIf="
+    <div #scrollContainer class="massages" id="messageBox">
+        <div *ngIf="
         this.firestoreService.messages.length == 0 &&
         this.firestoreService.filteredMessages.length == 0
-      "
-      class="no-messages-container"
-    >
-      <i style="color: var(--primary-col)" class="material-icons">error</i>
-      <h2>Here are no messages yet.</h2>
-    </div>
-    <ng-container
-      *ngIf="
+      " class="no-messages-container">
+            <i style="color: var(--primary-col)" class="material-icons">error</i>
+            <h2>Here are no messages yet.</h2>
+        </div>
+        <div *ngIf="
+      this.firestoreService.filteredMessages.length == 0 && this.utilService.isFiltered
+    " class="no-messages-container">
+            <i style="color: var(--primary-col)" class="material-icons">error</i>
+            <h2>No messages found.</h2>
+        </div>
+        <ng-container *ngIf="
         this.firestoreService.filteredMessages.length == 0 &&
         !this.utilService.isFiltered
-      "
-    >
-      <mat-card
-        class="message"
-        *ngFor="let message of this.firestoreService.messages"
-      >
-        <div class="post-headline">
-          <img
-            class="profile"
-            src="{{ message.photoURL }}"
-            alt="{{ message.displayName }}"
-          />
-          <span>{{ message.displayName }}</span>
+      ">
+            <mat-card class="message" *ngFor="let message of this.firestoreService.messages">
+                <div class="post-headline">
+                    <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
+                    <span>{{ message.displayName }}</span>
 
-          <button
-            *ngIf="message.uid == this.authService.userData.uid"
-            mat-icon-button
-            class="pin-right-upper-corner"
-            [matMenuTriggerFor]="userMenu"
-          >
+                    <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
             <mat-icon>more_vert</mat-icon>
           </button>
-          <mat-menu #userMenu="matMenu">
-            <button mat-menu-item (click)="this.dialogEditMessage(message)">
+                    <mat-menu #userMenu="matMenu">
+                        <button mat-menu-item (click)="this.dialogEditMessage(message)">
               Edit
             </button>
-            <button mat-menu-item (click)="this.dialogDeleteMessage(message)">
+                        <button mat-menu-item (click)="this.dialogDeleteMessage(message)">
               Delete
             </button>
-          </mat-menu>
-        </div>
-        <div>
-          {{ message.message }}
-        </div>
-      </mat-card>
-    </ng-container>
-    <ng-container *ngIf="this.firestoreService.filteredMessages.length !== 0">
-      <mat-card
-        class="message"
-        *ngFor="let message of this.firestoreService.filteredMessages"
-      >
-        <div class="post-headline">
-          <img
-            class="profile"
-            src="{{ message.photoURL }}"
-            alt="{{ message.displayName }}"
-          />
-          <span>{{ message.displayName }}</span>
+                    </mat-menu>
+                </div>
+                <div>
+                    {{ message.message }}
+                </div>
+            </mat-card>
+        </ng-container>
+        <ng-container *ngIf="this.firestoreService.filteredMessages.length !== 0">
+            <mat-card class="message" *ngFor="let message of this.firestoreService.filteredMessages">
+                <div class="post-headline">
+                    <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
+                    <span>{{ message.displayName }}</span>
 
-          <button
-            *ngIf="message.uid == this.authService.userData.uid"
-            mat-icon-button
-            class="pin-right-upper-corner"
-            [matMenuTriggerFor]="userMenu"
-          >
+                    <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
             <mat-icon>more_vert</mat-icon>
           </button>
-          <mat-menu #userMenu="matMenu">
-            <button mat-menu-item (click)="this.dialogEditMessage(message)">
+                    <mat-menu #userMenu="matMenu">
+                        <button mat-menu-item (click)="this.dialogEditMessage(message)">
               Edit
             </button>
-            <button mat-menu-item (click)="this.dialogDeleteMessage(message)">
+                        <button mat-menu-item (click)="this.dialogDeleteMessage(message)">
               Delete
             </button>
-          </mat-menu>
-        </div>
-        <div>
-          {{ message.message }}
-        </div>
-      </mat-card>
-    </ng-container>
-  </div>
+                    </mat-menu>
+                </div>
+                <div>
+                    {{ message.message }}
+                </div>
+            </mat-card>
+        </ng-container>
+    </div>
 
-  <form
-    [formGroup]="messageForm"
-    (submit)="onSubmit()"
-    class="message-container"
-  >
-    <mat-form-field appearance="fill">
-      <mat-label>Your Message</mat-label>
-      <textarea
-        formControlName="message"
-        minlength="1"
-        #messageInput
-        matInput
-        cdkTextareaAutosize
-        #autosize="cdkTextareaAutosize"
-        cdkAutosizeMinRows="5"
-        cdkAutosizeMaxRows="10"
-      ></textarea>
-    </mat-form-field>
-    <button
-      [disabled]="messageInput.value == ''"
-      [ngClass]="{ 'primary-btn': messageInput.value != '' }"
-      type="submit"
-      mat-raised-button
-    >
+    <form [formGroup]="messageForm" (submit)="onSubmit()" class="message-container">
+        <mat-form-field appearance="fill">
+            <mat-label>Your Message</mat-label>
+            <textarea formControlName="message" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
+        </mat-form-field>
+        <button [disabled]="messageInput.value == ''" [ngClass]="{ 'primary-btn': messageInput.value != '' }" type="submit" mat-raised-button>
       Post
     </button>
-  </form>
+    </form>
 </div>

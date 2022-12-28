@@ -5,6 +5,10 @@
             <i style="color: var(--primary-col)" class="material-icons">error</i>
             <h2>Here are no messages yet.</h2>
         </div>
+        <div *ngIf="this.firestoreService.filteredMessages.length == 0 && this.utilService.isFiltered" class="no-messages-container">
+            <i style="color: var(--primary-col)" class="material-icons">error</i>
+            <h2>No messages found.</h2>
+        </div>
         <ng-container *ngIf="!this.utilService.isFiltered">
             <mat-card class="message" *ngFor="let message of this.firestoreService.directChatMessages">
                 <div class="post-headline">
