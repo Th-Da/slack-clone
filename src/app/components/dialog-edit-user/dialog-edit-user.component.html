@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Edit Profile</h1>
 <div mat-dialog-content *ngIf="authService.userData as user">
     <div (click)="fileUpload.click()" class="profile-picture-wrapper">
-        <img class="profile-picture" src="{{ user.photoURL? user.photoURL : './../../../assets/img/blank_user.svg' }}" alt="{{ user.displayName }}" />
+        <img class="profile-picture" src="{{ user.photoURL? user.photoURL : './../../../assets/images/blank_user.svg' }}" alt="{{ user.displayName }}" />
         <i class="material-icons">edit</i>
     </div>
     <mat-form-field appearance="outline">

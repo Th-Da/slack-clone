@@ -1,54 +1,43 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
-  <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
-    <div class="logo-container" (click)="drawer.toggle()">
-      <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
-      <span>Slack Clone</span>
-    </div>
+    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+        <div class="logo-container" (click)="drawer.toggle()">
+            <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
+            <span>Slack Clone</span>
+        </div>
 
-    <ul class="menu-items">
-      <details open>
-        <summary>Channels</summary>
-        <ul>
-          <li
-            [routerLink]="['/chat/welcome']"
-            routerLinkActive="router-link-active"
-            (click)="this.toggleNav()"
-          >
-            <span># welcome</span>
-          </li>
-          <li
-            *ngFor="let channel of this.firestoreService.allChannels"
-            (click)="
-              openChat('/chat/ch/', channel.customIdName); this.toggleNav()
-            "
-          >
-            <span># {{ channel.channelName }}</span>
-          </li>
-          <li (click)="openDialog()">
-            <mat-icon>add</mat-icon>
-            <span>Create new channel</span>
-          </li>
-        </ul>
-      </details>
-
-      <details open>
-        <summary>Users</summary>
         <ul class="menu-items">
-          <li
-            *ngFor="let user of this.firestoreService.allOtherUsers"
-            (click)="openDirectMessage('/chat/dm/', user.uid)"
-          >
-            <span>{{ user.displayName }}</span>
-          </li>
-        </ul>
-      </details>
+            <details open>
+                <summary>Channels</summary>
+                <ul>
+                    <li [routerLink]="['/chat/welcome']" routerLinkActive="router-link-active" (click)="this.toggleNav()">
+                        <span># welcome</span>
+                    </li>
+                    <li *ngFor="let channel of this.firestoreService.allChannels" (click)="
+              openChat('/chat/ch/', channel.customIdName); this.toggleNav()
+            ">
+                        <span># {{ channel.channelName }}</span>
+                    </li>
+                    <li (click)="openDialog()">
+                        <mat-icon>add</mat-icon>
+                        <span>Create new channel</span>
+                    </li>
+                </ul>
+            </details>
 
-      <li (click)="this.authService.logOut()">
-        <mat-icon>logout</mat-icon>Log Out
-      </li>
-    </ul>
-    <a class="legal-notice-link" routerLink="/legal-notice" target="_blank"
-      >Imprint <span>|</span> Privacy Policy</a
+            <details open>
+                <summary>Users</summary>
+                <ul class="menu-items">
+                    <li *ngFor="let user of this.firestoreService.allOtherUsers" (click)="openDirectMessage('/chat/dm/', user.uid)">
+                        <span>{{ user.displayName }}</span>
+                    </li>
+                </ul>
+            </details>
+
+            <li (click)="this.authService.logOut()">
+                <mat-icon>logout</mat-icon>Log Out
+            </li>
+        </ul>
+        <a class="legal-notice-link" routerLink="/legal-notice" target="_blank">Imprint <span>|</span> Privacy Policy</a
     >
   </mat-drawer>
 
@@ -82,7 +71,7 @@
               src="{{
                 user.photoURL
                   ? user.photoURL
-                  : './../../../assets/img/blank_user.svg'
+                  : './../../../assets/images/blank_user.svg'
               }}"
               alt="{{ user.displayName }}"
             />
