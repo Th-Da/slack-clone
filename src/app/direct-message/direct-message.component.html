@@ -4,10 +4,10 @@
         <mat-card class="message" *ngFor="let message of this.firestoreService.directChatMessages">
             <div class="post-headline">
                 <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
-                <span>{{ message.displayName }}</span>
+                <span>{{ message.displayName || '' }}</span>
 
                 <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
-          <mat-icon>more_vert</mat-icon>
+        <mat-icon>more_vert</mat-icon>
         </button>
                 <mat-menu #userMenu="matMenu">
                     <button mat-menu-item (click)="this.dialogEditMessageDM(message)">Edit</button>

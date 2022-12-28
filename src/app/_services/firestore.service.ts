@@ -233,7 +233,9 @@ export class FirestoreService {
       .valueChanges()
       .subscribe((changes) => {
         this.participantUser = changes;
-        this.participantUserName = this.participantUser.displayName;
+        if (this.participantUser) {
+          this.participantUserName = this.participantUser.displayName;
+        }
       });
   }
 
