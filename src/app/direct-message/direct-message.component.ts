@@ -34,6 +34,7 @@ export class DirectMessageComponent implements OnInit {
 
   ngOnInit(): void {
     this.utilService.isFiltered = false;
+    this.utilService.searchBarActivated = true;
     this.setDmChatId();
     this.liveChatUpdate();
     this.scrollToNewestMessage();

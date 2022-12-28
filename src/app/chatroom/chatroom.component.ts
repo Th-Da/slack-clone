@@ -55,6 +55,7 @@ export class ChatroomComponent implements OnInit {
     this.scrollToNewestMessage();
     this.firestoreService.filteredMessages = [];
     this.utilService.currentUrl = this.router.url;
+    this.utilService.searchBarActivated = true;
   }
 
   /**
