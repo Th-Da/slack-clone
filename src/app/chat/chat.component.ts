@@ -90,6 +90,14 @@ export class ChatComponent implements OnInit {
       });
   }
 
+  openAccountDialog() {
+    this.dialog.open(DialogAccountComponent);
+  }
+
+  openEditUserDialog() {
+    this.dialog.open(DialogEditUserComponent);
+  }
+
   openDialog() {
     this.dialog.open(DialogAddChannelComponent);
   }

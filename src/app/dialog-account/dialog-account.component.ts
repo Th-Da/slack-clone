@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogDeleteUserComponent } from '../dialog-delete-user/dialog-delete-user.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogEditUserComponent } from '../dialog-edit-user/dialog-edit-user.component';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  selector: 'app-dialog-account',
+  templateUrl: './dialog-account.component.html',
+  styleUrls: ['./dialog-account.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class DialogAccountComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<DialogAccountComponent>
+  ) { }
 
   ngOnInit(): void {
   }

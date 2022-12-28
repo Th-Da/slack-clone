@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DialogDeleteMessageComponent } from '../dialog-delete-message/dialog-delete-message.component';
 import { DialogEditMessageComponent } from '../dialog-edit-message/dialog-edit-message.component';
 import { AuthService } from '../_services/auth.service';
 import { FirestoreService } from '../_services/firestore.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-chatroom',
@@ -14,8 +15,9 @@ import { FirestoreService } from '../_services/firestore.service';
   styleUrls: ['./chatroom.component.scss'],
 })
 export class ChatroomComponent implements OnInit {
+  @ViewChild('messageInput') messageInput: ElementRef;
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
   messageForm: FormGroup;
-  @ViewChild('messageInput') messageInput;
 
   constructor(
     public authService: AuthService,
@@ -24,8 +26,9 @@ export class ChatroomComponent implements OnInit {
     public dialogRef: MatDialog,
     public firestoreService: FirestoreService,
     public dialog: MatDialog,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    private firestore: AngularFirestore
+  ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap) => {
@@ -33,11 +36,56 @@ export class ChatroomComponent implements OnInit {
       console.log('GOT ID:', this.firestoreService.channelId);
     });
 
+    // Subscribe router param to update chat when changing channel
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.firestoreService.updateChat();
+        this.scrollToNewestMessage();
+      });
+
     this.messageForm = this.fb.group({
       message: ['', [Validators.minLength(1)]],
     });
 
     this.firestoreService.updateChat();
+    this.liveChatUpdate();
+    this.scrollToNewestMessage();
+  }
+
+  /**
+   * Subscribes the observable from firstore tu update every change from backend
+   */
+  liveChatUpdate() {
+    this.firestore
+      .collection('channels')
+      .valueChanges({ idField: 'channelId' })
+      .subscribe((changes: any) => {
+        this.firestoreService.chat = changes;
+
+        if (this.firestoreService.chat != undefined) {
+          let cache = this.firestoreService.chat.find(chat => chat.channelId == this.firestoreService.channelId);
+          this.firestoreService.messages = cache.messages;
+          this.scrollToNewestMessage();
+        }
+      });
+  }
+
+  /**
+   * Scrolls to the newest message in chatroom
+   */
+  scrollToNewestMessage() {
+    let checkContainer = setInterval(() => {
+      if (this.scrollContainer) {
+        clearInterval(checkContainer);
+        let element = this.scrollContainer.nativeElement;
+        let scrollHeight = this.scrollContainer.nativeElement.scrollHeight;
+
+        setTimeout(() => {
+          element.scrollTo(0, scrollHeight);
+        }, 20);
+      }
+    }, 1000 / 60);
   }
 
   /**

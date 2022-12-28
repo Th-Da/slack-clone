@@ -8,7 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { DialogForgotPasswordComponent } from '../dialog-forgot-password/dialog-forgot-password.component';
 import { DialogGuestUserComponent } from '../dialog-guest-user/dialog-guest-user.component';
 
 @Component({
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
    * Opens the forgot password dialog
    */
   openForgotPasswordDialog() {
-    this.dialog.open(ForgotPasswordComponent);
+    this.dialog.open(DialogForgotPasswordComponent);
   }
 
   /**

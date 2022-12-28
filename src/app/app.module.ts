@@ -29,11 +29,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { DialogForgotPasswordComponent } from './dialog-forgot-password/dialog-forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AuthService } from './_services/auth.service';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { AccountComponent } from './account/account.component';
 import { DialogAuthErrorsComponent } from './dialog-auth-errors/dialog-auth-errors.component';
 import { DialogAddChannelComponent } from './dialog-add-channel/dialog-add-channel.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
@@ -46,6 +45,7 @@ import { DialogDeleteMessageComponent } from './dialog-delete-message/dialog-del
 import { DirectMessageComponent } from './direct-message/direct-message.component';
 import { DialogDeleteDirectmessageComponent } from './dialog-delete-directmessage/dialog-delete-directmessage.component';
 import { DialogEditDirectmessageComponent } from './dialog-edit-directmessage/dialog-edit-directmessage.component';
+import { DialogAccountComponent } from './dialog-account/dialog-account.component';
 
 @NgModule({
   declarations: [
@@ -54,10 +54,9 @@ import { DialogEditDirectmessageComponent } from './dialog-edit-directmessage/di
     SignUpComponent,
     LoginComponent,
     ChatComponent,
-    ForgotPasswordComponent,
+    DialogForgotPasswordComponent,
     VerifyEmailComponent,
     WelcomeComponent,
-    AccountComponent,
     DialogAuthErrorsComponent,
     DialogAddChannelComponent,
     DialogDeleteUserComponent,
@@ -70,6 +69,7 @@ import { DialogEditDirectmessageComponent } from './dialog-edit-directmessage/di
     DirectMessageComponent,
     DialogDeleteDirectmessageComponent,
     DialogEditDirectmessageComponent,
+    DialogAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,4 +101,4 @@ import { DialogEditDirectmessageComponent } from './dialog-edit-directmessage/di
   providers: [AuthService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

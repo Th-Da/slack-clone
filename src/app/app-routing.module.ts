@@ -5,10 +5,9 @@ import { GetStartedComponent } from './get-started/get-started.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { DialogForgotPasswordComponent } from './dialog-forgot-password/dialog-forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { AccountComponent } from './account/account.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { ChatroomComponent } from './chatroom/chatroom.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
@@ -18,14 +17,13 @@ const routes: Routes = [
   { path: 'get-started', component: GetStartedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'forgot-password', component: DialogForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'legal-notice', component: LegalNoticeComponent },
   {
     path: 'chat',
     children: [
       { path: 'welcome', component: WelcomeComponent },
-      { path: 'account', component: AccountComponent },
       { path: ':id', component: ChatroomComponent },
       { path: 'dm/:uid', component: DirectMessageComponent },
     ],
@@ -45,4 +43,4 @@ const routerOptions: ExtraOptions = {
   imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,7 +1,7 @@
 <div class="chatroom">
     <h2> {{ this.firestoreService.channel.channelName }} </h2>
 
-    <div class="massages" id="messageBox">
+    <div #scrollContainer class="massages" id="messageBox">
         <mat-card class="message" *ngFor="let message of this.firestoreService.messages">
             <div class="post-headline">
 
@@ -27,7 +27,7 @@
             <mat-label>Your Message</mat-label>
             <textarea formControlName="message" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
         </mat-form-field>
-        <button type="submit" mat-raised-button>Post</button>
+        <button *ngIf="messageInput.value != ''" type="submit" mat-raised-button>Post</button>
     </form>
 
 </div>

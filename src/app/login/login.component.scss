@@ -12,12 +12,6 @@ h1 {
     height: 100vh;
 }
 
-a {
-    text-decoration: none;
-    color: #1264a3;
-    cursor: pointer;
-}
-
 span {
     text-align: center;
 }
@@ -35,11 +29,6 @@ span {
     align-items: center;
     justify-content: center;
     gap: 32px;
-}
-
-.width-25vw {
-    width: 25vw;
-    min-width: 230px;
 }
 
 .google-icon {
@@ -61,14 +50,6 @@ span {
     color: #4285f4;
     &:active {
         color: #4285f4;
-    }
-}
-
-.mat-login-button {
-    background-color: #4a154b;
-    color: white;
-    &:hover {
-        background-color: #611f69e6;
     }
 }
 

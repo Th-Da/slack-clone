@@ -1,39 +1,32 @@
 * {
-  text-align: center;
+    text-align: center;
 }
 
 h1 {
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: -0.75px;
-  line-height: 46px;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.75px;
+    line-height: 46px;
 }
 
 .component-wrapper {
-  width: 100vw;
-  height: 100vh;
+    width: 100vw;
+    height: 100vh;
 }
 
 .verify-email-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
 }
 
 .mat-loginbutton {
-  background-color: #4a154b;
-  color: white;
-
-  &:hover {
-    background-color: #611f69e6;
-  }
-}
-
-a {
-  text-decoration: none;
-  color: #1264a3;
-  cursor: pointer;
+    background-color: #4a154b;
+    color: white;
+    &:hover {
+        background-color: #611f69e6;
+    }
 }

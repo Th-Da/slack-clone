@@ -1,3 +1,7 @@
+mat-card {
+    box-shadow: none !important;
+}
+
 .mat-card-header {
     display: flex;
     flex-direction: column;
@@ -28,18 +32,15 @@
     }
 }
 
-.log-out-btn {
+.mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close-btn {
     background-color: #4a154b;
     color: white;
     &:hover {
         background-color: #611f69e6;
-    }
-}
-
-.edit-profile-btn {
-    background-color: #007a5a;
-    color: white;
-    &:hover {
-        background-color: #009b71;
     }
 }

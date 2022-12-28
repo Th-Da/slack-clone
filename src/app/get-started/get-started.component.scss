@@ -41,22 +41,10 @@ a {
     margin: 13% 3% 13% 0;
 }
 
-.mat-signup-button {
-    width: 25vw;
-    background-color: #007a5a;
-    color: white;
-    &:hover {
-        background-color: #009b71;
-    }
-}
-
 .legal-notice-link {
     position: absolute;
     right: 16px;
     bottom: 16px;
-    span {
-        color: black;
-    }
     &:hover {
         text-decoration: underline;
     }

@@ -41,6 +41,7 @@ export class DirectMessageComponent implements OnInit {
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.firestoreService.updateDirectChat();
+        this.scrollToNewestMessage();
       });
 
     this.directMessageForm = this.fb.group({
@@ -58,7 +59,10 @@ export class DirectMessageComponent implements OnInit {
         let element = this.scrollContainer.nativeElement;
         let scrollHeight = this.scrollContainer.nativeElement.scrollHeight;
 
-        element.scrollTo(0, scrollHeight);
+        setTimeout(() => {
+          element.scrollTo(0, scrollHeight);
+        }, 20);
+
       }
     }, 1000 / 60);
   }
