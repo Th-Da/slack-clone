@@ -15,15 +15,17 @@
                     <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
                     <span>{{ message.displayName }}</span>
                     <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
                     <mat-menu #userMenu="matMenu">
                         <button mat-menu-item (click)="this.dialogEditMessageDM(message)">
-              Edit
-            </button>
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
                         <button mat-menu-item (click)="this.dialogDeleteMessageDM(message)">
-              Delete
-            </button>
+                            <mat-icon>delete</mat-icon>
+                            <span>Delete</span>
+                        </button>
                     </mat-menu>
                 </div>
                 <div>{{ message.message }}</div>
@@ -35,15 +37,17 @@
                     <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
                     <span>{{ message.displayName }}</span>
                     <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
                     <mat-menu #userMenu="matMenu">
                         <button mat-menu-item (click)="this.dialogEditMessageDM(message)">
-              Edit
-            </button>
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
                         <button mat-menu-item (click)="this.dialogDeleteMessageDM(message)">
-              Delete
-            </button>
+                            <mat-icon>delete</mat-icon>
+                            <span>Delete</span>
+                        </button>
                     </mat-menu>
                 </div>
                 <div>{{ message.message }}</div>
@@ -56,7 +60,7 @@
             <textarea onkeydown="if (event.keyCode == 13) { this.form.requestSubmit(); return false; }" formControlName="directMessage" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
         </mat-form-field>
         <button [disabled]="messageInput.value == ''" [ngClass]="{ 'primary-btn': messageInput.value != '' }" type="submit" mat-raised-button>
-      Post
-    </button>
+            Post
+        </button>
     </form>
 </div>
