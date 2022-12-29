@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { ChatComponent } from './components/chat/chat.component';
+import { MainComponent } from './components/main/main.component';
 import { GetStartedComponent } from './components/get-started/get-started.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -9,7 +9,7 @@ import { DialogForgotPasswordComponent } from './components/dialog-forgot-passwo
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LegalNoticeComponent } from './components/legal-notice/legal-notice.component';
-import { ChatroomComponent } from './components/chatroom/chatroom.component';
+import { CannelsComponent } from './components/cannels/cannels.component';
 import { DirectMessageComponent } from './components/direct-message/direct-message.component';
 
 const routes: Routes = [
@@ -24,10 +24,10 @@ const routes: Routes = [
     path: 'chat',
     children: [
       { path: 'welcome', component: WelcomeComponent },
-      { path: 'ch/:id', component: ChatroomComponent },
+      { path: 'ch/:id', component: CannelsComponent },
       { path: 'dm/:uid', component: DirectMessageComponent },
     ],
-    component: ChatComponent,
+    component: MainComponent,
     canActivate: [AuthGuard],
   },
 ];

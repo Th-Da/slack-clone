@@ -13,7 +13,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { GetStartedComponent } from './components/get-started/get-started.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
-import { ChatComponent } from './components/chat/chat.component';
+import { MainComponent } from './components/main/main.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,7 +35,7 @@ import { AuthService } from './services/auth.service';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { DialogAuthErrorsComponent } from './components/dialog-auth-errors/dialog-auth-errors.component';
 import { DialogAddChannelComponent } from './components/dialog-add-channel/dialog-add-channel.component';
-import { ChatroomComponent } from './components/chatroom/chatroom.component';
+import { CannelsComponent } from './components/cannels/cannels.component';
 import { DialogDeleteUserComponent } from './components/dialog-delete-user/dialog-delete-user.component';
 import { DialogEditUserComponent } from './components/dialog-edit-user/dialog-edit-user.component';
 import { DialogGuestUserComponent } from './components/dialog-guest-user/dialog-guest-user.component';
@@ -53,7 +53,7 @@ import { DialogAccountComponent } from './components/dialog-account/dialog-accou
     GetStartedComponent,
     SignUpComponent,
     LoginComponent,
-    ChatComponent,
+    MainComponent,
     DialogForgotPasswordComponent,
     VerifyEmailComponent,
     WelcomeComponent,
@@ -63,7 +63,7 @@ import { DialogAccountComponent } from './components/dialog-account/dialog-accou
     DialogEditUserComponent,
     DialogGuestUserComponent,
     LegalNoticeComponent,
-    ChatroomComponent,
+    CannelsComponent,
     DialogEditMessageComponent,
     DialogDeleteMessageComponent,
     DirectMessageComponent,

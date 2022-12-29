@@ -11,11 +11,11 @@ import { filter } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
-  selector: 'app-chatroom',
-  templateUrl: './chatroom.component.html',
-  styleUrls: ['./chatroom.component.scss'],
+  selector: 'app-cannels',
+  templateUrl: './cannels.component.html',
+  styleUrls: ['./cannels.component.scss'],
 })
-export class ChatroomComponent implements OnInit {
+export class CannelsComponent implements OnInit {
   @ViewChild('messageInput') messageInput: ElementRef;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   messageForm: FormGroup;

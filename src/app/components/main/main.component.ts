@@ -16,11 +16,11 @@ import { FirestoreService } from '../../services/firestore.service';
 import { UtilsService } from '../../services/utils.service';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss'],
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
 })
-export class ChatComponent implements OnInit, AfterViewInit {
+export class MainComponent implements OnInit, AfterViewInit {
   @ViewChild('drawer') drawer!: MatDrawer;
 
   @HostListener('window:resize', ['$event'])
