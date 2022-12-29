@@ -30,7 +30,7 @@ export class CannelsComponent implements OnInit {
     private fb: FormBuilder,
     private firestore: AngularFirestore,
     public utilService: UtilsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.setChannelId();
@@ -85,8 +85,10 @@ export class CannelsComponent implements OnInit {
           let cache = this.firestoreService.chat.find(
             (chat) => chat.channelId == this.firestoreService.channelId
           );
-          this.firestoreService.messages = cache.messages;
-          this.scrollToNewestMessage();
+          if (cache) {
+            this.firestoreService.messages = cache.messages;
+            this.scrollToNewestMessage();
+          }
         }
       });
   }
