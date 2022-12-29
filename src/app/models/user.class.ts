@@ -9,7 +9,7 @@ export class User {
     this.uid = obj ? obj.uid : '';
     this.email = obj ? obj.email : '';
     this.displayName = obj ? obj.displayName : '';
-    this.photoURL = obj ? obj.photoURL : '';
+    this.photoURL = obj ? obj.photoURL : './../../../assets/images/blank_user.svg';
     this.emailVerified = obj ? obj.emailVerified : '';
   }
 
@@ -22,7 +22,7 @@ export class User {
       uid: this.uid,
       email: this.email || '',
       displayName: this.displayName,
-      photoURL: this.photoURL || '',
+      photoURL: this.photoURL || './../../../assets/images/blank_user.svg',
       emailVerified: this.emailVerified,
     };
   }
