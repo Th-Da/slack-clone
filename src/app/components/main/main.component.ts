@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
@@ -29,7 +35,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     public router: Router,
     public dialog: MatDialog,
     public utilService: UtilsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.firestoreService.getAllOtherUsers();
@@ -82,15 +88,19 @@ export class MainComponent implements OnInit, AfterViewInit {
 
   filterChannels(value: string) {
     this.firestoreService.filteredMessages =
-      this.firestoreService.messages.filter((option) =>
-        option.message.toLowerCase().includes(value.toLowerCase())
+      this.firestoreService.messages.filter(
+        (option) =>
+          option.message.toLowerCase().includes(value.toLowerCase()) ||
+          option.displayName.toLowerCase().includes(value.toLowerCase())
       );
   }
 
   filterDms(value: string) {
     this.firestoreService.filteredDirectMessages =
-      this.firestoreService.directChatMessages.filter((option) =>
-        option.message.toLowerCase().includes(value.toLowerCase())
+      this.firestoreService.directChatMessages.filter(
+        (option) =>
+          option.message.toLowerCase().includes(value.toLowerCase()) ||
+          option.displayName.toLowerCase().includes(value.toLowerCase())
       );
   }
 
