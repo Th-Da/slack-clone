@@ -66,7 +66,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     }
   }
 
-  filter(value: string) {
+  filterMessages(value: string) {
     if (value != '') {
       this.utilService.isFiltered = true;
     } else {
@@ -117,7 +117,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.dialog.open(DialogEditUserComponent);
   }
 
-  openDialog() {
+  openCreateChannelDialog() {
     this.dialog.open(DialogAddChannelComponent);
   }
 }

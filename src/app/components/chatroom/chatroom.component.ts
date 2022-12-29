@@ -33,10 +33,33 @@ export class ChatroomComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.setChannelId();
+    this.initMessageFOrm();
+    this.updateOnComponentSwitch();
+    this.liveChatUpdate();
+    this.scrollToNewestMessage();
+    this.firestoreService.updateChat();
+    this.firestoreService.filteredMessages = [];
+    this.utilService.currentUrl = this.router.url;
+    this.utilService.searchBarActivated = true;
+  }
+
+  initMessageFOrm() {
+    this.messageForm = this.fb.group({
+      message: ['', [Validators.minLength(1)]],
+    });
+  }
+
+  setChannelId() {
     this.route.paramMap.subscribe((paramMap) => {
       this.firestoreService.channelId = paramMap.get('id');
     });
-    // Subscribe router param to update chat when changing channel
+  }
+
+  /**
+   * Subscribes the router param to update chat when changing channel
+   */
+  updateOnComponentSwitch() {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -46,16 +69,6 @@ export class ChatroomComponent implements OnInit {
         this.utilService.searchInput = '';
         this.utilService.isFiltered = false;
       });
-
-    this.messageForm = this.fb.group({
-      message: ['', [Validators.minLength(1)]],
-    });
-    this.firestoreService.updateChat();
-    this.liveChatUpdate();
-    this.scrollToNewestMessage();
-    this.firestoreService.filteredMessages = [];
-    this.utilService.currentUrl = this.router.url;
-    this.utilService.searchBarActivated = true;
   }
 
   /**

@@ -17,7 +17,7 @@
             ">
                         <span># {{ channel.channelName }}</span>
                     </li>
-                    <li (click)="openDialog()">
+                    <li (click)="openCreateChannelDialog()">
                         <mat-icon>add</mat-icon>
                         <span>Create new channel</span>
                     </li>
@@ -57,7 +57,7 @@
               matInput
               autocomplete="on"
               class="search_field hide_mobile"
-              (keyup)="filter(searchValue.value)"
+              (keyup)="filterMessages(searchValue.value)"
               #searchValue
               [(ngModel)]="this.utilService.searchInput"
             />
