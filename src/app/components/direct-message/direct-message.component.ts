@@ -89,8 +89,10 @@ export class DirectMessageComponent implements OnInit {
           let cache = this.firestoreService.directMessages.find(
             (chat) => chat.dmId == this.firestoreService.dmId
           );
-          this.firestoreService.directChatMessages = cache.messages;
-          this.scrollToNewestMessage();
+          if (cache) {
+            this.firestoreService.directChatMessages = cache.messages;
+            this.scrollToNewestMessage();
+          }
         }
       });
   }
