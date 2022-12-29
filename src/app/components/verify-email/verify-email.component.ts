@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -7,10 +7,9 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './verify-email.component.html',
   styleUrls: ['./verify-email.component.scss']
 })
-export class VerifyEmailComponent implements OnInit {
+export class VerifyEmailComponent {
 
-  constructor(public authService: AuthService, public utils: UtilsService) { }
-
-  ngOnInit(): void { }
-
+  constructor(
+    public authService: AuthService,
+    public utils: UtilsService) { }
 }

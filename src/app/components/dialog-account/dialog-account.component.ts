@@ -8,16 +8,13 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './dialog-account.component.html',
   styleUrls: ['./dialog-account.component.scss']
 })
-export class DialogAccountComponent implements OnInit {
+export class DialogAccountComponent {
 
   constructor(
     public authService: AuthService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<DialogAccountComponent>
   ) { }
-
-  ngOnInit(): void {
-  }
 
   /**
    * Opens a dialog to edit the user

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,19 +8,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './dialog-guest-user.component.html',
   styleUrls: ['./dialog-guest-user.component.scss'],
 })
-export class DialogGuestUserComponent implements OnInit {
+export class DialogGuestUserComponent {
   constructor(
     public authService: AuthService,
     public dialogRef: MatDialogRef<DialogGuestUserComponent>
   ) { }
 
-  contactForm = new FormGroup({
+  contactForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
   });
-
-  ngOnInit(): void {
-    this.contactForm;
-  }
 
   onSubmit() {
     if (this.contactForm.valid) {

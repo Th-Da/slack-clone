@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
@@ -7,12 +7,11 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   templateUrl: './dialog-delete-directmessage.component.html',
   styleUrls: ['./dialog-delete-directmessage.component.scss']
 })
-export class DialogDeleteDirectmessageComponent implements OnInit {
+export class DialogDeleteDirectmessageComponent {
 
-  constructor(public firestoreService: FirestoreService,
-    public dialogRef: MatDialogRef<DialogDeleteDirectmessageComponent>) { }
-
-  ngOnInit(): void {
-  }
+  constructor(
+    public firestoreService: FirestoreService,
+    public dialogRef: MatDialogRef<DialogDeleteDirectmessageComponent>
+  ) { }
 
 }

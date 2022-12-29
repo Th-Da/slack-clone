@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,7 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './dialog-forgot-password.component.html',
   styleUrls: ['./dialog-forgot-password.component.scss'],
 })
-export class DialogForgotPasswordComponent implements OnInit {
+export class DialogForgotPasswordComponent {
   constructor(
     public authService: AuthService,
     public dialog: MatDialogRef<DialogForgotPasswordComponent>
@@ -20,8 +20,6 @@ export class DialogForgotPasswordComponent implements OnInit {
       Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
     ]),
   });
-
-  ngOnInit(): void { }
 
   onSubmit() {
     if (this.resetPasswordForm.valid) {

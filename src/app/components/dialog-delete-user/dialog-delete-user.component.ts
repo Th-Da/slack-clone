@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -7,13 +7,10 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './dialog-delete-user.component.html',
   styleUrls: ['./dialog-delete-user.component.scss']
 })
-export class DialogDeleteUserComponent implements OnInit {
+export class DialogDeleteUserComponent {
 
   constructor(
     public authService: AuthService,
     public dialogRef: MatDialogRef<DialogDeleteUserComponent>) { }
-
-  ngOnInit(): void {
-  }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Channel } from 'src/app/models/channel.class';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -8,15 +8,13 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './dialog-add-channel.component.html',
   styleUrls: ['./dialog-add-channel.component.scss'],
 })
-export class DialogAddChannelComponent implements OnInit {
+export class DialogAddChannelComponent {
+  channel: Channel = new Channel();
+
   constructor(
     public afs: AngularFirestore,
     public ref: MatDialogRef<DialogAddChannelComponent>
   ) { }
-  channel = new Channel();
-
-  ngOnInit(): void { }
-  /* (click)="createChannel($event) */
 
   createChannel() {
     this.afs

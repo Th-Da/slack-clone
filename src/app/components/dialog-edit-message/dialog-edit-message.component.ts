@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
@@ -8,12 +8,10 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   templateUrl: './dialog-edit-message.component.html',
   styleUrls: ['./dialog-edit-message.component.scss']
 })
-export class DialogEditMessageComponent implements OnInit {
+export class DialogEditMessageComponent {
 
-  constructor(public firestoreService: FirestoreService,
+  constructor(
+    public firestoreService: FirestoreService,
     public dialogRef: MatDialogRef<DialogEditMessageComponent>,) { }
-
-  ngOnInit(): void {
-  }
 
 }

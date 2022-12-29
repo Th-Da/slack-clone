@@ -8,9 +8,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class WelcomeComponent implements OnInit, OnDestroy {
 
-  constructor(
-    private utilsService: UtilsService
-  ) { }
+  constructor(private utilsService: UtilsService) { }
 
   ngOnInit(): void {
     this.utilsService.searchBarActivated = false;
