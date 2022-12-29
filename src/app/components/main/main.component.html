@@ -30,7 +30,7 @@
             </div>
             <details open *ngIf="this.authService.userData && !this.authService.userData.isAnonymous">
                 <summary>Direct messages</summary>
-                <ul class="menu-items">
+                <ul>
                     <li *ngFor="let user of this.firestoreService.allOtherUsers" (click)="openDirectMessage('/chat/dm/', user.uid)">
                         <span>{{ user.displayName }}</span>
                     </li>
