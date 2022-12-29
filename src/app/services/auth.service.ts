@@ -274,7 +274,7 @@ export class AuthService {
    * Deletes the currently logged in user
    */
   deleteUser() {
-    this.deleteProfilePicture();
+    // this.deleteProfilePicture(); => Can be used if wanted
 
     this.afAuth.currentUser.then((user) => {
       this.firestoreService.deleteUser(user.uid); // Delete the user from firestore
