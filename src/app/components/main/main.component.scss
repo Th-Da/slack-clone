@@ -160,12 +160,16 @@ input:focus::-webkit-input-placeholder {
   align-items: center;
   gap: 8px;
   span {
-    font-size: 16px;
+    font-size: 14px;
   }
   a {
     display: flex;
     align-items: center;
   }
+}
+
+.user-name {
+  font-size: 14px;
 }
 
 .profile-picture {
