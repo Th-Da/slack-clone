@@ -8,6 +8,7 @@ import { FirestoreService } from './firestore.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAuthErrorsComponent } from '../components/dialog-auth-errors/dialog-auth-errors.component';
 import { FirestorageService } from './firestorage.service';
+import { UtilsService } from './utils.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -29,7 +30,8 @@ export class AuthService {
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     private firestoreService: FirestoreService,
     private dialog: MatDialog,
-    private injector: Injector
+    private injector: Injector,
+    private utils: UtilsService
   ) {
 
     // Saving user data in localStorage when logged in and setting up null when logged out
@@ -52,6 +54,8 @@ export class AuthService {
    * @returns
    */
   signIn(email: string, password: string) {
+    this.utils.loading = true;
+
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
@@ -61,12 +65,14 @@ export class AuthService {
           // If user has verified his email, but the page is not reloaded, the login does not work
           if (user && user.emailVerified && this.router.url == '/login') {
             this.router.navigate(['chat/welcome']).then(() => {
+              this.utils.loading = false;
               window.location.reload();
             });
           }
 
           if (user && user.emailVerified) {
             this.router.navigate(['chat/welcome']);
+            this.utils.loading = false;
           } else {
             this.displayAuthErrorDialog('report', 'Attention', 'Please verify your email!', 'null', 'null');
           }
@@ -85,12 +91,15 @@ export class AuthService {
    * @returns
    */
   signUp(displayName: string, email: string, password: string) {
+    this.utils.loading = true;
+
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.changeDisplayName(displayName);
         this.sendVerificationMail(); // Call the SendVerificationMail() function when new user sign up and returns promise
         this.setUserData(result.user);
+        this.utils.loading = false;
       })
       .catch((error) => {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
@@ -102,10 +111,13 @@ export class AuthService {
    * @returns
    */
   sendVerificationMail() {
+    this.utils.loading = true;
+
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
         this.router.navigate(['verify-email-address']);
+        this.utils.loading = false;
       });
   }
 
@@ -115,10 +127,13 @@ export class AuthService {
    * @returns
    */
   forgotPassword(passwordResetEmail: string) {
+    this.utils.loading = true;
+
     return this.afAuth
       .sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
         this.displayAuthErrorDialog('info', 'Info', 'Password reset email sent, check your inbox.', 'null', 'null');
+        this.utils.loading = false;
       })
       .catch((error) => {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
@@ -154,10 +169,13 @@ export class AuthService {
    * @returns
    */
   googleAuth() {
+    this.utils.loading = true;
+
     return this.authLogin(new auth.GoogleAuthProvider()).then(() => {
       // Cannot be forwarded immediately after authentication
       setTimeout(() => {
         this.router.navigate(['chat/welcome']);
+        this.utils.loading = false;
       }, 1000);
     });
   }
@@ -168,11 +186,14 @@ export class AuthService {
    * @returns
    */
   authLogin(provider: any) {
+    this.utils.loading = true;
+
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
         this.router.navigate(['chat/welcome']);
         this.setUserData(result.user);
+        this.utils.loading = false;
       })
       .catch((error) => {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
@@ -211,10 +232,13 @@ export class AuthService {
    * @returns
    */
   logOut() {
+    this.utils.loading = true;
+
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['login']).then(() => {
         window.location.reload();
+        this.utils.loading = false;
       });
     });
   }
@@ -224,6 +248,7 @@ export class AuthService {
    * @param guestDisplayName The name of the guest user
    */
   guestLogin(guestDisplayName: string) {
+    this.utils.loading = true;
     this.loginAsGuest = true;
 
     this.afAuth.signInAnonymously().then((result) => {
@@ -232,6 +257,7 @@ export class AuthService {
 
       this.afAuth.onAuthStateChanged(() => {
         this.router.navigate(['chat/welcome']);
+        this.utils.loading = false;
       });
 
     }).catch((error) => {
@@ -245,12 +271,15 @@ export class AuthService {
    * @param newName String with the new name
    */
   changeDisplayName(newName: string) {
+    this.utils.loading = true;
+
     this.afAuth.currentUser.then((user) => {
       user.updateProfile({
         displayName: newName
       }).then(() => {
         this.firestoreService.userData = this.userData;
         this.firestoreService.updateUser(user.uid);
+        this.utils.loading = false;
       })
     })
   }
@@ -260,12 +289,15 @@ export class AuthService {
    * @param photoURL The URL of the new img
    */
   changeProfilePicture(photoURL: string) {
+    this.utils.loading = true;
+
     this.afAuth.currentUser.then((user) => {
       user.updateProfile({
         photoURL: photoURL
       }).then(() => {
         this.firestoreService.userData = this.userData;
         this.firestoreService.updateUser(user.uid);
+        this.utils.loading = false;
       })
     })
   }
@@ -274,6 +306,7 @@ export class AuthService {
    * Deletes the currently logged in user
    */
   deleteUser() {
+    this.utils.loading = true;
     // this.deleteProfilePicture(); => Can be used if wanted
 
     this.afAuth.currentUser.then((user) => {
@@ -281,6 +314,7 @@ export class AuthService {
       user.delete().then(() => {
         this.router.navigate(['']).then(() => {
           window.location.reload();
+          this.utils.loading = false;
         });
       });
     });

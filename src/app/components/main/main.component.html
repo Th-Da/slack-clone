@@ -47,10 +47,10 @@
         "
       >
         <summary>Direct messages</summary>
-        <ul class="menu-items">
+        <ul>
           <li
             *ngFor="let user of this.firestoreService.allOtherUsers"
-            (click)="openDirectMessage('/chat/dm/', user.uid)"
+            (click)="openDirectMessage('/chat/dm/', user.uid); this.toggleNav()"
           >
             <span>{{ user.displayName }}</span>
           </li>
