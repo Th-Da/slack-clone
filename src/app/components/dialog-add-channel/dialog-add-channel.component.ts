@@ -17,6 +17,8 @@ export class DialogAddChannelComponent {
   ) { }
 
   createChannel() {
+    this.channel.channelName = this.channel.channelName.toLowerCase();
+
     this.afs
       .collection('channels')
       .add(Object.assign({}, this.channel))
