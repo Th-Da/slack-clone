@@ -341,8 +341,8 @@ export class FirestoreService {
   // ################################################# User #################################################
 
   /**
-   * 1. Gets the data from the users collection
-   * 2. Updates the local variable allUsers
+   * Gets the data from the users collection & updates the local variable allUsers
+   * Excluded guest users
    */
   getAllOtherUsers() {
     const authService = this.injector.get(AuthService);
@@ -351,7 +351,7 @@ export class FirestoreService {
       .valueChanges()
       .subscribe((changes: any) => {
         this.allOtherUsers = changes.filter(
-          (user) => user.uid !== authService.userData.uid
+          (user) => user.uid !== authService.userData.uid && !user.isAnonymous
         );
       });
   }

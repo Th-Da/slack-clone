@@ -4,6 +4,8 @@ export class User {
   displayName: string;
   photoURL: string;
   emailVerified: boolean;
+  isAnonymous: boolean;
+  createdAt: number;
 
   constructor(obj?: any) {
     this.uid = obj ? obj.uid : '';
@@ -11,6 +13,8 @@ export class User {
     this.displayName = obj ? obj.displayName : '';
     this.photoURL = obj ? obj.photoURL : './../../../assets/images/blank_user.svg';
     this.emailVerified = obj ? obj.emailVerified : '';
+    this.isAnonymous = obj ? obj.isAnonymous : '';
+    this.createdAt = obj ? obj.metadata.createdAt : '';
   }
 
   /**
@@ -24,6 +28,8 @@ export class User {
       displayName: this.displayName,
       photoURL: this.photoURL || './../../../assets/images/blank_user.svg',
       emailVerified: this.emailVerified,
+      isAnonymous: this.isAnonymous,
+      createdAt: this.createdAt,
     };
   }
 }
