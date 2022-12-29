@@ -9,7 +9,7 @@ import { DialogForgotPasswordComponent } from './components/dialog-forgot-passwo
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LegalNoticeComponent } from './components/legal-notice/legal-notice.component';
-import { CannelsComponent } from './components/cannels/cannels.component';
+import { ChannelsComponent } from './components/channels/channels.component';
 import { DirectMessageComponent } from './components/direct-message/direct-message.component';
 
 const routes: Routes = [
@@ -24,7 +24,7 @@ const routes: Routes = [
     path: 'chat',
     children: [
       { path: 'welcome', component: WelcomeComponent },
-      { path: 'ch/:id', component: CannelsComponent },
+      { path: 'ch/:id', component: ChannelsComponent },
       { path: 'dm/:uid', component: DirectMessageComponent },
     ],
     component: MainComponent,

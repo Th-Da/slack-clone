@@ -11,11 +11,11 @@ import { filter } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
-  selector: 'app-cannels',
-  templateUrl: './cannels.component.html',
-  styleUrls: ['./cannels.component.scss'],
+  selector: 'app-channels',
+  templateUrl: './channels.component.html',
+  styleUrls: ['./channels.component.scss'],
 })
-export class CannelsComponent implements OnInit {
+export class ChannelsComponent implements OnInit {
   @ViewChild('messageInput') messageInput: ElementRef;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   messageForm: FormGroup;

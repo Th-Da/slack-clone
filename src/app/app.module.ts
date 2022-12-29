@@ -35,7 +35,7 @@ import { AuthService } from './services/auth.service';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { DialogAuthErrorsComponent } from './components/dialog-auth-errors/dialog-auth-errors.component';
 import { DialogAddChannelComponent } from './components/dialog-add-channel/dialog-add-channel.component';
-import { CannelsComponent } from './components/cannels/cannels.component';
+import { ChannelsComponent } from './components/channels/channels.component';
 import { DialogDeleteUserComponent } from './components/dialog-delete-user/dialog-delete-user.component';
 import { DialogEditUserComponent } from './components/dialog-edit-user/dialog-edit-user.component';
 import { DialogGuestUserComponent } from './components/dialog-guest-user/dialog-guest-user.component';
@@ -63,7 +63,7 @@ import { DialogAccountComponent } from './components/dialog-account/dialog-accou
     DialogEditUserComponent,
     DialogGuestUserComponent,
     LegalNoticeComponent,
-    CannelsComponent,
+    ChannelsComponent,
     DialogEditMessageComponent,
     DialogDeleteMessageComponent,
     DirectMessageComponent,
