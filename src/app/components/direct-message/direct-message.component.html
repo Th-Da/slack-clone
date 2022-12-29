@@ -3,11 +3,11 @@
     <div #scrollContainer *ngIf="this.firestoreService.directChatMessages" class="massages" id="messageBox">
         <div *ngIf="this.firestoreService.directChatMessages.length == 0" class="no-messages-container">
             <i style="color: var(--primary-col)" class="material-icons">error</i>
-            <h2>Here are no messages yet.</h2>
+            <h3>Here are no messages yet.</h3>
         </div>
         <div *ngIf="this.firestoreService.filteredDirectMessages != undefined && this.utilService.isFiltered && this.firestoreService.filteredDirectMessages.length == 0" class="no-messages-container">
             <i style="color: var(--primary-col)" class="material-icons">error</i>
-            <h2>No messages found.</h2>
+            <h3>No messages found.</h3>
         </div>
         <ng-container *ngIf="!this.utilService.isFiltered">
             <mat-card class="message" *ngFor="let message of this.firestoreService.directChatMessages">

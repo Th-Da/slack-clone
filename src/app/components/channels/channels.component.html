@@ -7,13 +7,13 @@
         this.firestoreService.filteredMessages.length == 0
       " class="no-messages-container">
             <i style="color: var(--primary-col)" class="material-icons">error</i>
-            <h2>Here are no messages yet.</h2>
+            <h3>Here are no messages yet.</h3>
         </div>
         <div *ngIf="
       this.firestoreService.filteredMessages.length == 0 && this.utilService.isFiltered
     " class="no-messages-container">
             <i style="color: var(--primary-col)" class="material-icons">error</i>
-            <h2>No messages found.</h2>
+            <h3>No messages found.</h3>
         </div>
         <ng-container *ngIf="
         this.firestoreService.filteredMessages.length == 0 &&
