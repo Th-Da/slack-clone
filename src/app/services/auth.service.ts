@@ -197,6 +197,7 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      isAnonymous: user.isAnonymous
     };
 
     return userRef.set(userData, {
