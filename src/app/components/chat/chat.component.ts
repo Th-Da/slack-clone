@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, HostListener, OnInit, ViewChild, } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
@@ -29,7 +35,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     public router: Router,
     public dialog: MatDialog,
     public utilService: UtilsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.firestoreService.getAllOtherUsers();
@@ -96,7 +102,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   openChat(url, id) {
     this.router.navigate([url + id]).then(() => {
-      this.firestoreService.updateChat();
+      this.firestoreService.updateChannel();
     });
   }
 

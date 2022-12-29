@@ -30,7 +30,7 @@ export class ChatroomComponent implements OnInit {
     private fb: FormBuilder,
     private firestore: AngularFirestore,
     public utilService: UtilsService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.setChannelId();
@@ -38,7 +38,7 @@ export class ChatroomComponent implements OnInit {
     this.updateOnChatSwitch();
     this.liveChatUpdate();
     this.scrollToNewestMessage();
-    this.firestoreService.updateChat();
+    this.firestoreService.updateChannel();
     this.firestoreService.filteredMessages = [];
     this.utilService.currentUrl = this.router.url;
     this.utilService.searchBarActivated = true;
@@ -63,7 +63,7 @@ export class ChatroomComponent implements OnInit {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        this.firestoreService.updateChat();
+        this.firestoreService.updateChannel();
         this.scrollToNewestMessage();
         this.firestoreService.filteredMessages = [];
         this.utilService.searchInput = '';
