@@ -20,7 +20,7 @@ export class DialogAddChannelComponent {
     this.afs
       .collection('channels')
       .add(Object.assign({}, this.channel))
-      .then((result: any) => {
+      .then(() => {
         this.ref.close();
       });
   }

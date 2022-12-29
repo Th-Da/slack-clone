@@ -154,7 +154,7 @@ export class AuthService {
    * @returns
    */
   googleAuth() {
-    return this.authLogin(new auth.GoogleAuthProvider()).then((res: any) => {
+    return this.authLogin(new auth.GoogleAuthProvider()).then(() => {
       // Cannot be forwarded immediately after authentication
       setTimeout(() => {
         this.router.navigate(['chat/welcome']);
@@ -328,7 +328,6 @@ export class AuthService {
     this.authErrorUserMessage = errorUserMessage;
     this.authErrorMessage = errorMessage;
     this.authErrorCode = errorCode;
-
     this.openAuthErrorDialog();
   }
 }
