@@ -46,7 +46,9 @@ export class FirestoreService {
   constructor(
     private firestore: AngularFirestore,
     private injector: Injector
-  ) {}
+  ) {
+    this.deleteOldGuestUsers(86400000); // Delete old guest users from firestore after 1 day
+  }
 
   // ################################################# Channels & Messages #################################################
 
@@ -218,7 +220,6 @@ export class FirestoreService {
    */
   updateDirectMessage() {
     const authService = this.injector.get(AuthService);
-
     this.message = new Message({
       uid: authService.userData.uid,
       displayName: authService.userData.displayName,
@@ -391,5 +392,33 @@ export class FirestoreService {
    */
   deleteUser(uid: string) {
     this.firestore.collection('users').doc(uid).delete();
+  }
+
+  /**
+   * Deletes old guest users from firestore
+   * This deletes from FIRESTORE ONLY, not auth API
+   * 1 month = 2629743833.3
+   * 1 week = 604800000
+   * 1 day (d) = 86400000
+   * 1 hours (h) = 3600000
+   * 1 minutes (m) = 60000
+   * @param time time in milliseconds
+   */
+  deleteOldGuestUsers(time: number) {
+    let timestampNow: number = Date.now();
+
+    console.warn('test');
+
+
+    this.firestore
+      .collection('users')
+      .valueChanges()
+      .subscribe((user) => {
+        user.forEach((element: any) => {
+          if ((timestampNow - element['createdAt']) > time && element.isAnonymous) {
+            this.deleteUser(element.uid);
+          };
+        })
+      });
   }
 }

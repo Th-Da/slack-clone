@@ -24,11 +24,11 @@
                 </ul>
             </details>
 
-            <div class="guest-user-dm-container" *ngIf="this.authService.userData.isAnonymous">
+            <div class="guest-user-dm-container" *ngIf="this.authService.userData && this.authService.userData.isAnonymous">
                 <span>Direct messages</span>
                 <span class="only-registered-users">(Only for registered users)</span>
             </div>
-            <details open *ngIf="!this.authService.userData.isAnonymous">
+            <details open *ngIf="this.authService.userData && !this.authService.userData.isAnonymous">
                 <summary>Direct messages</summary>
                 <ul class="menu-items">
                     <li *ngFor="let user of this.firestoreService.allOtherUsers" (click)="openDirectMessage('/chat/dm/', user.uid)">

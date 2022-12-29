@@ -30,9 +30,9 @@ export class SignUpComponent {
   onSubmit() {
     if (this.signUpForm.valid) {
       this.authService.signUp(
-        this.signUpForm.value.password,
+        this.signUpForm.value.userDisplayName,
         this.signUpForm.value.email,
-        this.signUpForm.value.userDisplayName
+        this.signUpForm.value.password
       );
     }
   }
