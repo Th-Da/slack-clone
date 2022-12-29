@@ -2,7 +2,7 @@
     <div class="sign-up-container">
         <h1>First enter your email</h1>
         <span> We suggest using the email address that you use at work.</span>
-        <form class="form" [formGroup]="contactForm" (submit)="onSubmit()" ngNativeValidate>
+        <form class="form" [formGroup]="signUpForm" (submit)="onSubmit()" ngNativeValidate>
             <mat-form-field appearance="outline">
                 <mat-label>Display Name</mat-label>
                 <input type="text" matInput #userDisplayName required formControlName="userDisplayName" />

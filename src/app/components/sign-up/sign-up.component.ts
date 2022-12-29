@@ -10,27 +10,29 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent {
+  signUpForm: FormGroup;
+
   constructor(
     public authService: AuthService,
     public utils: UtilsService,
     public dialog: MatDialog
-  ) { }
-
-  contactForm = new FormGroup({
-    password: new FormControl('', Validators.required),
-    userDisplayName: new FormControl('', Validators.required),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-    ]),
-  });
+  ) {
+    this.signUpForm = new FormGroup({
+      password: new FormControl('', Validators.required),
+      userDisplayName: new FormControl('', Validators.required),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      ]),
+    });
+  }
 
   onSubmit() {
-    if (this.contactForm.valid) {
+    if (this.signUpForm.valid) {
       this.authService.signUp(
-        this.contactForm.value.password,
-        this.contactForm.value.email,
-        this.contactForm.value.userDisplayName
+        this.signUpForm.value.password,
+        this.signUpForm.value.email,
+        this.signUpForm.value.userDisplayName
       );
     }
   }
