@@ -406,10 +406,6 @@ export class FirestoreService {
    */
   deleteOldGuestUsers(time: number) {
     let timestampNow: number = Date.now();
-
-    console.warn('test');
-
-
     this.firestore
       .collection('users')
       .valueChanges()
