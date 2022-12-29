@@ -33,27 +33,14 @@ export class DirectMessageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.utilService.isFiltered = false;
-    this.utilService.searchBarActivated = true;
     this.setDmChatId();
     this.liveChatUpdate();
     this.scrollToNewestMessage();
+    this.updateOnChatSwitch();
+    this.initDmForm();
     this.firestoreService.updateDirectChat();
-
-    // Subscribe router param to update chat when changing direct message participant
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.firestoreService.updateDirectChat();
-        this.scrollToNewestMessage();
-        this.utilService.isFiltered = false;
-        this.utilService.searchInput = '';
-      });
-
-    this.directMessageForm = this.fb.group({
-      directMessage: ['', [Validators.minLength(1)]],
-    });
-    this.utilService.currentUrl = this.router.url;
+    this.utilService.isFiltered = false;
+    this.utilService.searchBarActivated = true;
   }
 
   /**
@@ -82,6 +69,13 @@ export class DirectMessageComponent implements OnInit {
     });
   }
 
+  initDmForm() {
+    this.directMessageForm = this.fb.group({
+      directMessage: ['', [Validators.minLength(1)]],
+    });
+    this.utilService.currentUrl = this.router.url;
+  }
+
   /**
    * Subscribes the observable from firstore tu update every change from backend
    */
@@ -98,6 +92,20 @@ export class DirectMessageComponent implements OnInit {
           this.firestoreService.directChatMessages = cache.messages;
           this.scrollToNewestMessage();
         }
+      });
+  }
+
+  /**
+   * Subscribe the router params to update the chat when changing direct message participant
+   */
+  updateOnChatSwitch() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.firestoreService.updateDirectChat();
+        this.scrollToNewestMessage();
+        this.utilService.isFiltered = false;
+        this.utilService.searchInput = '';
       });
   }
 

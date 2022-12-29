@@ -35,7 +35,7 @@ export class ChatroomComponent implements OnInit {
   ngOnInit() {
     this.setChannelId();
     this.initMessageFOrm();
-    this.updateOnComponentSwitch();
+    this.updateOnChatSwitch();
     this.liveChatUpdate();
     this.scrollToNewestMessage();
     this.firestoreService.updateChat();
@@ -59,7 +59,7 @@ export class ChatroomComponent implements OnInit {
   /**
    * Subscribes the router param to update chat when changing channel
    */
-  updateOnComponentSwitch() {
+  updateOnChatSwitch() {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
