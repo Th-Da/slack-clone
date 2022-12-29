@@ -46,6 +46,7 @@ import { DirectMessageComponent } from './components/direct-message/direct-messa
 import { DialogDeleteDirectmessageComponent } from './components/dialog-delete-directmessage/dialog-delete-directmessage.component';
 import { DialogEditDirectmessageComponent } from './components/dialog-edit-directmessage/dialog-edit-directmessage.component';
 import { DialogAccountComponent } from './components/dialog-account/dialog-account.component';
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { DialogAccountComponent } from './components/dialog-account/dialog-accou
     DialogDeleteDirectmessageComponent,
     DialogEditDirectmessageComponent,
     DialogAccountComponent,
+    LoadingScreenComponent,
   ],
   imports: [
     BrowserModule,
