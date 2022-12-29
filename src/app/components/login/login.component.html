@@ -1,63 +1,37 @@
 <div class="component-wrapper">
-  <div class="sign-in-container">
-    <h1>
-      Sign in to Slack-Clone
-      <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
-    </h1>
+    <div class="sign-in-container">
+        <h1>
+            Sign in to Slack-Clone
+            <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
+        </h1>
 
-    <span> We suggest using the email address that you use at work.</span>
-    <button
-      (click)="this.authService.googleAuth()"
-      class="width-25vw google-login"
-      mat-stroked-button
-      id="googleLogin"
-    >
+        <span> We suggest using the email address that you use at work.</span>
+        <button (click)="this.authService.googleAuth()" class="width-25vw google-login" mat-stroked-button id="googleLogin">
       <img
         class="google-icon"
         src="assets/images/googleicon.png"
         alt="Google Icon"
       />Login with google account
     </button>
-    <p>OR</p>
+        <p>OR</p>
 
-    <form
-      type=""
-      [formGroup]="contactForm"
-      (submit)="onSubmit(this.userEmail.value, this.userPassword.value)"
-      ngNativeValidate
-    >
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input
-            class="width-25vw"
-            autocomplete="off"
-            type="email"
-            matInput
-            #userEmail
-            placeholder="Email"
-            formControlName="email"
-          />
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field appearance="outline" class="width-25vw">
-          <mat-label>Password</mat-label>
-          <input
-            autocomplete="off"
-            type="password"
-            matInput
-            #userPassword
-            placeholder="Password"
-            formControlName="password"
-          />
-        </mat-form-field>
-      </p>
+        <form type="" [formGroup]="loginForm" (submit)="onSubmit(this.userEmail.value, this.userPassword.value)" ngNativeValidate>
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input class="width-25vw" autocomplete="off" type="email" matInput #userEmail placeholder="Email" formControlName="email" />
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline" class="width-25vw">
+                    <mat-label>Password</mat-label>
+                    <input autocomplete="off" type="password" matInput #userPassword placeholder="Password" formControlName="password" />
+                </mat-form-field>
+            </p>
 
-      <button class="width-25vw primary-btn" mat-raised-button>Login</button>
-      <p>
-        <a (click)="this.openForgotPasswordDialog()" class="auth-link"
-          >Forgot Password?</a
+            <button class="width-25vw primary-btn" mat-raised-button>Login</button>
+            <p>
+                <a (click)="this.openForgotPasswordDialog()" class="auth-link">Forgot Password?</a
         >
       </p>
     </form>
