@@ -310,7 +310,6 @@ export class AuthService {
       user.updateProfile({
         displayName: newName
       }).then(() => {
-        this.firestoreService.userData = this.userData;
         this.firestoreService.updateUser(user.uid);
         this.utils.loading = false;
       }).catch((error) => {
@@ -334,7 +333,6 @@ export class AuthService {
       user.updateProfile({
         photoURL: photoURL
       }).then(() => {
-        this.firestoreService.userData = this.userData;
         this.firestoreService.updateUser(user.uid);
         this.utils.loading = false;
       }).catch((error) => {

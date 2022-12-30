@@ -11,7 +11,6 @@ import { AuthService } from './auth.service';
 })
 export class FirestoreService {
   allOtherUsers: Array<any>;
-  userData: any; // Gets the data from auth service as observable
   userDataObject: User;
 
   // ################################################# Channels & Messages #################################################
@@ -379,7 +378,8 @@ export class FirestoreService {
    * @param uid The document id from the 'users' collection
    */
   updateUser(uid: string) {
-    this.userDataObject = new User(this.userData); // Convert observable into object
+    const authService = this.injector.get(AuthService);
+    this.userDataObject = new User(authService.userData); // Convert observable into object
     this.firestore
       .collection('users')
       .doc(uid)
