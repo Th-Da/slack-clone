@@ -4,14 +4,9 @@
             Sign in to Slack-Clone
             <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
         </h1>
-
         <span> We suggest using the email address that you use at work.</span>
         <button (click)="this.authService.googleAuth()" class="google-login" mat-stroked-button id="googleLogin">
-      <img
-        class="google-icon"
-        src="assets/images/googleicon.png"
-        alt="Google Icon"
-      />Login with google account
+        <img class="google-icon" src="assets/images/googleicon.png"alt="Google Icon"/>Login with google account
     </button>
         <span>OR</span>
         <form [formGroup]="loginForm" (submit)="onSubmit(this.userEmail.value, this.userPassword.value)" ngNativeValidate>
@@ -23,11 +18,10 @@
                 <mat-label>Password</mat-label>
                 <input autocomplete="off" type="password" matInput #userPassword placeholder="Password" formControlName="password" />
             </mat-form-field>
-
             <div class="form-actions">
                 <div class="login-btn-wrapper">
                     <button type="submit" class="width-25vw prim-btn login-btn" mat-raised-button>Login
-                      <a (click)="this.openForgotPasswordDialog()" class="auth-link">Forgot Password?</a>
+                    <a (click)="this.openForgotPasswordDialog()" class="auth-link">Forgot Password?</a>
                     </button>
                 </div>
                 <button class="sec-btn" mat-raised-button (click)="this.openGuestUserDialog()">Try as guest</button>

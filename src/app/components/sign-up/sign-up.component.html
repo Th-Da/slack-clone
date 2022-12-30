@@ -14,7 +14,6 @@
                 <mat-label>Email</mat-label>
                 <input type="email" matInput #userEmail required formControlName="email" />
             </mat-form-field>
-
             <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
                 <input type="password" matInput #userPwd required type="password" formControlName="password" />
@@ -24,7 +23,6 @@
                 <button class="sec-btn" mat-raised-button (click)="this.openGuestUserDialog()">Try as guest</button>
             </div>
         </form>
-
         <span>OR</span>
         <div>
             <button class="google-login" mat-stroked-button id="googleLogin" (click)="authService.googleAuth()"><img class="google-icon" src="assets/images/googleicon.png" alt="Google Icon" />Continue with Google</button>
