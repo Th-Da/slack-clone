@@ -38,8 +38,9 @@
             </button>
                     </mat-menu>
                 </div>
-                <div>
-                    {{ message.message }}
+                <div [innerHTML]="message.message">
+                    <!--[innerHTML]= Doesn't show as HTML-Tag -->
+                    <!-- {{ message.message }} -->
                 </div>
             </mat-card>
         </ng-container>
