@@ -5,7 +5,7 @@
             <i style="color: var(--primary-col)" class="material-icons">error</i>
             <h3>Here are no messages yet.</h3>
         </div>
-        <div *ngIf="this.firestoreService.filteredDirectMessages != undefined && this.utilService.isFiltered && this.firestoreService.filteredDirectMessages.length == 0" class="no-messages-container">
+        <div *ngIf="this.firestoreService.filteredDirectMessages != undefined && this.utilService.isFiltered && this.firestoreService.filteredDirectMessages.length == 0 && this.firestoreService.directChatMessages.length != 0" class="no-messages-container">
             <i style="color: var(--primary-col)" class="material-icons">error</i>
             <h3>No messages found.</h3>
         </div>
