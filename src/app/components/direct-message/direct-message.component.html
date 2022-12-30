@@ -59,7 +59,7 @@
             <mat-label>Your Message</mat-label>
             <textarea onkeydown="if (event.keyCode == 13) { this.form.requestSubmit(); return false; }" formControlName="directMessage" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
         </mat-form-field>
-        <button [disabled]="messageInput.value == ''" [ngClass]="{ 'primary-btn': messageInput.value != '' }" type="submit" mat-raised-button>
+        <button [disabled]="messageInput.value == ''" [ngClass]="{ 'prim-btn': messageInput.value != '' }" type="submit" mat-raised-button>
             Post
         </button>
     </form>
