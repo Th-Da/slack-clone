@@ -112,13 +112,16 @@ mat-form-field {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 525px) {
     h1 {
         flex-direction: column-reverse;
         justify-content: center;
         font-size: 32px;
         gap: 8px;
     }
+}
+
+@media (max-width: 480px) {
     .to-sign-up {
         top: 8px;
         right: 8px;
