@@ -103,10 +103,10 @@ export class AuthService {
         this.setUserData(result.user);
         this.utils.loading = false;
       })
-      .catch((error) => {
-        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
-        this.utils.loading = false;
-      });
+    // .catch((error) => {
+    //   this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+    //   this.utils.loading = false;
+    // });
   }
 
   /**
