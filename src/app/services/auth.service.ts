@@ -67,7 +67,7 @@ export class AuthService {
           if (user && user.emailVerified && this.router.url == '/login') {
             this.router.navigate(['main/welcome']).then(() => {
               this.utils.loading = false;
-              window.location.reload();
+              // window.location.reload(); => leading to 404 error
             });
           }
 
@@ -103,10 +103,10 @@ export class AuthService {
         this.setUserData(result.user);
         this.utils.loading = false;
       })
-    // .catch((error) => {
-    //   this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
-    //   this.utils.loading = false;
-    // });
+      .catch((error) => {
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.utils.loading = false;
+      });
   }
 
   /**
