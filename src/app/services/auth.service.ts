@@ -75,11 +75,13 @@ export class AuthService {
             this.utils.loading = false;
           } else {
             this.displayAuthErrorDialog('report', 'Attention', 'Please verify your email!', 'null', 'null');
+            this.utils.loading = false;
           }
         });
       })
       .catch((error) => {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.utils.loading = false;
       });
   }
 
@@ -103,6 +105,7 @@ export class AuthService {
       })
       .catch((error) => {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.utils.loading = false;
       });
   }
 
@@ -117,6 +120,9 @@ export class AuthService {
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
         this.router.navigate(['verify-email-address']);
+        this.utils.loading = false;
+      }).catch((error) => {
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
         this.utils.loading = false;
       });
   }
@@ -137,6 +143,7 @@ export class AuthService {
       })
       .catch((error) => {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.utils.loading = false;
       });
   }
 
@@ -177,6 +184,9 @@ export class AuthService {
         this.router.navigate(['chat/welcome']);
         this.utils.loading = false;
       }, 1000);
+    }).catch((error) => {
+      this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+      this.utils.loading = false;
     });
   }
 
@@ -197,6 +207,7 @@ export class AuthService {
       })
       .catch((error) => {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.utils.loading = false;
       });
   }
 
@@ -239,6 +250,9 @@ export class AuthService {
       this.router.navigate(['login']).then(() => {
         window.location.reload();
         this.utils.loading = false;
+      }).catch((error) => {
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.utils.loading = false;
       });
     });
   }
@@ -262,6 +276,7 @@ export class AuthService {
 
     }).catch((error) => {
       this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+      this.utils.loading = false;
     })
   }
 
@@ -280,7 +295,10 @@ export class AuthService {
         this.firestoreService.userData = this.userData;
         this.firestoreService.updateUser(user.uid);
         this.utils.loading = false;
-      })
+      }).catch((error) => {
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.utils.loading = false;
+      });
     })
   }
 
@@ -298,7 +316,10 @@ export class AuthService {
         this.firestoreService.userData = this.userData;
         this.firestoreService.updateUser(user.uid);
         this.utils.loading = false;
-      })
+      }).catch((error) => {
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.utils.loading = false;
+      });
     })
   }
 
@@ -316,6 +337,9 @@ export class AuthService {
           window.location.reload();
           this.utils.loading = false;
         });
+      }).catch((error) => {
+        this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+        this.utils.loading = false;
       });
     });
   }
