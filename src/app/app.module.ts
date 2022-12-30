@@ -11,6 +11,7 @@ import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { GetStartedComponent } from './components/get-started/get-started.component';
+import { QuillModule } from 'ngx-quill';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './components/main/main.component';
@@ -89,6 +90,7 @@ import { DialogAlreadyLoggedInComponent } from './components/dialog-already-logg
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
+    QuillModule.forRoot(),
     MatAutocompleteModule,
     MatInputModule,
     MatDatepickerModule,
@@ -105,4 +107,4 @@ import { DialogAlreadyLoggedInComponent } from './components/dialog-already-logg
   providers: [AuthService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
