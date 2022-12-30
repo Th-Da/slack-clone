@@ -11,7 +11,6 @@ import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { GetStartedComponent } from './components/get-started/get-started.component';
-import { QuillModule } from 'ngx-quill';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './components/main/main.component';
@@ -49,6 +48,7 @@ import { DialogEditDirectmessageComponent } from './components/dialog-edit-direc
 import { DialogAccountComponent } from './components/dialog-account/dialog-account.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { DialogAlreadyLoggedInComponent } from './components/dialog-already-logged-in/dialog-already-logged-in.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
