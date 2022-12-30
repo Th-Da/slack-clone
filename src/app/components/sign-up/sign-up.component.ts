@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UtilsService } from 'src/app/services/utils.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { DialogGuestUserComponent } from '../dialog-guest-user/dialog-guest-user.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -26,6 +27,7 @@ export class SignUpComponent implements OnInit {
       ]),
     });
   }
+
   ngOnInit(): void {
     this.authService.checkAlreadyLoggedIn();
   }
@@ -38,5 +40,12 @@ export class SignUpComponent implements OnInit {
         this.signUpForm.value.password
       );
     }
+  }
+
+  /**
+   * Opens the guest login dialog
+   */
+  openGuestUserDialog() {
+    this.dialog.open(DialogGuestUserComponent);
   }
 }

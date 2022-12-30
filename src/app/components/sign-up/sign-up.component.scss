@@ -1,15 +1,17 @@
 h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 48px;
     font-weight: 700;
     letter-spacing: -0.75px;
-    display: flex;
     line-height: 46px;
-    align-items: center;
+    text-align: center;
+    margin: 0;
 }
 
 .logo {
     height: 50px;
-    margin-left: 12px;
 }
 
 .component-wrapper {
@@ -47,16 +49,25 @@ mat-form-field {
     min-width: 230px;
 }
 
-.form {
+form {
     display: flex;
     flex-direction: column;
 }
 
+.form-actions {
+    display: flex;
+    gap: 8px;
+    button {
+        width: max-content;
+    }
+}
+
 .to-sign-in {
+    position: absolute;
+    top: 16px;
+    right: 16px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    line-height: 10px;
 }
 
 .legal-notice-link {
@@ -81,17 +92,24 @@ mat-form-field {
     .legal-notice-link {
         transform: translate(-50%, -50%);
         right: unset;
+        bottom: 8px;
         left: 50%;
     }
 }
 
-@media (max-width: 480px) {
-    .sign-up-container {
-        gap: 8px;
+@media (max-width: 580px) {
+    h1 {
+        flex-direction: column-reverse;
+        justify-content: center;
+        font-size: 32px;
     }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 480px) {
+    .to-sign-in {
+        top: 8px;
+        right: 8px;
+    }
     .sign-up-container {
         gap: 8px;
     }

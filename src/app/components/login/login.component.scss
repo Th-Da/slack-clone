@@ -1,10 +1,13 @@
 h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 48px;
     font-weight: 700;
     letter-spacing: -0.75px;
-    display: flex;
     line-height: 46px;
-    align-items: center;
+    text-align: center;
+    margin: 0;
 }
 
 .component-wrapper {
@@ -16,10 +19,35 @@ span {
     text-align: center;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-actions {
+    display: flex;
+    gap: 8px;
+    button {
+        width: max-content;
+    }
+}
+
+.login-btn {
+    position: relative;
+    a {
+        font-weight: 400;
+        position: absolute;
+        left: 0;
+        bottom: -32px;
+    }
+}
+
 .to-sign-up {
     position: absolute;
-    top: 32px;
-    right: 32px;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
 }
 
 .sign-in-container {
@@ -38,7 +66,6 @@ span {
 
 .logo {
     height: 50px;
-    margin-left: 12px;
 }
 
 .google-login {
@@ -77,27 +104,25 @@ mat-form-field {
     .sign-in-container {
         gap: 16px;
     }
-    .to-sign-up {
-        position: unset;
-    }
     .legal-notice-link {
         transform: translate(-50%, -50%);
         right: unset;
+        bottom: 8px;
         left: 50%;
     }
 }
 
 @media (max-width: 480px) {
+    h1 {
+        flex-direction: column-reverse;
+        justify-content: center;
+        font-size: 32px;
+    }
+    .to-sign-up {
+        top: 8px;
+        right: 8px;
+    }
     .sign-in-container {
         gap: 8px;
-    }
-}
-
-@media (max-width: 375px) {
-    .sign-in-container {
-        gap: 8px;
-    }
-    .logo {
-        display: none;
     }
 }

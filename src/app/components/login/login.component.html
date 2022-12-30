@@ -6,52 +6,37 @@
         </h1>
 
         <span> We suggest using the email address that you use at work.</span>
-        <button (click)="this.authService.googleAuth()" class="width-25vw google-login" mat-stroked-button id="googleLogin">
+        <button (click)="this.authService.googleAuth()" class="google-login" mat-stroked-button id="googleLogin">
       <img
         class="google-icon"
         src="assets/images/googleicon.png"
         alt="Google Icon"
       />Login with google account
     </button>
-        <p>OR</p>
+        <span>OR</span>
+        <form [formGroup]="loginForm" (submit)="onSubmit(this.userEmail.value, this.userPassword.value)" ngNativeValidate>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input class="width-25vw" autocomplete="off" type="email" matInput #userEmail placeholder="Email" formControlName="email" />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="width-25vw">
+                <mat-label>Password</mat-label>
+                <input autocomplete="off" type="password" matInput #userPassword placeholder="Password" formControlName="password" />
+            </mat-form-field>
 
-        <form type="" [formGroup]="loginForm" (submit)="onSubmit(this.userEmail.value, this.userPassword.value)" ngNativeValidate>
-            <p>
-                <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input class="width-25vw" autocomplete="off" type="email" matInput #userEmail placeholder="Email" formControlName="email" />
-                </mat-form-field>
-            </p>
-            <p>
-                <mat-form-field appearance="outline" class="width-25vw">
-                    <mat-label>Password</mat-label>
-                    <input autocomplete="off" type="password" matInput #userPassword placeholder="Password" formControlName="password" />
-                </mat-form-field>
-            </p>
-
-            <button class="width-25vw primary-btn" mat-raised-button>Login</button>
-            <p>
-                <a (click)="this.openForgotPasswordDialog()" class="auth-link">Forgot Password?</a
-        >
-      </p>
-    </form>
-    <button mat-raised-button (click)="this.openGuestUserDialog()">
-      Login as guest
-    </button>
-    <div class="to-sign-up">
-      <p>New to Slack-Clone?</p>
-      <a
-        class="auth-link"
-        [routerLink]="['/sign-up']"
-        routerLinkActive="router-link-active"
-        >Sign up</a
-      >
+            <div class="form-actions">
+                <div class="login-btn-wrapper">
+                    <button type="submit" class="width-25vw prim-btn login-btn" mat-raised-button>Login
+                      <a (click)="this.openForgotPasswordDialog()" class="auth-link">Forgot Password?</a>
+                    </button>
+                </div>
+                <button class="sec-btn" mat-raised-button (click)="this.openGuestUserDialog()">Try as guest</button>
+            </div>
+        </form>
+        <div class="to-sign-up">
+            <span>New to Slack-Clone?</span>
+            <a class="auth-link" [routerLink]="['/sign-up']" routerLinkActive="router-link-active">Sign up</a>
+        </div>
     </div>
-  </div>
 </div>
-<a
-  class="legal-notice-link auth-link"
-  routerLink="/legal-notice"
-  target="_blank"
-  >Imprint <span>|</span> Privacy policy</a
->
+<a class="legal-notice-link auth-link" routerLink="/legal-notice" target="_blank">Imprint <span>|</span> Privacy policy</a>
