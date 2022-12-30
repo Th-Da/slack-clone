@@ -65,14 +65,14 @@ export class AuthService {
 
           // If user has verified his email, but the page is not reloaded, the login does not work
           if (user && user.emailVerified && this.router.url == '/login') {
-            this.router.navigate(['chat/welcome']).then(() => {
+            this.router.navigate(['main/welcome']).then(() => {
               this.utils.loading = false;
               window.location.reload();
             });
           }
 
           if (user && user.emailVerified) {
-            this.router.navigate(['chat/welcome']);
+            this.router.navigate(['main/welcome']);
             this.utils.loading = false;
           } else {
             this.displayAuthErrorDialog('report', 'Attention', 'Please verify your email!', 'null', 'null');
@@ -181,7 +181,7 @@ export class AuthService {
     return this.authLogin(new auth.GoogleAuthProvider()).then(() => {
       // Cannot be forwarded immediately after authentication
       setTimeout(() => {
-        this.router.navigate(['chat/welcome']);
+        this.router.navigate(['main/welcome']);
         this.utils.loading = false;
       }, 1000);
     }).catch((error) => {
@@ -201,7 +201,7 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['chat/welcome']);
+        this.router.navigate(['main/welcome']);
         this.setUserData(result.user);
         this.utils.loading = false;
       })
@@ -273,7 +273,7 @@ export class AuthService {
       this.changeDisplayName(guestDisplayName);
 
       this.afAuth.onAuthStateChanged(() => {
-        this.router.navigate(['chat/welcome']);
+        this.router.navigate(['main/welcome']);
         this.utils.loading = false;
       });
 
