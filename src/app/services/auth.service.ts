@@ -78,8 +78,7 @@ export class AuthService {
             this.utils.loading = false;
           }
         });
-      })
-      .catch((error) => {
+      }).catch((error) => {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
         this.utils.loading = false;
       });
@@ -208,7 +207,7 @@ export class AuthService {
       .catch((error) => {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
         this.utils.loading = false;
-      });
+      })
   }
 
   /**
@@ -254,6 +253,9 @@ export class AuthService {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
         this.utils.loading = false;
       });
+    }).catch((error) => {
+      this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+      this.utils.loading = false;
     });
   }
 
@@ -299,7 +301,10 @@ export class AuthService {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
         this.utils.loading = false;
       });
-    })
+    }).catch((error) => {
+      this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+      this.utils.loading = false;
+    });
   }
 
   /**
@@ -320,7 +325,10 @@ export class AuthService {
         this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
         this.utils.loading = false;
       });
-    })
+    }).catch((error) => {
+      this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
+      this.utils.loading = false;
+    });
   }
 
   /**
@@ -335,6 +343,9 @@ export class AuthService {
       user.delete().then(() => {
         this.router.navigate(['']).then(() => {
           window.location.reload();
+          this.utils.loading = false;
+        }).catch((error) => {
+          this.displayAuthErrorDialog('report', 'Attention', 'An error has occurred.', error.message, error.code);
           this.utils.loading = false;
         });
       }).catch((error) => {
