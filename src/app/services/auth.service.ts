@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAuthErrorsComponent } from '../components/dialog-auth-errors/dialog-auth-errors.component';
 import { FirestorageService } from './firestorage.service';
 import { UtilsService } from './utils.service';
+import { DialogAlreadyLoggedInComponent } from '../components/dialog-already-logged-in/dialog-already-logged-in.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -284,6 +285,21 @@ export class AuthService {
 
 
   /**
+   * Checks if the user is already logged in
+   * Displays a forwarding dialog after a short delay if the user is logged in
+   */
+  checkAlreadyLoggedIn() {
+    this.afAuth.onAuthStateChanged((user) => {
+      if (user && user.emailVerified && !user.isAnonymous && !this.utils.loading) {
+        setTimeout(() => {
+          this.openAlreadyLoggedInDialog();
+        }, 1000);
+      }
+    });
+  }
+
+
+  /**
    * Changes the displayName of the currently logged in user
    * @param newName String with the new name
    */
@@ -383,6 +399,13 @@ export class AuthService {
    */
   openAuthErrorDialog() {
     this.dialog.open(DialogAuthErrorsComponent);
+  }
+
+  /**
+   * Opens the already logged in dialog
+   */
+  openAlreadyLoggedInDialog() {
+    this.dialog.open(DialogAlreadyLoggedInComponent);
   }
 
   /**

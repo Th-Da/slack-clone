@@ -10,9 +10,6 @@
         </div>
         <div class="left-botom">
             <button class="width-25vw secondary-btn" mat-raised-button routerLink="/sign-up" color="signup-button">Sign Up</button>
-            <div *ngIf="afAuth.user | async">
-                <p>You are already loged in <a routerLink="/chat/welcome"> Go to Chat </a></p>
-            </div>
         </div>
     </div>
     <img class="bg-img" src="assets/images/start-bg.png" alt="" />

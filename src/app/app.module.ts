@@ -47,6 +47,7 @@ import { DialogDeleteDirectmessageComponent } from './components/dialog-delete-d
 import { DialogEditDirectmessageComponent } from './components/dialog-edit-directmessage/dialog-edit-directmessage.component';
 import { DialogAccountComponent } from './components/dialog-account/dialog-account.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
+import { DialogAlreadyLoggedInComponent } from './components/dialog-already-logged-in/dialog-already-logged-in.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { LoadingScreenComponent } from './components/loading-screen/loading-scre
     DialogEditDirectmessageComponent,
     DialogAccountComponent,
     LoadingScreenComponent,
+    DialogAlreadyLoggedInComponent,
   ],
   imports: [
     BrowserModule,

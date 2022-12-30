@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators, } from '@angular/forms';
@@ -10,7 +10,7 @@ import { DialogGuestUserComponent } from '../dialog-guest-user/dialog-guest-user
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(
@@ -24,6 +24,9 @@ export class LoginComponent {
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
       ]),
     });
+  }
+  ngOnInit(): void {
+    this.authService.checkAlreadyLoggedIn();
   }
 
   /**
