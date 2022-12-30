@@ -1,68 +1,51 @@
 <mat-drawer-container class="mat-drawer-container" autosize>
-  <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
-    <div class="logo-container" (click)="drawer.toggle()">
-      <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
-      <span>Slack Clone</span>
-    </div>
+    <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+        <div class="logo-container" (click)="drawer.toggle()">
+            <img class="logo" src="./../../assets/images/logo.svg" alt="Logo" />
+            <span>Slack Clone</span>
+        </div>
 
-    <ul class="menu-items">
-      <details open>
-        <summary>Channels</summary>
-        <ul>
-          <li
-            [routerLink]="['/chat/welcome']"
-            routerLinkActive="router-link-active"
-            (click)="this.toggleNav()"
-          >
-            <span># welcome</span>
-          </li>
-          <li
-            *ngFor="let channel of this.firestoreService.allChannels"
-            (click)="
+        <ul class="menu-items">
+            <details open>
+                <summary>Channels</summary>
+                <ul>
+                    <li [routerLink]="['/chat/welcome']" routerLinkActive="router-link-active" (click)="this.toggleNav()">
+                        <span># welcome</span>
+                    </li>
+                    <li *ngFor="let channel of this.firestoreService.allChannels" (click)="
               openChat('/chat/ch/', channel.customIdName); this.toggleNav()
-            "
-          >
-            <span># {{ channel.channelName }}</span>
-          </li>
-          <li (click)="openCreateChannelDialog()">
-            <mat-icon>add</mat-icon>
-            <span>Create new channel</span>
-          </li>
-        </ul>
-      </details>
+            ">
+                        <span># {{ channel.channelName }}</span>
+                    </li>
+                    <li (click)="openCreateChannelDialog()">
+                        <mat-icon>add</mat-icon>
+                        <span>Create new channel</span>
+                    </li>
+                </ul>
+            </details>
 
-      <div
-        class="guest-user-dm-container"
-        *ngIf="
+            <div class="guest-user-dm-container" *ngIf="
           this.authService.userData && this.authService.userData.isAnonymous
-        "
-      >
-        <span>Direct messages</span>
-        <span class="only-registered-users">(Only for registered users)</span>
-      </div>
-      <details
-        open
-        *ngIf="
+        ">
+                <span>Direct messages</span>
+                <span class="only-registered-users">(Only for registered users)</span>
+            </div>
+            <details open *ngIf="
           this.authService.userData && !this.authService.userData.isAnonymous
-        "
-      >
-        <summary>Direct messages</summary>
-        <ul>
-          <li
-            *ngFor="let user of this.firestoreService.allOtherUsers"
-            (click)="openDirectMessage('/chat/dm/', user.uid); this.toggleNav()"
-          >
-            <span>{{ user.displayName }}</span>
-          </li>
-        </ul>
-      </details>
+        ">
+                <summary>Direct messages</summary>
+                <ul>
+                    <li *ngFor="let user of this.firestoreService.allOtherUsers" (click)="openDirectMessage('/chat/dm/', user.uid); this.toggleNav()">
+                        <span>{{ user.displayName }}</span>
+                    </li>
+                </ul>
+            </details>
 
-      <li (click)="this.authService.logOut()">
-        <mat-icon>logout</mat-icon>Log Out
-      </li>
-    </ul>
-    <a class="legal-notice-link" routerLink="/legal-notice" target="_blank"
-      >Imprint <span>|</span> Privacy Policy</a
+            <li (click)="this.authService.logOut()">
+                <mat-icon>logout</mat-icon>Log Out
+            </li>
+        </ul>
+        <a class="legal-notice-link" routerLink="/legal-notice" target="_blank">Imprint <span>|</span> Privacy policy</a
     >
   </mat-drawer>
 
