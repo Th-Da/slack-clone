@@ -35,12 +35,16 @@ export class MainComponent implements OnInit, AfterViewInit {
     public router: Router,
     public dialog: MatDialog,
     public utilService: UtilsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.firestoreService.getAllOtherUsers();
     this.firestoreService.getAllChannels();
     this.firestoreService.getDirectMessages();
+
+    if (this.router.url == '/main') {
+      this.router.navigateByUrl('/main/welcome');
+    }
   }
 
   ngAfterViewInit(): void {
