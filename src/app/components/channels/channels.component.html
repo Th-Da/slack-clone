@@ -70,9 +70,9 @@
     </div>
     <form [formGroup]="messageForm" (submit)="onSubmit()" class="message-container">
         <label for="editor">Your message</label>
-        <quill-editor></quill-editor>
-        <textarea onkeydown="if (event.keyCode == 13) { this.form.requestSubmit(); return false; }" formControlName="message" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea>
-        <button [disabled]="messageInput.value == ''" [ngClass]="{ 'prim-btn': messageInput.value != '' }" type="submit" mat-raised-button>
+        <quill-editor formControlName="message" minlength="1" #messageInput matInput></quill-editor>
+        <!-- <textarea onkeydown="if (event.keyCode == 13) { this.form.requestSubmit(); return false; }" formControlName="message" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea> -->
+        <button type="submit" mat-raised-button>
       Post
     </button>
     </form>
