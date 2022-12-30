@@ -1,6 +1,4 @@
 {
-  "cSpell.words": [
-    "Firestorage",
-    "Firestore"
-  ]
+  "cSpell.words": ["Firestorage", "Firestore"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
