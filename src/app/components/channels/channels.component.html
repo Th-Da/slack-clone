@@ -53,8 +53,8 @@
                         </button>
                     </mat-menu>
                 </div>
-                <div>
-                    {{ message.message }}
+                <div class="message-field">
+                    <img *ngIf="message.message.includes('<img>')" src="{{ message.message }}" class="has-image"> {{ message.message }}
                 </div>
             </mat-card>
         </ng-container>
@@ -86,6 +86,6 @@
             </div>
         </quill-editor>
         <!-- <textarea onkeydown="if (event.keyCode == 13) { this.form.requestSubmit(); return false; }" formControlName="message" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea> -->
-        <button type="submit" mat-raised-button>Post</button>
+        <button class="submit-btn" type="submit" mat-raised-button>Post</button>
     </form>
 </div>
