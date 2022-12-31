@@ -1,41 +1,31 @@
 <div class="chatroom">
     <h2># {{ this.firestoreService.channel.channelName }}</h2>
     <div #scrollContainer class="massages" id="messageBox">
-        <div *ngIf="
-        this.firestoreService.messages.length == 0 &&
-        this.firestoreService.filteredMessages.length == 0
-      " class="no-messages-container">
+        <div *ngIf="this.firestoreService.messages.length == 0 && this.firestoreService.filteredMessages.length == 0" class="no-messages-container">
             <i style="color: var(--primary-col)" class="material-icons">error</i>
             <h3>Here are no messages yet.</h3>
         </div>
-        <div *ngIf="
-        this.firestoreService.filteredMessages.length == 0 &&
-        this.utilService.isFiltered &&
-        this.firestoreService.messages.length != 0
-      " class="no-messages-container">
+        <div *ngIf="this.firestoreService.filteredMessages.length == 0 && this.utilService.isFiltered && this.firestoreService.messages.length != 0" class="no-messages-container">
             <i style="color: var(--primary-col)" class="material-icons">error</i>
             <h3>No messages found.</h3>
         </div>
-        <ng-container *ngIf="
-        this.firestoreService.filteredMessages.length == 0 &&
-        !this.utilService.isFiltered
-      ">
+        <ng-container *ngIf="this.firestoreService.filteredMessages.length == 0 && !this.utilService.isFiltered">
             <mat-card class="message" *ngFor="let message of this.firestoreService.messages">
                 <div class="post-headline">
                     <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
                     <span>{{ message.displayName }}</span>
                     <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
                     <mat-menu #userMenu="matMenu">
                         <button mat-menu-item (click)="this.dialogEditMessage(message)">
-              <mat-icon>edit</mat-icon>
-              <span>Edit</span>
-            </button>
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
                         <button mat-menu-item (click)="this.dialogDeleteMessage(message)">
-              <mat-icon>delete</mat-icon>
-              <span>Delete</span>
-            </button>
+                            <mat-icon>delete</mat-icon>
+                            <span>Delete</span>
+                            </button>
                     </mat-menu>
                 </div>
                 <div [innerHTML]="message.message">
@@ -50,17 +40,17 @@
                     <img class="profile" src="{{ message.photoURL }}" alt="{{ message.displayName }}" />
                     <span>{{ message.displayName }}</span>
                     <button *ngIf="message.uid == this.authService.userData.uid" mat-icon-button class="pin-right-upper-corner" [matMenuTriggerFor]="userMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
                     <mat-menu #userMenu="matMenu">
                         <button mat-menu-item (click)="this.dialogEditMessage(message)">
-              <mat-icon>edit</mat-icon>
-              <span>Edit</span>
-            </button>
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
                         <button mat-menu-item (click)="this.dialogDeleteMessage(message)">
-              <mat-icon>delete</mat-icon>
-              <span>Delete</span>
-            </button>
+                            <mat-icon>delete</mat-icon>
+                            <span>Delete</span>
+                        </button>
                     </mat-menu>
                 </div>
                 <div>
@@ -71,10 +61,31 @@
     </div>
     <form [formGroup]="messageForm" (submit)="onSubmit()" class="message-container">
         <label for="editor">Your message</label>
-        <quill-editor formControlName="message" minlength="1" #messageInput matInput></quill-editor>
+        <quill-editor>
+            <div quill-editor-toolbar>
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <select class="ql-align">
+                        <option selected></option>
+                        <option value="center"></option>
+                        <option value="right"></option>
+                        <option value="justify"></option>
+                    </select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-link"></button>
+                    <button class="ql-image"></button>
+                </span>
+            </div>
+        </quill-editor>
         <!-- <textarea onkeydown="if (event.keyCode == 13) { this.form.requestSubmit(); return false; }" formControlName="message" minlength="1" #messageInput matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="5" cdkAutosizeMaxRows="10"></textarea> -->
-        <button type="submit" mat-raised-button>
-      Post
-    </button>
+        <button type="submit" mat-raised-button>Post</button>
     </form>
 </div>
