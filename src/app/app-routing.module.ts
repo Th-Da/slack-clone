@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'legal-notice', component: LegalNoticeComponent },
   {
-    path: 'chat',
+    path: 'main',
     children: [
       { path: 'welcome', component: WelcomeComponent },
       { path: 'ch/:id', component: ChannelsComponent },
