@@ -61,7 +61,7 @@
     </div>
     <form [formGroup]="messageForm" (submit)="onSubmit()" class="message-container">
         <label for="editor">Your message</label>
-        <quill-editor>
+        <quill-editor formControlName="message" minlength="1" #messageInput matInput>
             <div quill-editor-toolbar>
                 <span class="ql-formats">
                     <button class="ql-bold"></button>
