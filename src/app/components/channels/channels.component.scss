@@ -66,11 +66,22 @@
     }
 }
 
-._ngcontent-urv-c142 {
+.message-field {
+    max-width: 100% !important;
+    max-height: 30vh !important;
+    object-fit: cover !important;
+    overflow: auto !important;
+    -ms-overflow-style: none !important;
+    /* IE and Edge */
+    scrollbar-width: none !important;
+    /* Firefox */
+    &::-webkit-scrollbar {
+        display: none !important;
+    }
     img {
-        max-width: 500px;
-        max-height: 500px;
-        object-fit: cover;
+        max-width: 500px !important;
+        max-height: 500px !important;
+        object-fit: cover !important;
     }
 }
 

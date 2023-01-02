@@ -42,9 +42,9 @@ export class ChannelsComponent implements OnInit {
     this.firestoreService.filteredMessages = [];
     this.utilService.currentUrl = this.router.url;
     this.utilService.searchBarActivated = true;
-    setTimeout(() => {
-      this.checkForImages();
-    }, 1500);
+    // setTimeout(() => {
+    //   this.checkForImages();
+    // }, 1500);
     
   }
 
@@ -56,6 +56,7 @@ export class ChannelsComponent implements OnInit {
       this.firestoreService.messages.forEach(element => {
         if (element.message.includes('img')) {
           console.log('image! on: ', element);
+          document.getElementById(this.firestoreService.messages.indexOf(element)).classList.add('message-field');
         } else {
           console.log('no image!');
           

@@ -28,9 +28,9 @@
                             </button>
                     </mat-menu>
                 </div>
-                <div [innerHTML]="message.message">
+                <div class="message-field" [innerHTML]="message.message">
                     <!--[innerHTML]= Doesn't show as HTML-Tag -->
-                    <!-- {{ message.message }} -->
+                    {{ message.message }}
                 </div>
             </mat-card>
         </ng-container>
@@ -54,7 +54,8 @@
                     </mat-menu>
                 </div>
                 <div class="message-field">
-                    <img *ngIf="message.message.includes('<img>')" src="{{ message.message }}" class="has-image"> {{ message.message }}
+                    <!-- <img *ngIf="message.message.includes('<img>')" src="{{ message.message }}" class="has-image">  -->
+                    {{ message.message }}
                 </div>
             </mat-card>
         </ng-container>
