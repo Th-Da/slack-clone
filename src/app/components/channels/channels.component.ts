@@ -21,6 +21,15 @@ export class ChannelsComponent implements OnInit {
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   messageForm: FormGroup;
 
+  modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['link', 'image']
+    ]
+  };
+
   constructor(
     public authService: AuthService,
     private route: ActivatedRoute,
