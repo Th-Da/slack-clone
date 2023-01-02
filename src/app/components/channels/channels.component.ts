@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { filter } from 'rxjs';
 import { UtilsService } from 'src/app/services/utils.service';
+import { QuillEditorComponent } from 'ngx-quill';
 
 @Component({
   selector: 'app-channels',
@@ -16,7 +17,7 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./channels.component.scss'],
 })
 export class ChannelsComponent implements OnInit {
-  @ViewChild('messageInput') messageInput: ElementRef;
+  @ViewChild('messageInput', { static: false }) messageInput: QuillEditorComponent;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   messageForm: FormGroup;
 
@@ -142,7 +143,7 @@ export class ChannelsComponent implements OnInit {
     if (this.messageForm.valid) {
       this.firestoreService.messageInput = this.messageForm.value.message;
       this.firestoreService.postMessage();
-      this.messageInput.nativeElement.value = '';
+      this.messageInput.quillEditor.setContents([]);
     }
   }
 
