@@ -56,14 +56,42 @@ body {
 }
 
 // ######################################### Chat Messages - BEGIN
-.ql-snow .ql-editor img {
-    max-width: 260px !important;
-}
-
 .ql-editor p {
     display: flex;
     flex-direction: column;
     gap: 8px;
+}
+
+.ql-toolbar {
+    margin-top: 24px;
+}
+
+quill-editor {
+    img {
+        max-height: 45px;
+        object-fit: contain;
+        max-width: fit-content !important;
+    }
+    .ql-container {
+        height: 65px;
+    }
+}
+
+quill-view {
+    img {
+        max-width: fit-content !important;
+        max-height: 25vh;
+        object-fit: contain;
+    }
+    p {
+        max-height: 25vh;
+    }
+}
+
+@media (max-width: 380px) {
+    .ql-toolbar.ql-snow .ql-formats {
+        margin-right: 0 !important;
+    }
 }
 
 // ######################################### Chat Messages - END

@@ -17,7 +17,8 @@ import { QuillEditorComponent } from 'ngx-quill';
   styleUrls: ['./channels.component.scss'],
 })
 export class ChannelsComponent implements OnInit {
-  @ViewChild('messageInput', { static: false }) messageInput: QuillEditorComponent;
+  @ViewChild('messageInput', { static: false })
+  messageInput: QuillEditorComponent;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   messageForm: FormGroup;
 
@@ -25,9 +26,9 @@ export class ChannelsComponent implements OnInit {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      ['link', 'image']
-    ]
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'image'],
+    ],
   };
 
   constructor(
@@ -40,7 +41,7 @@ export class ChannelsComponent implements OnInit {
     private fb: FormBuilder,
     private firestore: AngularFirestore,
     public utilService: UtilsService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.setChannelId();
@@ -55,28 +56,27 @@ export class ChannelsComponent implements OnInit {
     // setTimeout(() => {
     //   this.checkForImages();
     // }, 1500);
-    
   }
 
   checkForImages() {
+    debugger;
     console.log('start');
     console.log(this.firestoreService.messages);
-    
+
     if (this.firestoreService.messages) {
-      this.firestoreService.messages.forEach(element => {
+      this.firestoreService.messages.forEach((element) => {
         if (element.message.includes('img')) {
           console.log('image! on: ', element);
-          document.getElementById(this.firestoreService.messages.indexOf(element)).classList.add('message-field');
+          document
+            .getElementById(this.firestoreService.messages.indexOf(element))
+            .classList.add('message-field');
         } else {
           console.log('no image!');
-          
         }
-      });      
+      });
     } else {
       console.log('messages undefined!');
-      
     }
-    
   }
 
   initMessageFOrm() {
