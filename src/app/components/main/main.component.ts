@@ -83,7 +83,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.utilService.isFiltered = false;
     }
 
-    if (this.utilService.currentUrl.includes('chat/ch')) {
+    if (this.utilService.currentUrl.includes('main/ch')) {
       this.filterChannels(value);
     } else {
       this.filterDms(value);

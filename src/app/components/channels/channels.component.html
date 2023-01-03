@@ -50,10 +50,7 @@
                         </button>
                     </mat-menu>
                 </div>
-                <div class="message-field">
-                    <!-- <img *ngIf="message.message.includes('<img>')" src="{{ message.message }}" class="has-image">  -->
-                    {{ message.message }}
-                </div>
+                <quill-view [sanitize]="true" [content]="message.message" theme="snow"></quill-view>
             </mat-card>
         </ng-container>
     </div>

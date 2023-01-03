@@ -50,7 +50,7 @@
                         </button>
                     </mat-menu>
                 </div>
-                <div>{{ message.message }}</div>
+                <quill-view [sanitize]="true" [content]="message.message" theme="snow"></quill-view>
             </mat-card>
         </ng-container>
     </div>
