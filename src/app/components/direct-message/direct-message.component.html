@@ -28,7 +28,7 @@
                         </button>
                     </mat-menu>
                 </div>
-                <div>{{ message.message }}</div>
+                <quill-view [sanitize]="true" [content]="message.message" theme="snow"></quill-view>
             </mat-card>
         </ng-container>
         <ng-container *ngIf="this.utilService.isFiltered">
@@ -56,7 +56,7 @@
     </div>
     <form [formGroup]="directMessageForm" (submit)="onSubmit()" class="message-container">
         <quill-editor formControlName="directMessage" minlength="1" #messageInput matInput [modules]="modules"></quill-editor>
-        <button class="submit-btn" class="submit-btn" type="submit" mat-raised-button>
+        <button class="submit-btn" type="submit" mat-raised-button>
             Post
         </button>
     </form>
