@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { UtilsService } from 'src/app/services/utils.service';
+import { QuillEditorComponent } from 'ngx-quill';
 
 @Component({
   selector: 'app-direct-message',
@@ -16,9 +17,19 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./direct-message.component.scss'],
 })
 export class DirectMessageComponent implements OnInit {
-  directMessageForm: FormGroup;
-  @ViewChild('messageInput') messageInput: ElementRef;
+  @ViewChild('messageInput')
+  messageInput: QuillEditorComponent;
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
+  directMessageForm: FormGroup;
+
+  modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      ['link', 'image'],
+    ],
+  };
 
   constructor(
     public authService: AuthService,
@@ -30,7 +41,7 @@ export class DirectMessageComponent implements OnInit {
     private fb: FormBuilder,
     private firestore: AngularFirestore,
     public utilService: UtilsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.setDmChatId();
@@ -119,7 +130,7 @@ export class DirectMessageComponent implements OnInit {
       this.firestoreService.dmInput =
         this.directMessageForm.value.directMessage;
       this.firestoreService.postDirectMessage();
-      this.messageInput.nativeElement.value = '';
+      this.messageInput.quillEditor.setContents([]);
     }
   }
 

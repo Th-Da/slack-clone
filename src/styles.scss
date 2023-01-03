@@ -88,6 +88,11 @@ quill-view {
     }
 }
 
+.submit-btn {
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
 @media (max-width: 380px) {
     .ql-toolbar.ql-snow .ql-formats {
         margin-right: 0 !important;
