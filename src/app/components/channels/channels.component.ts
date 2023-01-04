@@ -53,9 +53,6 @@ export class ChannelsComponent implements OnInit {
     this.firestoreService.filteredMessages = [];
     this.utilService.currentUrl = this.router.url;
     this.utilService.searchBarActivated = true;
-    // setTimeout(() => {
-    //   this.checkForImages();
-    // }, 1500);
   }
 
   checkForImages() {
