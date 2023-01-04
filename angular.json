@@ -23,28 +23,12 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
-<<<<<<< HEAD
                         "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": [
-                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-                            "src/styles.scss",
-                            "./node_modules/quill/dist/quill.core.css",
-                            "./node_modules/quill/dist/quill.snow.css"
-                        ],
-                        "allowedCommonJsDependencies": [
-                            "quill"
-                        ]
-=======
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "src/styles.scss"
                         ],
                         "scripts": []
->>>>>>> 1872a61bb661ee1c957527556c131f81b80a45d8
                     },
                     "configurations": {
                         "production": {
@@ -102,25 +86,12 @@
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
                         "inlineStyleLanguage": "scss",
-<<<<<<< HEAD
                         "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": [
-                            "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-                            "src/styles.scss",
-                            "./node_modules/quill/dist/quill.core.css",
-                            "./node_modules/quill/dist/quill.snow.css"
-                        ]
-=======
-                        "assets": [
-                            "src/favicon.ico",
-                            "src/assets"
-                        ],
                         "styles": [
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "src/styles.scss"
                         ],
                         "scripts": []
->>>>>>> 1872a61bb661ee1c957527556c131f81b80a45d8
                     }
                 },
                 "deploy": {
