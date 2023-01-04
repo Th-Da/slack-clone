@@ -13,7 +13,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { GetStartedComponent } from './components/get-started/get-started.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LoginComponent } from './components/login/login.component';
-import { MainComponent } from './components/main/main.component';
+import { ChatComponent } from './components/chat/chat.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -56,7 +56,7 @@ import { QuillModule } from 'ngx-quill';
     GetStartedComponent,
     SignUpComponent,
     LoginComponent,
-    MainComponent,
+    ChatComponent,
     DialogForgotPasswordComponent,
     VerifyEmailComponent,
     WelcomeComponent,

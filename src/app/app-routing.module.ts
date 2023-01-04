@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './components/main/main.component';
+import { ChatComponent } from './components/chat/chat.component';
 import { GetStartedComponent } from './components/get-started/get-started.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -21,13 +21,13 @@ const routes: Routes = [
   { path: 'verify-email-address', component: VerifyEmailComponent },
   { path: 'legal-notice', component: LegalNoticeComponent },
   {
-    path: 'main',
+    path: 'chat',
     children: [
       { path: 'welcome', component: WelcomeComponent },
       { path: 'ch/:id', component: ChannelsComponent },
       { path: 'dm/:uid', component: DirectMessageComponent },
     ],
-    component: MainComponent,
+    component: ChatComponent,
     canActivate: [AuthGuard],
   },
 ];

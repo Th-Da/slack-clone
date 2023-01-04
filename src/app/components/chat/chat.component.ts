@@ -16,11 +16,11 @@ import { FirestoreService } from '../../services/firestore.service';
 import { UtilsService } from '../../services/utils.service';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.scss'],
 })
-export class MainComponent implements OnInit, AfterViewInit {
+export class ChatComponent implements OnInit, AfterViewInit {
   @ViewChild('drawer') drawer!: MatDrawer;
 
   @HostListener('window:resize', ['$event'])
@@ -42,8 +42,8 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.firestoreService.getAllChannels();
     this.firestoreService.getDirectMessages();
 
-    if (this.router.url == '/main') {
-      this.router.navigateByUrl('/main/welcome');
+    if (this.router.url == '/chat') {
+      this.router.navigateByUrl('/chat/welcome');
     }
   }
 
@@ -83,7 +83,7 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.utilService.isFiltered = false;
     }
 
-    if (this.utilService.currentUrl.includes('main/ch')) {
+    if (this.utilService.currentUrl.includes('chat/ch')) {
       this.filterChannels(value);
     } else {
       this.filterDms(value);

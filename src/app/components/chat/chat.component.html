@@ -9,10 +9,10 @@
             <details open>
                 <summary>Channels</summary>
                 <ul>
-                    <li [routerLink]="['/main/welcome']" routerLinkActive="router-link-active" (click)="this.toggleNav()">
+                    <li [routerLink]="['/chat/welcome']" routerLinkActive="router-link-active" (click)="this.toggleNav()">
                         <span># welcome</span>
                     </li>
-                    <li *ngFor="let channel of this.firestoreService.allChannels" (click)="openChat('/main/ch/', channel.customIdName); this.toggleNav()">
+                    <li *ngFor="let channel of this.firestoreService.allChannels" (click)="openChat('/chat/ch/', channel.customIdName); this.toggleNav()">
                         <span># {{ channel.channelName }}</span>
                     </li>
                     <li (click)="openCreateChannelDialog()">
@@ -29,7 +29,7 @@
             <details open *ngIf="this.authService.userData && !this.authService.userData.isAnonymous">
                 <summary>Direct messages</summary>
                 <ul>
-                    <li *ngFor="let user of this.firestoreService.allOtherUsers" (click)="openDirectMessage('/main/dm/', user.uid); this.toggleNav()">
+                    <li *ngFor="let user of this.firestoreService.allOtherUsers" (click)="openDirectMessage('/chat/dm/', user.uid); this.toggleNav()">
                         <span>{{ user.displayName }}</span>
                     </li>
                 </ul>
