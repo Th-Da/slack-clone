@@ -55,27 +55,6 @@ export class ChannelsComponent implements OnInit {
     this.utilService.searchBarActivated = true;
   }
 
-  checkForImages() {
-    debugger;
-    console.log('start');
-    console.log(this.firestoreService.messages);
-
-    if (this.firestoreService.messages) {
-      this.firestoreService.messages.forEach((element) => {
-        if (element.message.includes('img')) {
-          console.log('image! on: ', element);
-          document
-            .getElementById(this.firestoreService.messages.indexOf(element))
-            .classList.add('message-field');
-        } else {
-          console.log('no image!');
-        }
-      });
-    } else {
-      console.log('messages undefined!');
-    }
-  }
-
   initMessageFOrm() {
     this.messageForm = this.fb.group({
       message: ['', [Validators.minLength(1)]],
