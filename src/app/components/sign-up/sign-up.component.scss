@@ -10,6 +10,10 @@ h1 {
     margin: 0;
 }
 
+span {
+    text-align: center;
+}
+
 .logo {
     height: 50px;
 }
@@ -39,6 +43,8 @@ h1 {
     background-color: #fff;
     border: 2px solid #4285f4;
     color: #4285f4;
+    width: 25vw;
+    min-width: 230px;
     &:active {
         color: #4285f4;
     }
@@ -58,7 +64,8 @@ form {
     display: flex;
     gap: 8px;
     button {
-        width: max-content;
+        width: -webkit-fill-available;
+        width: -moz-available;
     }
 }
 

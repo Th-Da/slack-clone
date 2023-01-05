@@ -29,6 +29,8 @@ form {
     gap: 8px;
     button {
         width: max-content;
+        width: -webkit-fill-available;
+        width: -moz-available;
     }
 }
 
@@ -75,6 +77,8 @@ form {
     background-color: #fff;
     border: 2px solid #4285f4;
     color: #4285f4;
+    width: 25vw;
+    min-width: 230px;
     &:active {
         color: #4285f4;
     }
