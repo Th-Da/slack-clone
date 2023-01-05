@@ -1,5 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -81,8 +86,8 @@ export class DirectMessageComponent implements OnInit {
   }
 
   initDmForm() {
-    this.directMessageForm = this.fb.group({
-      directMessage: ['', [Validators.minLength(1)]],
+    this.directMessageForm = new FormGroup({
+      directMessage: new FormControl('', Validators.required),
     });
     this.utilService.currentUrl = this.router.url;
   }

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { DialogDeleteMessageComponent } from '../dialog-delete-message/dialog-delete-message.component';
@@ -38,14 +38,13 @@ export class ChannelsComponent implements OnInit {
     public dialogRef: MatDialog,
     public firestoreService: FirestoreService,
     public dialog: MatDialog,
-    private fb: FormBuilder,
     private firestore: AngularFirestore,
     public utilService: UtilsService
   ) {}
 
   ngOnInit() {
     this.setChannelId();
-    this.initMessageFOrm();
+    this.initMessageForm();
     this.updateOnChatSwitch();
     this.liveChatUpdate();
     this.scrollToNewestMessage();
@@ -55,9 +54,9 @@ export class ChannelsComponent implements OnInit {
     this.utilService.searchBarActivated = true;
   }
 
-  initMessageFOrm() {
-    this.messageForm = this.fb.group({
-      message: ['', [Validators.minLength(1)]],
+  initMessageForm() {
+    this.messageForm = new FormGroup({
+      message: new FormControl('', Validators.required),
     });
   }
 
